@@ -35,6 +35,7 @@ public class Contato implements Impressao {
         this.tipo = tipo;
     }
 
+    @Override
     public String imprimir () {
         String tipoContato = "";
         if (tipo == 1) {

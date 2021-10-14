@@ -1,10 +1,10 @@
 package deborah.regs.dbc;
 
-public class Produtos {
+public class Produto {
     private int idProdutos;
     private String nomeProduto;
 
-    public Produtos(int idProdutos, String nomeProduto) {
+    public Produto(int idProdutos, String nomeProduto) {
         this.idProdutos = idProdutos;
         this.nomeProduto = nomeProduto;
     }

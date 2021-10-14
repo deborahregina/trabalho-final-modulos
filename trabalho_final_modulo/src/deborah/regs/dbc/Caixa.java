@@ -1,6 +1,6 @@
 package deborah.regs.dbc;
 
-public class caixa implements Pagamento{
+public class Caixa implements Pagamento{
 
     @Override
     public boolean pagar(double valor) {

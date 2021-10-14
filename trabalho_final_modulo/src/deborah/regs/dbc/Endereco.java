@@ -67,6 +67,7 @@ public class Endereco implements Impressao {
         this.cidade = cidade;
     }
 
+    @Override
     public String imprimir () {
         String tipoEndereco = "";
         if (tipo == 1) {

@@ -54,6 +54,7 @@ public class Cliente implements Impressao {
         this.contatos = contatos;
     }
 
+    @Override
     public String imprimir() {
         String adresses = "";
         for (int i = 0; i < enderecos.length; i++ ) {

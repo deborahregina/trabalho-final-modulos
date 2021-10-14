@@ -1,17 +1,38 @@
 package deborah.regs.dbc;
 
+import java.util.ArrayList;
+
+
 public class Cliente implements Impressao {
     private int id;
     private String cpf;
     private String nome;
-    private Endereco [] enderecos;
-    private Contato [] contatos;
+    private ArrayList<Endereco> enderecos = new ArrayList<>();
+    private ArrayList<Contato> contatos = new ArrayList<>();
 
-    public Cliente(int id, String cpf, String nome) {
+
+    public Cliente(int id, String cpf, String nome, ArrayList<Endereco> enderecos, ArrayList<Contato> contatos) {
         this.id = id;
         this.cpf = cpf;
         this.nome = nome;
+        this.enderecos = enderecos;
+        this.contatos = contatos;
+    }
 
+    public ArrayList<Endereco> getEnderecos() {
+        return enderecos;
+    }
+
+    public void setEnderecos(ArrayList<Endereco> enderecos) {
+        this.enderecos = enderecos;
+    }
+
+    public ArrayList<Contato> getContatos() {
+        return contatos;
+    }
+
+    public void setContatos(ArrayList<Contato> contatos) {
+        this.contatos = contatos;
     }
 
     public int getId() {
@@ -38,34 +59,21 @@ public class Cliente implements Impressao {
         this.nome = nome;
     }
 
-    public Endereco[] getEnderecos() {
-        return enderecos;
-    }
 
-    public void setEnderecos(Endereco[] enderecos) {
-        this.enderecos = enderecos;
-    }
 
-    public Contato[] getContatos() {
-        return contatos;
-    }
-
-    public void setContatos(Contato[] contatos) {
-        this.contatos = contatos;
-    }
 
     @Override
     public String imprimir() {
         String adresses = "";
-        for (int i = 0; i < enderecos.length; i++ ) {
-            if (enderecos[i] != null) {
-                adresses = adresses.concat(" " + enderecos[i].imprimir() + "\n");
+        for (int i = 0; i < enderecos.size(); i++ ) {
+            if (enderecos.get(i) != null) {
+                adresses = adresses.concat(" " + enderecos.get(i).imprimir() + "\n");
             }
         }
         String contacts = "";
-        for (int j = 0; j < contatos.length; j++) {
-            if (contatos[j] != null) {
-                contacts = contacts.concat(" " + contatos[j].imprimir() + "\n");
+        for (int j = 0; j < contatos.size(); j++) {
+            if (contatos.get(j) != null) {
+                contacts = contacts.concat(" " + contatos.get(j).imprimir() + "\n");
             }
         }
         return "CPF: " + cpf + "\nNome: " + nome + "\nContatos: " + contacts + "\nEndereços: " + adresses;

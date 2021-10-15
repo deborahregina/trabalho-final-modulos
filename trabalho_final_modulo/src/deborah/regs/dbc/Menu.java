@@ -1,9 +1,6 @@
 package deborah.regs.dbc;
 
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Queue;
-import java.util.Scanner;
+import java.util.*;
 
 public class Menu {
 // Essa classe implementa os menus que vão ser utilizados ao longo do programa
@@ -97,8 +94,9 @@ public class Menu {
 
             if(!funcionarios.isEmpty()) {
                 System.out.println("+++++++++ Lista de Funcionários Cadastrados +++++++++");
-                for (int i = 0; i < funcionarios.size(); i++) {
-                    System.out.println(funcionarios.get(i).imprimir());
+                List<Funcionario> funcionarioList = funcionarios;
+                for (Funcionario funcionario : funcionarioList) {
+                    System.out.println(funcionario.imprimir());
                 }
             }
             else {
@@ -182,8 +180,8 @@ public class Menu {
 
         if (opProduto == 1){
             System.out.println("+++++++++ Lista de Produtos Cadastrados +++++++++");
-            for (int i = 0; i < produtos.size(); i ++) {
-                System.out.println(produtos.get(i).toString());
+            for (Produto produto : produtos) {
+                System.out.println(produto.toString());
             }
         }
         if (opProduto == 2) {
@@ -265,8 +263,8 @@ public class Menu {
 
         System.out.println("+++++++++ Lista de Clientes Cadastrados +++++++++");
         if (op == 1 && !clientes.isEmpty()) {
-            for (int i = 0; i < clientes.size(); i ++) {
-                System.out.println(clientes.get(i).imprimir());
+            for (Cliente cliente : clientes) {
+                System.out.println(cliente.imprimir());
                 System.out.println("+++++++++++++++++++++++++++");
             }
         }
@@ -287,7 +285,54 @@ public class Menu {
     }
 
     public static void menuAlteraCliente() {
-        //
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Digite o ID do cliente que deseja modificar: ");
+        int idCliente = scanner.nextInt();
+        scanner.nextLine();
+        for (int i = 0; i < Main.clientes.size(); i ++) {
+            if (Main.clientes.get(i).getId() == idCliente) {
+
+                System.out.println("Digite o nome do Cliente: ");
+                String nome = scanner.nextLine();
+                System.out.println("Digite o cpf do Cliente: ");
+                String cpf = scanner.nextLine();
+                Main.clientes.get(i).setNome(nome);
+                Main.clientes.get(i).setCpf(cpf);
+
+
+                System.out.println("Deseja alterar o endereço principal do cliente?     1- Não      2- Sim");
+
+                int opAlteracaoEndereco = scanner.nextInt();
+                scanner.nextLine();
+                if (opAlteracaoEndereco == 2) {
+                   menuAlteraEndereco(0);
+                    if (Main.clientes.get(i).getEnderecos().size() == 2) {
+                        System.out.println("Deseja alterar o endereço secundário?   1- Não      2- Sim");
+                        int opDeletaEnd = scanner.nextInt();
+
+                        if (opDeletaEnd == 2) {
+                            menuAlteraEndereco(1);
+                        }
+                    }
+
+
+                }
+                System.out.println("Deseja alterar o contato principal do cliente?      1- Não      2- Sim");
+                int opAlteracaoContato = scanner.nextInt();
+                scanner.nextLine();
+                if (opAlteracaoContato == 2) {
+                    menuAlteraContato(0);
+                    if (Main.clientes.get(i).getContatos().size() == 2) {
+                        System.out.println("Deseja alterar o contato secundário do cliente?     1- Não      2- Sim");
+                        int opDeletaCont = scanner.nextInt();
+                        if (opDeletaCont == 2) {
+                            menuAlteraContato(1);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public static Endereco menuCriaEndereco() {     //Cria endereço, é chamado por criaCliente
@@ -312,9 +357,62 @@ public class Menu {
         Endereco endereco = new Endereco(TipoEndereco.valueOf(tipoEndreco.toUpperCase(Locale.ROOT)),rua,num,complemento,cep,cidade);
 
         return endereco;
+
     }
 
-    public  static Contato menuCriaContato() {      //cria contato, é chamado por cria cliente
+    public static void menuDeletaEndereco(ArrayList<Endereco> enderecos, Endereco endereco) {
+        enderecos.remove(endereco);
+    }
+
+    public static void menuAlteraContato(int i) {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Descrição do contato: ");
+        String descricao = scanner.nextLine();
+        System.out.println("Telefone do cliente: ");
+        String telefone = scanner.nextLine();
+        System.out.println("Tipo de contato:  Celular    TelefoneFixo: ");
+        String tipoContato = scanner.nextLine();
+
+        Contato cont = new Contato(descricao,telefone,TipoContato.valueOf(tipoContato.toUpperCase(Locale.ROOT)));
+        Main.clientes.get(i).getContatos().set(i,cont);
+
+    }
+
+    public static void menuAlteraEndereco(int i) {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Nome da rua: ");
+        String rua = scanner.nextLine();
+        System.out.println("Digite o número da residência: ");
+        int num = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Digite o complemento do endereço: ");
+        String complemento = scanner.nextLine();
+        System.out.println("Digite o cep: ");
+        String cep = scanner.nextLine();
+        System.out.println("Digite a cidade: ");
+        String cidade = scanner.nextLine();
+        System.out.println("Tipo de endereço: Residencial      Comercial");
+        String tipoEndreco = scanner.nextLine();
+
+        Endereco end = new Endereco(TipoEndereco.valueOf(tipoEndreco.toUpperCase(Locale.ROOT)),rua,num,complemento,cep,cidade);
+        Main.clientes.get(i).getEnderecos().set(i,end);
+    }
+
+    public static void menuImprimeEndereco(ArrayList<Endereco> enderecos) {
+        for(Endereco endereco : enderecos){
+         System.out.println(endereco.imprimir());
+      }
+    }
+
+    public static void menuImprimeContato(ArrayList<Contato> contatos) {
+        for (Contato contato : contatos){
+            System.out.println(contato.imprimir());
+        }
+    }
+
+    public static Contato menuCriaContato() {      //cria contato, é chamado por cria cliente
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Descrição do contato: ");
@@ -329,8 +427,9 @@ public class Menu {
 
     }
 
-
-
+    public static void menuDeletaContato(ArrayList<Contato> contatos, Contato contato) {
+        contatos.remove(contato);
+    }
 
     public static void menuImprimeCaixa(Caixa caixa) {          // Imprime as informações do caixa
         System.out.println("---------- Informações do Caixa ----------");

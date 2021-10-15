@@ -46,7 +46,7 @@ public class Main {
                         Menu.menuImprimeCliente(clientes);
                     }
                     if (opCliente == 4) {
-                        //MenuAlteraCliente
+                        Menu.menuAlteraCliente();
                     }
                     break;
                 case 2:

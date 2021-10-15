@@ -5,7 +5,7 @@ public enum TipoEndereco {
     COMERCIAL("Comercial");
 
 
-    String descricao;
+    private String descricao;
 
     TipoEndereco(String descricao) {
         this.descricao = descricao;

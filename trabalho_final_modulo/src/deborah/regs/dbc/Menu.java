@@ -1,11 +1,25 @@
 package deborah.regs.dbc;
 
 import java.util.ArrayList;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class Menu {
 // Essa classe implementa os menus que vão ser utilizados ao longo do programa
-    public static Funcionario MenuCadastroFuncionario() {
+
+    public static int MenuPrincial() {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("############# Menu Principal ############# ");
+        System.out.println("Qual opção deseja acessar? \n1- Menu Clientes \n2- Menu Pedidos \n3- Informações caixa \n4- Menu Funcionários \n5- Menu Produtos \n6- Realizar Entrega \n7- Sair");
+
+        int op = scanner.nextInt();
+
+        return op;
+
+    }
+
+    public static Funcionario MenuCadastroFuncionario() { // Serve para cadastrar funcionário novo, do tipo Atendente ou Motoboy
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("***Cadastro de Funcionários***");
@@ -37,7 +51,23 @@ public class Menu {
 
     }
 
-    public static void menuImprimeFuncionario(ArrayList<Funcionario> funcionarios) {
+    public static Produto menuCadastraProduto() { //Serve para cadastrar um novo produto
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Digite o id do produto: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Digite o nome do produto: ");
+        String nome = scanner.nextLine();
+        System.out.println("Digite o valor unitário do produto: ");
+        double valorUnitario = scanner.nextDouble();
+
+        Produto produto = new Produto(id,nome,valorUnitario);
+        return produto;
+
+    }
+
+    public static void menuImprimeFuncionario(ArrayList<Funcionario> funcionarios) { //Lista todos os funcionários, ou um funcionário específico, por ID
 
         Scanner scanner = new Scanner(System.in);
 
@@ -49,6 +79,7 @@ public class Menu {
         if (opcaoFuncionario == 1) {
 
             if(!funcionarios.isEmpty()) {
+                System.out.println("+++++++++ Lista de Funcionários Cadastrados +++++++++");
                 for (int i = 0; i < funcionarios.size(); i++) {
                     System.out.println(funcionarios.get(i).imprimir());
                 }
@@ -61,13 +92,14 @@ public class Menu {
         if(opcaoFuncionario == 2) {
             if(!funcionarios.isEmpty()) {
 
-                System.out.println("Digit eo id do funcionário: ");
+                System.out.println("Digite o id do funcionário: ");
                 int id = scanner.nextInt();
                 scanner.nextLine();
 
                 for (int i = 0; i < funcionarios.size(); i++ ) {
                     if(funcionarios.get(i).getId() == id) {
                         System.out.println(funcionarios.get(i).imprimir());
+                        System.out.println();
                     }
                 }
             }
@@ -75,7 +107,7 @@ public class Menu {
 
     }
 
-    public static Cliente criaCliente() {
+    public static Cliente criaCliente() {       //Cria cliente, tem que cadastrar os dados do cliente, pelo menos um contato e pelo menos um endereço.
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Digite o ID do cliente: ");
@@ -93,6 +125,7 @@ public class Menu {
         int opcao = scanner.nextInt();
         if (opcao == 1){
             Contato contato2 = criaContato();
+            contatosCliente.add(contato2); // Adiciona o segundo contato do cliente, caso queira ser adicionado
         }
 
         System.out.println("**Cadastrar endereço princial**");
@@ -104,6 +137,7 @@ public class Menu {
         int op = scanner.nextInt();
         if (op == 1) {
             Endereco endereco2 = criaEndereco();
+            enderecosCliente.add(endereco2); // adiciona o segundo endereço do cliente, caso queira ser adicionado
         }
 
         Cliente cliente = new Cliente(id,cpf,nome,enderecosCliente,contatosCliente);
@@ -111,7 +145,7 @@ public class Menu {
         return cliente;
     }
 
-    public static Endereco criaEndereco() {
+    public static Endereco criaEndereco() {     //Cria endereço, é chamado por criaCliente
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Tipo de endereço: ");
@@ -133,7 +167,7 @@ public class Menu {
         return endereco;
     }
 
-    public  static Contato criaContato() {
+    public  static Contato criaContato() {      //cria contato, é chamado por cria cliente
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Descrição do contato: ");
@@ -147,19 +181,32 @@ public class Menu {
         return contato;
 
     }
-    public static int MenuPrincial() {
+
+    public static void imprimeProdutos(ArrayList<Produto> produtos) {       //Imprime a lista de produtos cadastrados, ou um produto específico, por ID
 
         Scanner scanner = new Scanner(System.in);
+        System.out.println("1- Listar todos os produtos     2- Listar produto específico: ");
+        int opProduto = scanner.nextInt();
 
-        System.out.println("Qual ação deseja realizar? \n1- Cadastrar/deletar cadastro de Cliente \n2- Fazer/cancelar Pedido \n3- Financeiro \n4- Consultar/cadastrar Funcionários \n6- Listar itens \n7- Sair");
-
-        int op = scanner.nextInt();
-
-        return op;
-
+        if (opProduto == 1){
+            System.out.println("+++++++++ Lista de Produtos Cadastrados +++++++++");
+            for (int i = 0; i < produtos.size(); i ++) {
+                System.out.println(produtos.get(i).toString());
+            }
+        }
+        if (opProduto == 2) {
+            System.out.println("Digite o id do produto que deseja imprimir: ");
+            int id = scanner.nextInt();
+            scanner.nextLine();
+            for (int i = 0; i < produtos.size(); i++) {
+                if (id == produtos.get(i).getIdProdutos()) {
+                    System.out.println(produtos.get(i).toString());
+                }
+            }
+        }
     }
 
-    public static Cliente MenuDeletaCliente(ArrayList<Cliente> clientes) {
+    public static Cliente menuDeletaCliente(ArrayList<Cliente> clientes) {  // Serve para deletar um cliente, está funcionando ok.
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Digite o ID do cliente que deseja deletar: ");
@@ -181,16 +228,18 @@ public class Menu {
         }
         return null;
     }
-    public static void menuImprimeCliente(ArrayList<Cliente> clientes) {
+    public static void menuImprimeCliente(ArrayList<Cliente> clientes) {        //Imprime todos os clientes, ou um cliente específico, por ID
 
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Deseja imprimir: 1- Todos os clientes: 2- Cliente específico: ");
         int op = scanner.nextInt();
 
+        System.out.println("+++++++++ Lista de Clientes Cadastrados +++++++++");
         if (op == 1 && !clientes.isEmpty()) {
             for (int i = 0; i < clientes.size(); i ++) {
                 System.out.println(clientes.get(i).imprimir());
+                System.out.println("+++++++++++++++++++++++++++");
             }
         }
         if (op == 2 && !clientes.isEmpty()) {
@@ -209,6 +258,77 @@ public class Menu {
 
     }
 
+    public static void menuImprimeCaixa(Caixa caixa) {          // Imprime as informações do caixa
+        System.out.println("---------- Informações do Caixa ----------");
+        System.out.println(caixa.toString());
+    }
 
+
+    public static void menuImprimePedidosEmAberto(Queue<Pedido> pedidos) { //O valor total é calculado só para o último pedido, pois ele pode ser alterado
+        System.out.println("+++++++++ Lista de Pedidos Abertos +++++++++");
+        for (int i = 0; i < pedidos.size(); i ++) {
+            double valorPedidoSaida = 0;
+            for (int j = 0; j < pedidos.peek().getProdutosDoPedido().size(); j ++) {
+                valorPedidoSaida += pedidos.peek().getProdutosDoPedido().get(j).getValorUnitario(); // para calcular o valor total do pedido
+            }
+            Main.pedidos.peek().setValorTotal(valorPedidoSaida);
+            System.out.println(pedidos.stream().toList().get(i).toString());
+            System.out.println();
+        }
+    }
+    public static void menuEntregas() { // Ainda falta arrumar coisas
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("---------- Realizar Entrega ----------");
+        System.out.println("Deseja listar o produto que deve ser entregue? 1 - Sim      2- Não");
+        int opcaoEntrega = scanner.nextInt();
+        scanner.nextLine();
+        Main.pedidos.peek().setValorTotal(Main.pedidos.peek().calculaValorTotal());
+        if (opcaoEntrega == 1) {
+            System.out.println(Main.pedidos.peek().toString());
+        }
+        System.out.println("Alterar Pedido?     1- Sim      2- Não");
+        opcaoEntrega = scanner.nextInt();
+        scanner.nextLine();
+        if (opcaoEntrega == 1) {
+            //menuAlteraPedido;
+        }
+        System.out.println("Confirma entrega:    1- Sim     2- Não");
+        opcaoEntrega = scanner.nextInt();
+        scanner.nextLine();
+        if (opcaoEntrega == 1) {
+            System.out.println("Lista de Motoboys disponíveis:");
+            for (int i = 0; i < Main.funcionarios.size(); i++ ) {
+                if (Main.funcionarios.get(i).getClass().toString().equalsIgnoreCase("deborah.regs.dbc.Motoboy")) {
+                    System.out.println(Main.funcionarios.get(i).imprimir());
+                }
+            }
+            System.out.println("Digite o ID do motoboy ");
+            int idMotoboy = scanner.nextInt();
+            scanner.nextLine();
+
+            for (int i = 0; i < Main.funcionarios.size(); i++) {
+                if (Main.funcionarios.get(i).getClass().toString().equalsIgnoreCase("deborah.regs.dbc.Motoboy") && Main.funcionarios.get(i).getId() == idMotoboy) {
+                    System.out.println("Motoboy selecionado para entrega! ");
+                    Motoboy motoboyEntrega = (Motoboy) Main.funcionarios.get(i);
+                    Entrega entrega = new Entrega(Main.pedidos.peek(),motoboyEntrega);
+                    System.out.println("Valor do pedido: " + Main.df.format(Main.pedidos.peek().getValorTotal()));
+                    System.out.println("Quanto deseja pagar?");
+                    double valorPago = scanner.nextDouble();
+                    double troco = entrega.calculaTroco(Main.pedidos.peek(),valorPago);
+                    if (entrega.pagar(valorPago,troco)) {
+                        System.out.println("Pedido entregue!");
+                        Main.pedidos.poll();
+                    }
+                    else {
+                        System.out.println("Não foi possível entregar o pedido!");
+                    }
+
+                    break;
+                }
+            }
+        }
+
+    }
 
 }

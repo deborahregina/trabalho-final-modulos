@@ -12,11 +12,51 @@ public class Caixa implements Pagamento{
         this.valorDeCaixa = valorDeCaixa;
     }
 
-    @Override
-    public boolean pagar(double valor) {
-        double consumo = 0;
-        if(valor >= consumo)
+    public Atendente getAtendenteResponsável() {
+        return atendenteResponsável;
+    }
+
+    public void setAtendenteResponsável(Atendente atendenteResponsável) {
+        this.atendenteResponsável = atendenteResponsável;
+    }
+
+    public double getValorDeCaixa() {
+        return valorDeCaixa;
+    }
+
+    public void setValorDeCaixa(double valorDeCaixa) {
+        this.valorDeCaixa = valorDeCaixa;
+    }
+
+
+    public boolean pagar(double valor, double valorTroco) {
+        double consumo = Main.pedidos.peek().getValorTotal();
+        if(valor >= consumo) {
+            setValorDeCaixa(getValorDeCaixa() + valor - valorTroco);
             return true;
-        else return false;
+        }
+
+        else {
+            return false;
+        }
+    }
+
+    @Override
+    public double calculaTroco(Pedido pedido, double valorPago) {
+        if (pedido.calculaValorTotal() > valorPago) {
+            return 0;
+        }
+        if (pedido.calculaValorTotal() == valorPago) {
+            return 0;
+        }
+        if (pedido.calculaValorTotal() < valorPago) {
+            return valorPago - pedido.calculaValorTotal();
+        }
+        return 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Responsável pelo caixa: " + atendenteResponsável + " Valor em caixa: " + Main.df.format(valorDeCaixa);
     }
 }

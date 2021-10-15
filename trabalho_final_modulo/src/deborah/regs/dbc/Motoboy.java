@@ -12,6 +12,7 @@ public class Motoboy extends Funcionario implements Impressao {
         this.placaMoto = placaMoto;
     }
 
+
     public String getPlacaMoto() {
         return placaMoto;
     }
@@ -22,6 +23,6 @@ public class Motoboy extends Funcionario implements Impressao {
 
     @Override
     public String imprimir() {
-        return super.imprimir() + "\nFunção: Motoboy \nPlaca da moto" + placaMoto;
+        return super.imprimir() + "\nFunção: Motoboy \nPlaca da moto: " + placaMoto+ "\n";
     }
 }

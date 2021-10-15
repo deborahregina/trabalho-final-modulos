@@ -5,16 +5,82 @@ import java.util.Scanner;
 
 public class Menu {
 // Essa classe implementa os menus que vão ser utilizados ao longo do programa
-    public static void MenuCadastroFuncionario() {
+    public static Funcionario MenuCadastroFuncionario() {
 
+        Scanner scanner = new Scanner(System.in);
         System.out.println("***Cadastro de Funcionários***");
+        System.out.println("Digite o ID do funcionário: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Digite o nome do funcionário: ");
+        String nome = scanner.nextLine();
+        System.out.println();
+        System.out.println("Digite o salário do funcionário: ");
+        double salario = scanner.nextDouble();
+        System.out.println("Qual o cargo do funcionário?  1- Motoboy    2- Atendente");
+        int op = scanner.nextInt();
+        scanner.nextLine();
+        if (op == 1) {
+            System.out.println("Digite a placa da moto: ");
+            String placa = scanner.nextLine();
+            System.out.println("Funcionário cadastrado!");
+            Motoboy motoboy = new Motoboy(id,nome,salario,placa);
+            return motoboy;
+        }
+        if (op == 2) {
+            System.out.println("Funcionário cadastrado!");
+            Atendente atendente = new Atendente(id,nome,salario);
+            return atendente;
 
+        }
+        return null;
+
+    }
+
+    public static void menuImprimeFuncionario(ArrayList<Funcionario> funcionarios) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Deseja imprimir: 1- Todos os funcionários cadastrados   2- Funcionário específico: ");
+
+        int opcaoFuncionario = scanner.nextInt();
+        scanner.nextLine();
+
+        if (opcaoFuncionario == 1) {
+
+            if(!funcionarios.isEmpty()) {
+                for (int i = 0; i < funcionarios.size(); i++) {
+                    System.out.println(funcionarios.get(i).imprimir());
+                }
+            }
+            else {
+                System.out.println("Não há funcionários cadastrados!");
+            }
+        }
+
+        if(opcaoFuncionario == 2) {
+            if(!funcionarios.isEmpty()) {
+
+                System.out.println("Digit eo id do funcionário: ");
+                int id = scanner.nextInt();
+                scanner.nextLine();
+
+                for (int i = 0; i < funcionarios.size(); i++ ) {
+                    if(funcionarios.get(i).getId() == id) {
+                        System.out.println(funcionarios.get(i).imprimir());
+                    }
+                }
+            }
+        }
 
     }
 
     public static Cliente criaCliente() {
 
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Digite o ID do cliente: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("Digite o nome do Cliente: ");
         String nome = scanner.nextLine();
         System.out.println("Digite o cpf do Cliente: ");
@@ -28,22 +94,25 @@ public class Menu {
         if (opcao == 1){
             Contato contato2 = criaContato();
         }
+
         System.out.println("**Cadastrar endereço princial**");
         Endereco endereco1 = criaEndereco();
         ArrayList <Endereco> enderecosCliente = new ArrayList<>();
         enderecosCliente.add(endereco1);
         System.out.println("Deseja cadastrar um endereço secundário? 1- Sim  2- Não: ");
+
         int op = scanner.nextInt();
         if (op == 1) {
             Endereco endereco2 = criaEndereco();
         }
-        Main.NUMERO_CLIENTES += 1;
-        Cliente cliente = new Cliente(Main.NUMERO_CLIENTES,cpf,nome,enderecosCliente,contatosCliente);
+
+        Cliente cliente = new Cliente(id,cpf,nome,enderecosCliente,contatosCliente);
 
         return cliente;
     }
 
     public static Endereco criaEndereco() {
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Tipo de endereço: ");
         int tipo = scanner.nextInt();
@@ -78,57 +147,67 @@ public class Menu {
         return contato;
 
     }
-    public static void MenuPrincial(){
+    public static int MenuPrincial() {
 
         Scanner scanner = new Scanner(System.in);
 
-        boolean programaOn = true;
+        System.out.println("Qual ação deseja realizar? \n1- Cadastrar/deletar cadastro de Cliente \n2- Fazer/cancelar Pedido \n3- Financeiro \n4- Consultar/cadastrar Funcionários \n6- Listar itens \n7- Sair");
 
-        while (programaOn) {
+        int op = scanner.nextInt();
 
-            System.out.println("Qual ação deseja realizar? \n1- Cadastrar/deletar cadastro de Cliente \n2- Fazer/cancelar Pedido \n3- Financeiro \n4- Consultar Funcionários \n6- Listar itens \n7- Sair");
+        return op;
 
-            int op = scanner.nextInt();
+    }
 
-            switch (op) {
+    public static Cliente MenuDeletaCliente(ArrayList<Cliente> clientes) {
 
-                case 1:
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Digite o ID do cliente que deseja deletar: ");
+        int id = scanner.nextInt();
 
-                    System.out.println("1 - Cadastrar novo cliente \n2- Deletar cliente: ");
-                    int opCliente = scanner.nextInt();
-                    if (opCliente == 1) {
-                        criaCliente();
-                    }
-                    if (opCliente == 2) {
-                        //Deleta Cliente
-                    }
-                    else {
+        for (int i = 0; i < clientes.size(); i++) {
 
-                        System.out.println("Opcão inválida!");
+            if (clientes.get(i).getId() == id) {
 
-                    }
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-                case 6:
-                    // Listar todos os itens do menu
-                case 7:
-                    programaOn = false;
-                    break;
-                default:
-                    System.out.println("Digite uma opção válida!");
-                    break;
+                return clientes.get(i);
+
             }
 
+            else {
 
+                System.out.println("Cliente não encontrado! ");
+
+            }
         }
+        return null;
+    }
+    public static void menuImprimeCliente(ArrayList<Cliente> clientes) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Deseja imprimir: 1- Todos os clientes: 2- Cliente específico: ");
+        int op = scanner.nextInt();
+
+        if (op == 1 && !clientes.isEmpty()) {
+            for (int i = 0; i < clientes.size(); i ++) {
+                System.out.println(clientes.get(i).imprimir());
+            }
         }
+        if (op == 2 && !clientes.isEmpty()) {
+            System.out.println("Digite o id do cliente que deseja imprimir: ");
+            int id = scanner.nextInt();
+
+            for (int j = 0; j < clientes.size(); j ++) {
+                if (id == clientes.get(j).getId()) {
+                    System.out.println(clientes.get(j).imprimir());
+                }
+            }
+        }
+        if (clientes.isEmpty()) {
+            System.out.println("É necessário cadastrar um cliente antes!");
+        }
+
+    }
 
 
 

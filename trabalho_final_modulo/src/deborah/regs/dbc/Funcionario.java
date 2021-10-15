@@ -1,9 +1,9 @@
 package deborah.regs.dbc;
 
 public abstract class Funcionario implements Impressao {
-    int id;
-    String nome;
-    double salario;
+    private int id;
+    private String nome;
+    private double salario;
 
     public Funcionario(int id, String nome, double salario) {
         this.id = id;

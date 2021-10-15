@@ -66,13 +66,13 @@ public class Cliente implements Impressao {
     public String imprimir() {
         String adresses = "";
         for (int i = 0; i < enderecos.size(); i++ ) {
-            if (enderecos.get(i) != null) {
+            if (enderecos.get(i) != null && !enderecos.isEmpty()) {
                 adresses = adresses.concat(" " + enderecos.get(i).imprimir() + "\n");
             }
         }
         String contacts = "";
         for (int j = 0; j < contatos.size(); j++) {
-            if (contatos.get(j) != null) {
+            if (contatos.get(j) != null && !enderecos.isEmpty()) {
                 contacts = contacts.concat(" " + contatos.get(j).imprimir() + "\n");
             }
         }

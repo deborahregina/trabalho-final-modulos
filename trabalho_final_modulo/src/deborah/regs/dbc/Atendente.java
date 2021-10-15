@@ -1,11 +1,15 @@
 package deborah.regs.dbc;
 
 public class Atendente extends Funcionario implements Impressao {
-    int horasTrabalhadas;
+    private int horasTrabalhadas;
 
     public Atendente(int id, String nome, double salario, int horasTrabalhadas) {
         super(id, nome, salario);
         this.horasTrabalhadas = horasTrabalhadas;
+    }
+
+    public Atendente(int id, String nome, double salario) {
+        super(id,nome,salario);
     }
 
     public int getHorasTrabalhadas() {

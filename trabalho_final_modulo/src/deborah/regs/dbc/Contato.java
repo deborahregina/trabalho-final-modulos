@@ -1,6 +1,7 @@
 package deborah.regs.dbc;
 
 public class Contato implements Impressao {
+
     private String descricao;
     private String telefone;
     private int tipo;

@@ -37,6 +37,6 @@ public abstract class Funcionario implements Impressao {
 
     @Override
     public String imprimir() {
-        return "Id do funcionário: " + id+ "Nome do funcionário: " + nome;
+        return "Id do funcionário: " + id+ " | Nome do funcionário: " + nome;
     }
 }

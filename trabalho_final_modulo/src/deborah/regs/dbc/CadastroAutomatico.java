@@ -9,8 +9,8 @@ public class CadastroAutomatico {
     public static Caixa cadastroAutomatico() {
 
 
-        Endereco endereco1 = new Endereco(1,"Carlos Gomes",200,"ap 10","303030-20","Porto Alegre");
-        Contato contato1 = new Contato("Celular","90909090",1);
+        Endereco endereco1 = new Endereco(TipoEndereco.RESIDENCIAL,"Carlos Gomes",200,"ap 10","303030-20","Porto Alegre");
+        Contato contato1 = new Contato("Celular","90909090",TipoContato.TELEFONEFIXO);
         ArrayList<Contato> contatos1 = new ArrayList<>();
         ArrayList<Endereco> enderecos1 = new ArrayList<>();
         contatos1.add(contato1);
@@ -19,8 +19,8 @@ public class CadastroAutomatico {
         Main.clientes.add(cliente1);
 
         //Criacao do segundo cliente:
-        Endereco endereco2 = new Endereco(1,"Avenida Oswaldo Aranha",200,"ap 100","909030-20","Porto Alegre");
-        Contato contato2 = new Contato("Whatsapp","90909090",1);
+        Endereco endereco2 = new Endereco(TipoEndereco.RESIDENCIAL,"Avenida Oswaldo Aranha",200,"ap 100","909030-20","Porto Alegre");
+        Contato contato2 = new Contato("Whatsapp","90909090",TipoContato.CELULAR);
         ArrayList<Contato> contatos2 = new ArrayList<>();
         ArrayList<Endereco> enderecos2 = new ArrayList<>();
         contatos2.add(contato2);

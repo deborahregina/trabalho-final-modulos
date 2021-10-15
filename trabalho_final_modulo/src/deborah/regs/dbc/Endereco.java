@@ -2,14 +2,14 @@ package deborah.regs.dbc;
 
 public class Endereco implements Impressao {
 
-    private int tipo;
+    private TipoEndereco tipo;
     private String rua;
     private int numero;
     private String complemento;
     private String cep;
     private String cidade;
 
-    public Endereco(int tipo, String rua, int numero, String complemento, String cep, String cidade) {
+    public Endereco(TipoEndereco tipo, String rua, int numero, String complemento, String cep, String cidade) {
         this.tipo = tipo;
         this.rua = rua;
         this.numero = numero;
@@ -19,11 +19,11 @@ public class Endereco implements Impressao {
 
     }
 
-    public int getTipo() {
+    public TipoEndereco getTipo() {
         return tipo;
     }
 
-    public void setTipo(int tipo) {
+    public void setTipo(TipoEndereco tipo) {
         this.tipo = tipo;
     }
 
@@ -69,13 +69,7 @@ public class Endereco implements Impressao {
 
     @Override
     public String imprimir () {
-        String tipoEndereco = "";
-        if (tipo == 1) {
-            tipoEndereco = "Residencial";
-        }
-        if (tipo == 2) {
-            tipoEndereco = "Comercial";
-        }
-        return "\nTipo de endereco: " + tipoEndereco  + "\nRua: " +  rua + "\nNúmero " + numero + "\nComplemento: " + complemento + "\nCEP: " + cep + "\nCidade: "+ cidade;
+
+        return "\nTipo de endereco: " + tipo.getDescricao()  + "\nRua: " +  rua + "\nNúmero " + numero + "\nComplemento: " + complemento + "\nCEP: " + cep + "\nCidade: "+ cidade;
     }
 }

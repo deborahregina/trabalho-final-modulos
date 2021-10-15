@@ -4,9 +4,9 @@ public class Contato implements Impressao {
 
     private String descricao;
     private String telefone;
-    private int tipo;
+    private TipoContato tipo;
 
-    public Contato(String descricao, String telefone, int tipo) {
+    public Contato(String descricao, String telefone, TipoContato tipo) {
         this.descricao = descricao;
         this.telefone = telefone;
         this.tipo = tipo;
@@ -28,24 +28,17 @@ public class Contato implements Impressao {
         this.telefone = telefone;
     }
 
-    public int getTipo() {
+    public TipoContato getTipo() {
         return tipo;
     }
 
-    public void setTipo(int tipo) {
+    public void setTipo(TipoContato tipo) {
         this.tipo = tipo;
     }
 
     @Override
     public String imprimir () {
-        String tipoContato = "";
-        if (tipo == 1) {
-            tipoContato = "Residencial";
-        }
-        if (tipo == 2) {
-            tipoContato = "Comercial";
-        }
-        return "\nDescrição do contato: " + descricao + "\nTelefone: " +  telefone + "\nTipo: " + tipoContato;
+        return "\nDescrição do contato: " + descricao + "\nTelefone: " +  telefone + "\nTipo: " + tipo.getDescricao();
     }
 }
 

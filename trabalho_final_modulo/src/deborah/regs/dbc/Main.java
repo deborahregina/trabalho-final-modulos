@@ -28,22 +28,25 @@ public class Main {
 
         while (programaOn) {
 
-            int op = Menu.MenuPrincial(); // retorno da seleção do "Menu iniciar"
+            int op = Menu.menuPrincial(); // retorno da seleção do "Menu iniciar"
 
             switch (op) {
 
                 case 1:
 
-                    System.out.println("1- Cadastrar novo cliente \n2- Deletar cliente \n3- Imprimir Cliente(s): ");
+                    System.out.println("1- Cadastrar novo cliente \n2- Deletar cliente \n3- Imprimir Cliente(s) \n4- Alterar cadastro de cliente: ");
                     int opCliente = scanner.nextInt();
                     if (opCliente == 1) {
-                        clientes.add(Menu.criaCliente());
+                        clientes.add(Menu.menuCriaCliente());
                     }
                     if (opCliente == 2) {
-                        clientes.remove(Menu.menuDeletaCliente(clientes));
+                        Menu.menuDeletaCliente(clientes);
                     }
                     if (opCliente == 3) {
                         Menu.menuImprimeCliente(clientes);
+                    }
+                    if (opCliente == 4) {
+                        //MenuAlteraCliente
                     }
                     break;
                 case 2:
@@ -53,25 +56,38 @@ public class Main {
                     Menu.menuImprimeCaixa(caixaPrincipal);
                     break;
                 case 4:
-                    System.out.println("1- Cadastrar novo funcionário   2- Imprimir funcionário(s): ");
+                    System.out.println("1- Cadastrar novo funcionário \n2- Imprimir funcionário(s) \n3- Deletar funcionario \n4- Alterar cadastro de funcionário:  ");
                     int opFuncionario = scanner.nextInt();
                     scanner.nextLine();
                     if (opFuncionario == 1) {
-                        funcionarios.add(Menu.MenuCadastroFuncionario());
+                        funcionarios.add(Menu.menuCadastroFuncionario());
                     }
                     if (opFuncionario == 2) {
                         Menu.menuImprimeFuncionario(funcionarios);
                     }
+                    if (opFuncionario == 3) {
+                        Menu.menuDeletaFuncionario();
+                    }
+                    if (opFuncionario == 4) {
+                        Menu.menuAlteraFuncionario();
+                    }
                     break;
                 case 5:
-                    System.out.println("1- Cadastrar Produto    2- Listar produtos ");
+                    System.out.println("1- Cadastrar Produto \n2- Listar produtos \n3- Deletar produto \n4- Alterar cadastro de produto");
                     int opProdutos = scanner.nextInt();
                     if (opProdutos == 1) {
                         produtos.add(Menu.menuCadastraProduto());
                     }
-                    if (opProdutos == 2){
-                        Menu.imprimeProdutos(produtos);
+                    if (opProdutos == 2) {
+                        Menu.menuImprimeProdutos(produtos);
                     }
+                    if (opProdutos == 3) {
+                        Menu.menuDeletaProduto();
+                    }
+                    if (opProdutos == 4) {
+                        Menu.menuAlteraProduto();
+                    }
+                    break;
                 case 6:
                     System.out.println("Realizar Entrega de produto ");
                     Menu.menuEntregas();

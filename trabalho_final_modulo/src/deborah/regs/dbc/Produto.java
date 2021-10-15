@@ -22,11 +22,11 @@ public class Produto {
 
     }
 
-    public int getIdProdutos() {
+    public int getIdProduto() {
         return idProdutos;
     }
 
-    public void setIdProdutos(int idProdutos) {
+    public void setIdProduto(int idProdutos) {
         this.idProdutos = idProdutos;
     }
 

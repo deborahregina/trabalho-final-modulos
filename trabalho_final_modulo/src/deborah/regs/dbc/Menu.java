@@ -1,13 +1,14 @@
 package deborah.regs.dbc;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Queue;
 import java.util.Scanner;
 
 public class Menu {
 // Essa classe implementa os menus que vão ser utilizados ao longo do programa
 
-    public static int MenuPrincial() {
+    public static int menuPrincial() {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("############# Menu Principal ############# ");
@@ -19,7 +20,9 @@ public class Menu {
 
     }
 
-    public static Funcionario MenuCadastroFuncionario() { // Serve para cadastrar funcionário novo, do tipo Atendente ou Motoboy
+    // Menus de funcionários: Cadastra funcionário, lista funcionário, exclui funcionário, Edita funcionário
+
+    public static Funcionario menuCadastroFuncionario() { // Serve para cadastrar funcionário novo, do tipo Atendente ou Motoboy
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("***Cadastro de Funcionários***");
@@ -51,20 +54,34 @@ public class Menu {
 
     }
 
-    public static Produto menuCadastraProduto() { //Serve para cadastrar um novo produto
-
+    public static void menuAlteraFuncionario() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Digite o id do produto: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Digite o nome do produto: ");
-        String nome = scanner.nextLine();
-        System.out.println("Digite o valor unitário do produto: ");
-        double valorUnitario = scanner.nextDouble();
+        System.out.println("Digite o ID do funcionário para alterar suas informações: ");
+        int idFunc = scanner.nextInt();
+        for (int i = 0; i < Main.funcionarios.size(); i++ ) {
+            if (Main.funcionarios.get(i).getId() == idFunc){
+                scanner.nextLine();
+                System.out.println("Digite o nome do funcionário: ");
+                String nome = scanner.nextLine();
+                System.out.println();
+                System.out.println("Digite o salário do funcionário: ");
+                double salario = scanner.nextDouble();
+                Main.funcionarios.get(i).setNome(nome);
+                Main.funcionarios.get(i).setSalario(salario);
+            }
+        }
+    }
 
-        Produto produto = new Produto(id,nome,valorUnitario);
-        return produto;
-
+    public static void menuDeletaFuncionario() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Digite o ID do funcionário que deseja deletar: ");
+        int idDeleta = scanner.nextInt();
+        for (int i = 0; i < Main.funcionarios.size(); i++ ) {
+            if (Main.funcionarios.get(i).getId() == idDeleta){
+                System.out.println("Funcionário " + Main.funcionarios.get(i).getNome() + " deletado!");
+                Main.funcionarios.remove(i);
+            }
+        }
     }
 
     public static void menuImprimeFuncionario(ArrayList<Funcionario> funcionarios) { //Lista todos os funcionários, ou um funcionário específico, por ID
@@ -107,82 +124,57 @@ public class Menu {
 
     }
 
-    public static Cliente criaCliente() {       //Cria cliente, tem que cadastrar os dados do cliente, pelo menos um contato e pelo menos um endereço.
+
+    // Menus produto: menuCadastraProduto, menuImprimeProdutos, menuDeletaProduto, menuEditaProduto
+    public static Produto menuCadastraProduto() { //Serve para cadastrar um novo produto
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Digite o ID do cliente: ");
+        System.out.println("Digite o id do produto: ");
         int id = scanner.nextInt();
         scanner.nextLine();
-        System.out.println("Digite o nome do Cliente: ");
+        System.out.println("Digite o nome do produto: ");
         String nome = scanner.nextLine();
-        System.out.println("Digite o cpf do Cliente: ");
-        String cpf = scanner.nextLine();
-        System.out.println("**Cadastrar Contato do Cliente**");
-        Contato contato1 = criaContato();
-        ArrayList <Contato> contatosCliente = new ArrayList<>();
-        contatosCliente.add(contato1);
-        System.out.println("Deseja cadastrar um contato secundário? 1- Sim 2- Não: ");
-        int opcao = scanner.nextInt();
-        if (opcao == 1){
-            Contato contato2 = criaContato();
-            contatosCliente.add(contato2); // Adiciona o segundo contato do cliente, caso queira ser adicionado
-        }
+        System.out.println("Digite o valor unitário do produto: ");
+        double valorUnitario = scanner.nextDouble();
 
-        System.out.println("**Cadastrar endereço princial**");
-        Endereco endereco1 = criaEndereco();
-        ArrayList <Endereco> enderecosCliente = new ArrayList<>();
-        enderecosCliente.add(endereco1);
-        System.out.println("Deseja cadastrar um endereço secundário? 1- Sim  2- Não: ");
+        Produto produto = new Produto(id,nome,valorUnitario);
+        return produto;
 
-        int op = scanner.nextInt();
-        if (op == 1) {
-            Endereco endereco2 = criaEndereco();
-            enderecosCliente.add(endereco2); // adiciona o segundo endereço do cliente, caso queira ser adicionado
-        }
-
-        Cliente cliente = new Cliente(id,cpf,nome,enderecosCliente,contatosCliente);
-
-        return cliente;
     }
 
-    public static Endereco criaEndereco() {     //Cria endereço, é chamado por criaCliente
+    public static void menuDeletaProduto() {
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Tipo de endereço: ");
-        int tipo = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Nome da rua: ");
-        String rua = scanner.nextLine();
-        System.out.println("Digite o número da residência: ");
-        int num = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Digite o complemento do endereço: ");
-        String complemento = scanner.nextLine();
-        System.out.println("Digite o cep: ");
-        String cep = scanner.nextLine();
-        System.out.println("Digite a cidade: ");
-        String cidade = scanner.nextLine();
-
-        Endereco endereco = new Endereco(1,rua,num,complemento,cep,cidade);
-        return endereco;
+        System.out.println("Digite o ID do produto que deseja deletar: ");
+        int idProduto = scanner.nextInt();
+        for (int i = 0; i < Main.produtos.size(); i++ ){
+            if (Main.produtos.get(i).getIdProduto() == idProduto) {
+                Main.produtos.remove(i);
+            }
+        }
     }
 
-    public  static Contato criaContato() {      //cria contato, é chamado por cria cliente
+    public static void menuAlteraProduto() {
+
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Digite o ID do produto que deseja alterar: ");
+        int idProduto = scanner.nextInt();
+        for (int i = 0; i < Main.produtos.size(); i++ ) {
 
-        System.out.println("Descrição do contato: ");
-        String descricao = scanner.nextLine();
-        System.out.println("Telefone do cliente: ");
-        String telefone = scanner.nextLine();
-        System.out.println("Tipo de contato: 1- Residencial 2- Comercial: ");
-        int num = scanner.nextInt();
+            if (Main.produtos.get(i).getIdProduto() == idProduto) {
+                System.out.println("Digite o novo nome do produto: ");
+                String nome = scanner.nextLine();
+                System.out.println("Digite o novo valor unitário do produto: ");
+                double valorUnitario = scanner.nextDouble();
 
-        Contato contato = new Contato(descricao,telefone,num);
-        return contato;
+                Main.produtos.get(i).setNomeProduto(nome);
+                Main.produtos.get(i).setValorUnitario(valorUnitario);
+            }
+        }
 
     }
 
-    public static void imprimeProdutos(ArrayList<Produto> produtos) {       //Imprime a lista de produtos cadastrados, ou um produto específico, por ID
+    public static void menuImprimeProdutos(ArrayList<Produto> produtos) {       //Imprime a lista de produtos cadastrados, ou um produto específico, por ID
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("1- Listar todos os produtos     2- Listar produto específico: ");
@@ -199,35 +191,71 @@ public class Menu {
             int id = scanner.nextInt();
             scanner.nextLine();
             for (int i = 0; i < produtos.size(); i++) {
-                if (id == produtos.get(i).getIdProdutos()) {
+                if (id == produtos.get(i).getIdProduto()) {
                     System.out.println(produtos.get(i).toString());
                 }
             }
         }
     }
 
-    public static Cliente menuDeletaCliente(ArrayList<Cliente> clientes) {  // Serve para deletar um cliente, está funcionando ok.
+
+
+    // Menus de cliente: criacliente, imprimecliente, deletacliente, editacliente
+
+    public static Cliente menuCriaCliente() {       //Cria cliente, tem que cadastrar os dados do cliente, pelo menos um contato e pelo menos um endereço.
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Digite o ID do cliente: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Digite o nome do Cliente: ");
+        String nome = scanner.nextLine();
+        System.out.println("Digite o cpf do Cliente: ");
+        String cpf = scanner.nextLine();
+        System.out.println("**Cadastrar Contato do Cliente**");
+        Contato contato1 = menuCriaContato();
+        ArrayList <Contato> contatosCliente = new ArrayList<>();
+        contatosCliente.add(contato1);
+        System.out.println("Deseja cadastrar um contato secundário? 1- Sim 2- Não: ");
+        int opcao = scanner.nextInt();
+        if (opcao == 1){
+            Contato contato2 = menuCriaContato();
+            contatosCliente.add(contato2); // Adiciona o segundo contato do cliente, caso queira ser adicionado
+        }
+
+        System.out.println("**Cadastrar endereço princial**");
+        Endereco endereco1 = menuCriaEndereco();
+        ArrayList <Endereco> enderecosCliente = new ArrayList<>();
+        enderecosCliente.add(endereco1);
+        System.out.println("Deseja cadastrar um endereço secundário? 1- Sim  2- Não: ");
+
+        int op = scanner.nextInt();
+        if (op == 1) {
+            Endereco endereco2 = menuCriaEndereco();
+            enderecosCliente.add(endereco2); // adiciona o segundo endereço do cliente, caso queira ser adicionado
+        }
+
+        Cliente cliente = new Cliente(id,cpf,nome,enderecosCliente,contatosCliente);
+
+        return cliente;
+    }
+
+    public static void menuDeletaCliente(ArrayList<Cliente> clientes) {  // Serve para deletar um cliente, está funcionando ok.
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Digite o ID do cliente que deseja deletar: ");
         int id = scanner.nextInt();
-
         for (int i = 0; i < clientes.size(); i++) {
-
             if (clientes.get(i).getId() == id) {
-
-                return clientes.get(i);
-
+                clientes.remove(i);
             }
-
             else {
-
                 System.out.println("Cliente não encontrado! ");
-
             }
         }
-        return null;
     }
+
+
     public static void menuImprimeCliente(ArrayList<Cliente> clientes) {        //Imprime todos os clientes, ou um cliente específico, por ID
 
         Scanner scanner = new Scanner(System.in);
@@ -257,6 +285,52 @@ public class Menu {
         }
 
     }
+
+    public static void menuAlteraCliente() {
+        //
+    }
+
+    public static Endereco menuCriaEndereco() {     //Cria endereço, é chamado por criaCliente
+
+        Scanner scanner = new Scanner(System.in);
+
+        scanner.nextLine();
+        System.out.println("Nome da rua: ");
+        String rua = scanner.nextLine();
+        System.out.println("Digite o número da residência: ");
+        int num = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Digite o complemento do endereço: ");
+        String complemento = scanner.nextLine();
+        System.out.println("Digite o cep: ");
+        String cep = scanner.nextLine();
+        System.out.println("Digite a cidade: ");
+        String cidade = scanner.nextLine();
+        System.out.println("Tipo de endereço: Residencial      Comercial");
+        String tipoEndreco = scanner.nextLine();
+
+        Endereco endereco = new Endereco(TipoEndereco.valueOf(tipoEndreco.toUpperCase(Locale.ROOT)),rua,num,complemento,cep,cidade);
+
+        return endereco;
+    }
+
+    public  static Contato menuCriaContato() {      //cria contato, é chamado por cria cliente
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Descrição do contato: ");
+        String descricao = scanner.nextLine();
+        System.out.println("Telefone do cliente: ");
+        String telefone = scanner.nextLine();
+        System.out.println("Tipo de contato:  Celular    TelefoneFixo: ");
+        String tipoContato = scanner.nextLine();
+
+        Contato contato = new Contato(descricao,telefone,TipoContato.valueOf(tipoContato.toUpperCase(Locale.ROOT)));
+        return contato;
+
+    }
+
+
+
 
     public static void menuImprimeCaixa(Caixa caixa) {          // Imprime as informações do caixa
         System.out.println("---------- Informações do Caixa ----------");

@@ -1,15 +1,20 @@
 package deborah.regs.dbc;
 
-public enum TipoComida {
+public enum TipoProduto {
 
     COMIDATAILANDESA("Curry Massaman"),
     COMIDAMEXICANA("Guacamole."),
-    COMIDAJAPONESA("Sushi");
+    COMIDAJAPONESA("Sushi"),
+    REFRIGERANTE( "coca cola"),
+    SUCONATURAL("Dellvale"),
+    CERVEJA("Heineken");
+
+
 
     private String descricao;
 
 
-    TipoComida(String TipoDeComidas) {
+    TipoProduto(String TipoDeComidas) {
         this.descricao = descricao;
     }
 

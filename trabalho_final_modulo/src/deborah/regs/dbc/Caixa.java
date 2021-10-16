@@ -1,5 +1,8 @@
 package deborah.regs.dbc;
 
+import jdk.jfr.StackTrace;
+
+
 public class Caixa implements Pagamento{
     
     private Atendente atendenteResponsável;
@@ -28,23 +31,27 @@ public class Caixa implements Pagamento{
         this.valorDeCaixa = valorDeCaixa;
     }
 
-
-    public boolean pagar(double valor, double valorTroco) {
-        double consumo = Main.pedidos.peek().getValorTotal();
-        if(valor >= consumo) {
-            setValorDeCaixa(getValorDeCaixa() + valor - valorTroco);
-            return true;
-        }
-
-        else {
-            return false;
-        }
+//remover valor do caixa
+    public boolean pagar(double valorPagamento, double valorTroco) {
+        double consumo = valorPagamento - valorTroco;
+        setValorDeCaixa(getValorDeCaixa() +consumo);
+        return
     }
+
 
     @Override
     public double calculaTroco(Pedido pedido, double valorPago) {
-
-        return 0;
+        pedido.calculaValorTotal();
+        double troco = 0;
+        if (pedido.getValorTotal() > valorPago){
+            System.out.println("o valor paago deve ser maior ou igual ao valor do pedido");
+        } else if (valorPago == pedido.getValorTotal()){
+            System.out.println("Pagamento realizado com sucesso");
+            //excluir o pedido da fila
+        }else if (valorPago > pedido.getValorTotal()){
+        troco = valorPago - pedido.getValorTotal();
+        }
+        return troco;
     }
 
     @Override

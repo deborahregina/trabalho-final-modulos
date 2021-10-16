@@ -33,6 +33,10 @@ public class Caixa implements Pagamento{
 
 //remover valor do caixa
     public boolean pagar(double valorPagamento, double valorTroco) {
+        if (valorTroco > valorPagamento){
+            System.out.println("troco não pode ser maior que o pagamento");
+            return false;
+        }
         double consumo = valorPagamento - valorTroco;
         setValorDeCaixa(getValorDeCaixa() + consumo);
         System.out.println(getValorDeCaixa());
@@ -50,7 +54,7 @@ public class Caixa implements Pagamento{
             System.out.println("Pagamento realizado com sucesso");
             //excluir o pedido da fila
         }else if (valorPago > pedido.getValorTotal()){
-        troco = valorPago - pedido.getValorTotal();
+            troco = valorPago - pedido.getValorTotal();
         }
         return troco;
     }

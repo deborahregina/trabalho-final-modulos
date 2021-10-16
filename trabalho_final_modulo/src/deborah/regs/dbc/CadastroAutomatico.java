@@ -86,10 +86,6 @@ public class CadastroAutomatico {
         return caixaPrincipal;
         //opcões de produtos
 
-<<<<<<< HEAD
-=======
-
->>>>>>> bf80d2a866a51da4f41b1c30f1058cfe8ac9e25a
     }
 
 }

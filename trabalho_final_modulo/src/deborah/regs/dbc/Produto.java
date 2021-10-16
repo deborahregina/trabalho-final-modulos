@@ -4,8 +4,8 @@ public class Produto {
     private int idProdutos;
     private String nomeProduto;
     private double valorUnitario;
-    private   TipoProduto tipoProduto;
-
+    private TipoComida tipoDePrato;
+    private TipoBebida tipoBebida;
 
     public Produto(int idProdutos, String nomeProduto, double valorUnitario) {
         this.idProdutos = idProdutos;
@@ -51,14 +51,17 @@ public class Produto {
     public void setNomeProduto(String nomeProduto) {
         this.nomeProduto = nomeProduto;
     }
-    public TipoProduto getTipoProduto() {return tipoProduto;}
-    public void setTipoProduto(TipoProduto tipoProduto) {this.tipoProduto = tipoProduto;}
-
-
+    public TipoComida getTipoComida() {return tipoDePrato;}
+    public void setTipoComida(TipoComida tipoDePrato) {this.tipoDePrato = tipoDePrato;}
+    public TipoBebida getTipoBebida() {return tipoBebida;}
+    public void setTipoBebida(TipoBebida tipoBebida){this.tipoBebida = tipoBebida;}
     @Override
     public String toString() {
-        return "ID do produto: " + idProdutos + " Nome do produto: " + getTipoProduto().getDescricao() + " Valor unitário: R$ " + Main.df.format(valorUnitario);
+        return "ID do produto: " + idProdutos + " Nome do produto: " + getTipoComida().getDescricao() + " Valor unitário: R$ " + Main.df.format(valorUnitario);
+
+
     }
+
 
 
 }

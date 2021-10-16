@@ -2,11 +2,11 @@ package deborah.regs.dbc;
 
 public enum TipoProduto {
 
-    COMIDATAILANDESA("Curry Massaman"),
-    COMIDAMEXICANA("Guacamole."),
-    COMIDAJAPONESA("Sushi"),
+    COMIDA_TAILANDESA("Curry Massaman"),
+    COMIDA_MEXICANA("Guacamole."),
+    COMIDA_JAPONESA("Sushi"),
     REFRIGERANTE( "coca cola"),
-    SUCONATURAL("Dellvale"),
+    SUCO_NATURAL("Dellvale"),
     CERVEJA("Heineken");
 
 

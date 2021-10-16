@@ -1,6 +1,5 @@
 package deborah.regs.dbc;
 
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class Menu {
@@ -93,35 +92,34 @@ public class Menu {
 
         if (opcaoFuncionario == 1) {
 
-            if(!funcionarios.isEmpty()) {
+            if (!funcionarios.isEmpty()) {
                 System.out.println("+++++++++ Lista de Funcionários Cadastrados +++++++++");
                 List<Funcionario> funcionarioList = funcionarios;
                 for (Funcionario funcionario : funcionarioList) {
                     System.out.println(funcionario.imprimir());
                 }
-            }
-            else {
+            } else {
                 System.out.println("Não há funcionários cadastrados!");
             }
         }
 
-        if(opcaoFuncionario == 2) {
-            if(!funcionarios.isEmpty()) {
+        if (opcaoFuncionario == 2) {
+            if (!funcionarios.isEmpty()) {
 
                 System.out.println("Digite o id do funcionário: ");
                 int id = scanner.nextInt();
                 scanner.nextLine();
 
-                for (int i = 0; i < funcionarios.size(); i++ ) {
-                    if(funcionarios.get(i).getId() == id) {
+                for (int i = 0; i < funcionarios.size(); i++) {
+                    if (funcionarios.get(i).getId() == id) {
                         System.out.println(funcionarios.get(i).imprimir());
                         System.out.println();
                     }
                 }
             }
         }
-
     }
+
 
 
     // Menus produto: menuCadastraProduto, menuImprimeProdutos, menuDeletaProduto, menuEditaProduto
@@ -151,6 +149,7 @@ public class Menu {
         for (int i = 0; i < Main.produtos.size(); i++ ){
             if (Main.produtos.get(i).getIdProduto() == idProduto) {
                 Main.produtos.remove(i);
+                break;
             }
         }
     }
@@ -173,6 +172,7 @@ public class Menu {
 
                 produto.setTipoProduto(tipoProduto);
                 produto.setValorUnitario(valorUnitario);
+                break;
 
             }
         }
@@ -456,29 +456,45 @@ public class Menu {
         }
     }
 
+    public static void menuAlteraItemPedido(Pedido pedido) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        pedido.toString();
+
+        System.out.println("Digite o ID do item que deseja alterar");
+        int idItem = scanner.nextInt();
+
+        for (Produto produto : pedido.getProdutosDoPedido()){
+            if (produto.getIdProduto() == idItem) {
+                System.out.println(TipoProduto.imprimeCardapio());
+                TipoProduto tipoProduto = TipoProduto.COMIDA_TAILANDESA;
+                tipoProduto.escolheTipo(tipoProduto);
+
+                System.out.println("Digite o novo valor unitário do produto: ");
+                double valorUnitario = scanner.nextDouble();
+
+                produto.setTipoProduto(tipoProduto);
+                produto.setValorUnitario(valorUnitario);
+            }
+        }
+
+    }
+
+
     public static void menuAlteraPedido() {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Digite o ID do produto que deseja alterar: ");
+        System.out.println("Digite ID do pedido que deseja alterar: ");
         int idAlteraPedido = scanner.nextInt();
 
         for(Pedido pedido : Main.pedidos) {
             if (pedido.getIdPedido() == idAlteraPedido) {
-                System.out.println("Deseja deletar o produto?   1- Sim          2- Não");
-                int opDeletaProduto = scanner.nextInt();
-                if (opDeletaProduto == 1) {
-                    menuDeletaProduto();
-                    pedido.calculaValorTotal();
-                    System.out.println("Deseja cadastrar novo produto no pedido?    1- Sim      2- Não");
-                    int opCadastraProduto = scanner.nextInt();
-                    if (opCadastraProduto == 1) {
-                        menuCadastraProduto();
-                        pedido.calculaValorTotal();
-                    }
-                }
+                menuAlteraItemPedido(pedido);
             }
         }
+
     }
 
     public static void menuEntregas() { // Ainda falta arrumar coisas
@@ -493,10 +509,11 @@ public class Menu {
         }
         System.out.println("Alterar Pedido?     1- Sim      2- Não");
         opcaoEntrega = scanner.nextInt();
-        scanner.nextLine();
         if (opcaoEntrega == 1) {
              menuAlteraPedido();
         }
+        System.out.println("Pedido atual");
+        System.out.println(Main.pedidos.peek().toString());
         System.out.println("Confirma entrega:    1- Sim     2- Não");
         opcaoEntrega = scanner.nextInt();
         scanner.nextLine();

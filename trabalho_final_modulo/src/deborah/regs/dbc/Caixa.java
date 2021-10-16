@@ -32,6 +32,7 @@ public class Caixa implements Pagamento{
     }
 
 //remover valor do caixa
+    @Override
     public boolean pagar(double valorPagamento, double valorTroco,double valorDoPedido) {
         if (valorPagamento < valorDoPedido){
             System.out.println("Pagamento não realizado");

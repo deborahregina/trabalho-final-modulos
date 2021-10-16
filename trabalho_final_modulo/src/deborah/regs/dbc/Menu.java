@@ -125,8 +125,12 @@ public class Menu {
 
     // Menus produto: menuCadastraProduto, menuImprimeProdutos, menuDeletaProduto, menuEditaProduto
     public static Produto menuCadastraProduto() { //Serve para cadastrar um novo produto
-
         Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Escolha um produto: (Digitando o número indicado no cardápio)");
+        int opcaoCardapio = scanner.nextInt();
+
+        System.out.println(TipoProduto.imprimeCardapio());
         System.out.println("Digite o id do produto: ");
         int id = scanner.nextInt();
         scanner.nextLine();

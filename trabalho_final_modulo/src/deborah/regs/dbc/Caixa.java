@@ -34,8 +34,9 @@ public class Caixa implements Pagamento{
 //remover valor do caixa
     public boolean pagar(double valorPagamento, double valorTroco) {
         double consumo = valorPagamento - valorTroco;
-        setValorDeCaixa(getValorDeCaixa() +consumo);
-        return
+        setValorDeCaixa(getValorDeCaixa() + consumo);
+        System.out.println(getValorDeCaixa());
+        return true;
     }
 
 

@@ -30,7 +30,8 @@ public class Pedido {
         this.valorTotal = valorTotal;
     }
 
-    public void adicionaProduto(int idProduto, int qtd) {
+    public void adicionaProduto(Produto produto ) {
+        this.produtosDoPedido.add(produto);
 
     }
 

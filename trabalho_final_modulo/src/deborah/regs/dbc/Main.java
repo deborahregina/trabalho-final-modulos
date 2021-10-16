@@ -54,7 +54,18 @@ public class Main {
                     }
                     break;
                 case 2:
-                    Menu.menuImprimePedidosEmAberto();
+                    System.out.println("1- Criar novo Pedido \n2- Imprimir pedidos em aberto \n3- Alterar produto de pedido "); // O método deletar pedido não faz sentido porque é uma pilha.
+
+                    int opPedidos = scanner.nextInt();
+                    if (opPedidos == 1) {
+                        Menu.menuCriaPedido();
+                    }
+                    if (opPedidos == 2) {
+                        Menu.menuImprimePedidosEmAberto();
+                    }
+                    if (opPedidos == 3) {
+                        Menu.menuAlteraPedido();
+                    }
                     break;
                 case 3:
                     Menu.menuImprimeCaixa(caixaPrincipal);

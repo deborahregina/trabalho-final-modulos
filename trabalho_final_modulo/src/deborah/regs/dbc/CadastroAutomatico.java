@@ -47,23 +47,6 @@ public class CadastroAutomatico {
         Main.produtos.add(produto3);
         Main.produtos.add(produto4);
 
-    /*    //criação enum produtos
-        Main.comidas.setNomeProduto("");
-        Main.comidas.setValorUnitario(50);
-        Main.comidas.setTipoProduto(TipoProduto.COMIDA_TAILANDESA);
-        System.out.println(Main.comidas.getNomeProduto()
-                + " prato do dia "
-                + Main.comidas.getTipoProduto().getDescricao());
-
-        Main.Bedidas.setNomeProduto("");
-        Main.Bedidas.setValorUnitario(15);
-        Main.Bedidas.setTipoProduto(TipoProduto.CERVEJA);
-
-        System.out.println(Main.comidas.getNomeProduto()
-                + " prato do dia "
-                + Main.comidas.getTipoProduto().getDescricao());
-*/
-        //Criação do caixa:
         Caixa caixaPrincipal = new Caixa(funcionario2,1000.00);
 
         //Criação de alguns pedidos
@@ -72,7 +55,7 @@ public class CadastroAutomatico {
         // para adicionar produtos no pedido, tem que criar uma arraylist de produtos
         produtosPedido1.add(produto1);
         produtosPedido1.add(produto3);
-        produtosPedido1.add(produto3);
+        produtosPedido1.add(produto2);
 
         produtosPedido2.add(produto1);
         produtosPedido2.add(produto2);
@@ -85,7 +68,6 @@ public class CadastroAutomatico {
         Main.pedidos.add(pedido1);
         Main.pedidos.add(pedido2);
         return caixaPrincipal;
-        //opcões de produtos
 
 
     }

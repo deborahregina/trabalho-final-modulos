@@ -456,6 +456,51 @@ public class Menu {
         }
     }
 
+    public static void menuCriaPedido() {
+        Scanner scanner = new Scanner(System.in);
+
+        ArrayList<Produto> produtosdoPedido = new ArrayList<>();
+        System.out.println("Digite o ID do cliente que realizou o pedido: ");
+        int idClientePedido = scanner.nextInt();
+        System.out.println("Digite o ID do novo pedido: ");
+        int idPedidoNovo = scanner.nextInt();
+
+        for(Cliente cliente : Main.clientes) {
+
+            if (cliente.getId() == idClientePedido) {
+
+                scanner.nextLine();
+                int adicionaMais = 1;
+                scanner.nextLine();
+
+
+                do {
+                    System.out.println("** Adicionar produto ** ");
+                    System.out.println("Escolha um produto: (Digitando o número indicado no cardápio)");
+                    System.out.println(TipoProduto.imprimeCardapio());
+                    TipoProduto tipoProduto = TipoProduto.COMIDA_TAILANDESA;
+                    tipoProduto = tipoProduto.escolheTipo(tipoProduto);
+                    System.out.println("Digite o id do produto: ");
+                    int id = scanner.nextInt();
+                    System.out.println("Digite o valor unitário do produto: ");
+                    double valorUnitario = scanner.nextDouble();
+
+                    Produto produto = new Produto(id,valorUnitario,tipoProduto);
+                    produtosdoPedido.add(produto);
+
+
+                    System.out.println("Adicionar novo item? 1- Sim        2- Não: ");
+                     adicionaMais = scanner.nextInt();
+                }while (adicionaMais !=2);
+
+                Pedido novoPedido = new Pedido(idPedidoNovo,cliente,produtosdoPedido);
+                Main.pedidos.add(novoPedido);
+                break;
+            }
+        }
+
+    }
+
     public static void menuAlteraItemPedido(Pedido pedido) {
 
         Scanner scanner = new Scanner(System.in);
@@ -469,7 +514,7 @@ public class Menu {
             if (produto.getIdProduto() == idItem) {
                 System.out.println(TipoProduto.imprimeCardapio());
                 TipoProduto tipoProduto = TipoProduto.COMIDA_TAILANDESA;
-                tipoProduto.escolheTipo(tipoProduto);
+                tipoProduto = tipoProduto.escolheTipo(tipoProduto);
 
                 System.out.println("Digite o novo valor unitário do produto: ");
                 double valorUnitario = scanner.nextDouble();
@@ -510,7 +555,7 @@ public class Menu {
         System.out.println("Alterar Pedido?     1- Sim      2- Não");
         opcaoEntrega = scanner.nextInt();
         if (opcaoEntrega == 1) {
-             menuAlteraPedido();
+             menuAlteraItemPedido(Main.pedidos.peek());
         }
         System.out.println("Pedido atual");
         System.out.println(Main.pedidos.peek().toString());

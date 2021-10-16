@@ -1,8 +1,6 @@
 package deborah.regs.dbc;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 
 public class CadastroAutomatico {
 
@@ -49,6 +47,22 @@ public class CadastroAutomatico {
         Main.produtos.add(produto3);
         Main.produtos.add(produto4);
 
+        //criação enum produtos
+        Main.comidas.setNomeProduto("");
+        Main.comidas.setValorUnitario(50);
+        Main.comidas.setTipoProduto(TipoProduto.COMIDA_TAILANDESA);
+        System.out.println(Main.comidas.getNomeProduto()
+                + " prato do dia "
+                + Main.comidas.getTipoProduto().getDescricao());
+
+        Main.Bedidas.setNomeProduto("");
+        Main.Bedidas.setValorUnitario(15);
+        Main.Bedidas.setTipoProduto(TipoProduto.CERVEJA);
+
+        System.out.println(Main.comidas.getNomeProduto()
+                + " prato do dia "
+                + Main.comidas.getTipoProduto().getDescricao());
+
         //Criação do caixa:
         Caixa caixaPrincipal = new Caixa(funcionario2,1000.00);
 
@@ -72,6 +86,10 @@ public class CadastroAutomatico {
         return caixaPrincipal;
         //opcões de produtos
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> bf80d2a866a51da4f41b1c30f1058cfe8ac9e25a
     }
 
 }

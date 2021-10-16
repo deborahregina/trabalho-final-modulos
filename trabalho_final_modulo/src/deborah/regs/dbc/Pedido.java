@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class Pedido {
     private int idPedido;
-    private int idCliente;
+    private Cliente cliente;
     private ArrayList<Produto> produtosDoPedido;
     private double valorTotal;
 
-    public Pedido(int idPedido, int idCliente, ArrayList<Produto> produtosDoPedido) {
+    public Pedido(int idPedido, Cliente cliente, ArrayList<Produto> produtosDoPedido) {
         this.idPedido = idPedido;
-        this.idCliente = idCliente;
+        this.cliente = cliente;
         this.produtosDoPedido = produtosDoPedido;
     }
 
@@ -58,12 +58,12 @@ public class Pedido {
         this.idPedido = idPedido;
     }
 
-    public int getIdCliente() {
-        return idCliente;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     @Override
@@ -73,6 +73,6 @@ public class Pedido {
             System.out.println(produtos);
         }
 
-        return "ID do pedido: " + idPedido + " ID do cliente: " + idCliente + " Valor total do pedido: " +valorTotal;
+        return "ID do pedido: " + idPedido + "Nome do cliente: " + cliente.getNome() + " Valor total do pedido: " +valorTotal;
     }
 }

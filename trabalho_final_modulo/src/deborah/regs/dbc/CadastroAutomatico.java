@@ -78,8 +78,9 @@ public class CadastroAutomatico {
         produtosPedido2.add(produto2);
         produtosPedido2.add(produto4);
 
-        Pedido pedido1 = new Pedido(1,1,produtosPedido1);
-        Pedido pedido2 = new Pedido(2,2,produtosPedido2);
+
+        Pedido pedido1 = new Pedido(1,cliente1,produtosPedido1);
+        Pedido pedido2 = new Pedido(2,cliente2,produtosPedido2);
 
         Main.pedidos.add(pedido1);
         Main.pedidos.add(pedido2);

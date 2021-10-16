@@ -1,5 +1,6 @@
 package deborah.regs.dbc;
 
+import java.sql.SQLOutput;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -13,8 +14,9 @@ public class Main {
     static ArrayList<Funcionario> funcionarios = new ArrayList<>();
     static ArrayList<Produto> produtos = new ArrayList<>();
     static Queue<Pedido> pedidos = new LinkedList<>();
-    static  Produto comidas = new Produto();
-    static Produto Bebidas = new Produto();
+
+
+
     // Cadastro de clientes, funcionários, produtos, pedidos iniciais, para não poluir a Main. Aqui é tipo um SETUP das coisas que não precisamos
     // colocar manualmente
     static Caixa caixaPrincipal = CadastroAutomatico.cadastroAutomatico();
@@ -51,7 +53,7 @@ public class Main {
                     }
                     break;
                 case 2:
-                    Menu.menuImprimePedidosEmAberto(pedidos);
+                    Menu.menuImprimePedidosEmAberto();
                     break;
                 case 3:
                     Menu.menuImprimeCaixa(caixaPrincipal);
@@ -103,9 +105,13 @@ public class Main {
 
         }
 
+        Produto comidas = new Produto();
+        comidas.setNomeProduto("");
+        comidas.setValorUnitario(50);
+        comidas.setTipoProduto(TipoProduto.COMIDATAILANDESA);
 
-
-
-
+        System.out.println(comidas.getNomeProduto()
+                + " prato do dia "
+                + comidas.getTipoProduto().getDescricao());
     }
 }

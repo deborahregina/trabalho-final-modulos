@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Pedido {
     private int idPedido;
     private int idCliente;
-    private ArrayList<Produto> produtosDoPedido = new ArrayList<>();
+    private ArrayList<Produto> produtosDoPedido;
     private double valorTotal;
 
     public Pedido(int idPedido, int idCliente, ArrayList<Produto> produtosDoPedido) {
@@ -14,12 +14,12 @@ public class Pedido {
         this.produtosDoPedido = produtosDoPedido;
     }
 
-    public double calculaValorTotal() {
+    public void calculaValorTotal() {
         double calculaValor = 0;
         for (int i = 0; i < produtosDoPedido.size(); i++ ) {
             calculaValor += produtosDoPedido.get(i).getValorUnitario();
         }
-        return calculaValor;
+        setValorTotal(calculaValor);
     }
 
     public double getValorTotal() {
@@ -68,15 +68,10 @@ public class Pedido {
     @Override
     public String toString() {
         System.out.println("++++++++++++ Itens do pedido ++++++++++++");
-        for (int i = 0; i < produtosDoPedido.size(); i ++) {
-            System.out.println(produtosDoPedido.get(i).toString());
+        for (Produto produtos: produtosDoPedido) {
+            System.out.println(produtos);
         }
-        if (valorTotal == 0) {
-            System.out.println("O total do pedido é calculado no ato de entrega! ");
-        }
-        else {
-            System.out.println("Valor total do pedido: " + valorTotal);
-        }
-        return "ID do pedido: " + idPedido + " ID do cliente: " + idCliente;
+
+        return "ID do pedido: " + idPedido + " ID do cliente: " + idCliente + " Valor total do pedido: " +valorTotal;
     }
 }

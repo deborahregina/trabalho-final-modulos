@@ -419,8 +419,11 @@ public class Menu {
         String descricao = scanner.nextLine();
         System.out.println("Telefone do cliente: ");
         String telefone = scanner.nextLine();
-        System.out.println("Tipo de contato:  Celular    TelefoneFixo: ");
+        System.out.println("Tipo de contato:  Celular    Telefone Fixo: ");
         String tipoContato = scanner.nextLine();
+        if (tipoContato.equalsIgnoreCase("Telefone Fixo")) {
+            tipoContato = "TELEFONEFIXO";
+        }
 
         Contato contato = new Contato(descricao,telefone,TipoContato.valueOf(tipoContato.toUpperCase(Locale.ROOT)));
         return contato;
@@ -437,18 +440,30 @@ public class Menu {
     }
 
 
-    public static void menuImprimePedidosEmAberto(Queue<Pedido> pedidos) { //O valor total é calculado só para o último pedido, pois ele pode ser alterado
+    public static void menuImprimePedidosEmAberto() { //O valor total é calculado só para o último pedido, pois ele pode ser alterado
         System.out.println("+++++++++ Lista de Pedidos Abertos +++++++++");
-        for (int i = 0; i < pedidos.size(); i ++) {
-            double valorPedidoSaida = 0;
-            for (int j = 0; j < pedidos.peek().getProdutosDoPedido().size(); j ++) {
-                valorPedidoSaida += pedidos.peek().getProdutosDoPedido().get(j).getValorUnitario(); // para calcular o valor total do pedido
-            }
-            Main.pedidos.peek().setValorTotal(valorPedidoSaida);
-            System.out.println(pedidos.stream().toList().get(i).toString());
-            System.out.println();
+
+        for (Pedido pedido : Main.pedidos) {
+            pedido.calculaValorTotal();
+            System.out.println(pedido);
         }
     }
+
+    public static void menuAlteraPedido() {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Digite o ID do produto que deseja alterar: ");
+        int idAlteraPedido = scanner.nextInt();
+
+        for(Pedido pedido : Main.pedidos) {
+            if (pedido.getIdPedido() == idAlteraPedido) {
+                System.out.println("");
+            }
+        }
+
+    }
+
     public static void menuEntregas() { // Ainda falta arrumar coisas
         Scanner scanner = new Scanner(System.in);
 
@@ -456,7 +471,6 @@ public class Menu {
         System.out.println("Deseja listar o produto que deve ser entregue? 1 - Sim      2- Não");
         int opcaoEntrega = scanner.nextInt();
         scanner.nextLine();
-        Main.pedidos.peek().setValorTotal(Main.pedidos.peek().calculaValorTotal());
         if (opcaoEntrega == 1) {
             System.out.println(Main.pedidos.peek().toString());
         }
@@ -464,11 +478,14 @@ public class Menu {
         opcaoEntrega = scanner.nextInt();
         scanner.nextLine();
         if (opcaoEntrega == 1) {
-            //menuAlteraPedido;
+             //menuAlteraPedido();
         }
         System.out.println("Confirma entrega:    1- Sim     2- Não");
         opcaoEntrega = scanner.nextInt();
         scanner.nextLine();
+
+      // Arrumar depois
+
         if (opcaoEntrega == 1) {
             System.out.println("Lista de Motoboys disponíveis:");
             for (int i = 0; i < Main.funcionarios.size(); i++ ) {
@@ -482,12 +499,18 @@ public class Menu {
 
             for (int i = 0; i < Main.funcionarios.size(); i++) {
                 if (Main.funcionarios.get(i).getClass().toString().equalsIgnoreCase("deborah.regs.dbc.Motoboy") && Main.funcionarios.get(i).getId() == idMotoboy) {
+
                     System.out.println("Motoboy selecionado para entrega! ");
                     Motoboy motoboyEntrega = (Motoboy) Main.funcionarios.get(i);
+                    // Cria nova entrega
                     Entrega entrega = new Entrega(Main.pedidos.peek(),motoboyEntrega);
                     System.out.println("Valor do pedido: " + Main.df.format(Main.pedidos.peek().getValorTotal()));
+
                     System.out.println("Quanto deseja pagar?");
+
                     double valorPago = scanner.nextDouble();
+
+                    // Parte do pagamento
                     double troco = entrega.calculaTroco(Main.pedidos.peek(),valorPago);
                     if (entrega.pagar(valorPago,troco)) {
                         System.out.println("Pedido entregue!");

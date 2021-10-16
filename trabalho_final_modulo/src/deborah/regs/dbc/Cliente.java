@@ -76,7 +76,15 @@ public class Cliente implements Impressao {
                 contacts = contacts.concat(" " + contatos.get(j).imprimir() + "\n");
             }
         }
-        return "CPF: " + cpf + "\nNome: " + nome + "\nContatos: " + contacts + "\nEndereços: " + adresses;
+        System.out.println("ID do cliente: " + id + "\nCPF do cliente: " + cpf + "\nNome: " + nome + "\n** Contatos Cadastrados **: ");
+        for (Contato contato : contatos) {
+            System.out.println(contato.imprimir());
+        }
+        System.out.println("** Endereços Cadastrados ** ");
+        for(Endereco endereco : enderecos) {
+            System.out.println(endereco.imprimir());
+        }
+        return "";
     }
 
 }

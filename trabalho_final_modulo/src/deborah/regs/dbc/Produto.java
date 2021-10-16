@@ -4,8 +4,8 @@ public class Produto {
     private int idProdutos;
     private String nomeProduto;
     private double valorUnitario;
-    private TipoComida tipoDePrato;
-    private TipoBebida tipoBebida;
+    private TipoProduto tipoProduto;
+
 
     public Produto(int idProdutos, String nomeProduto, double valorUnitario) {
         this.idProdutos = idProdutos;
@@ -14,19 +14,6 @@ public class Produto {
     }
 
     public Produto() {
-
-    }
-
-    public void cadastrarProduto() {
-
-
-    }
-
-    public void removerProduto() {
-
-    }
-
-    public void alterarProduto(int idProduto) {
 
     }
 
@@ -42,11 +29,6 @@ public class Produto {
         return nomeProduto;
     }
 
-    public void setNomeProduto() {
-        this.nomeProduto = nomeProduto;
-    }
-
-
     public double getValorUnitario() {
         return valorUnitario;
     }
@@ -58,29 +40,15 @@ public class Produto {
     public void setNomeProduto(String nomeProduto) {
         this.nomeProduto = nomeProduto;
     }
+    public TipoProduto getTipoProduto() {return tipoProduto;}
+    public void setTipoProduto(TipoProduto tipoProduto) {this.tipoProduto = tipoProduto;}
 
-    public TipoComida getTipoComida() {
-        return tipoDePrato;
-    }
-
-    public void setTipoComida(TipoComida tipoDePrato) {
-        this.tipoDePrato = tipoDePrato;
-    }
-
-    public TipoBebida getTipoBebida() {
-        return tipoBebida;
-    }
-
-    public void setTipoBebida(TipoBebida tipoBebida) {
-        this.tipoBebida = tipoBebida;
-    }
 
     @Override
     public String toString() {
-        return "ID do produto: " + idProdutos + " Nome do produto: " + getTipoComida().getDescricao() + " Valor unitário: R$ " + Main.df.format(valorUnitario);
+        return "ID do produto: " + idProdutos +  " Nome do produto: " + nomeProduto + " Valor unitário: R$ " + Main.df.format(valorUnitario);
+        //" Tipo de produto: " + getTipoProduto().getDescricao() +
     }
 
+
 }
-
-
-

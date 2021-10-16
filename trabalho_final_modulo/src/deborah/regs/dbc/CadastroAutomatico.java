@@ -16,7 +16,10 @@ public class CadastroAutomatico {
         contatos1.add(contato1);
         enderecos1.add(endereco1);
         Cliente cliente1 = new Cliente(1,"1231234","Camile",enderecos1,contatos1);
+
+
         Main.clientes.add(cliente1);
+
 
         //Criacao do segundo cliente:
         Endereco endereco2 = new Endereco(TipoEndereco.RESIDENCIAL,"Avenida Oswaldo Aranha",200,"ap 100","909030-20","Porto Alegre");
@@ -25,6 +28,8 @@ public class CadastroAutomatico {
         ArrayList<Endereco> enderecos2 = new ArrayList<>();
         contatos2.add(contato2);
         enderecos2.add(endereco2);
+        enderecos2.add(endereco1);
+        contatos2.add(contato1);
         Cliente cliente2 = new Cliente(2,"123432","Deborah",enderecos2,contatos2);
         Main.clientes.add(cliente2);
 

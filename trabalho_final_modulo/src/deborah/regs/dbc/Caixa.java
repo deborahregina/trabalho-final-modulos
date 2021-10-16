@@ -43,15 +43,7 @@ public class Caixa implements Pagamento{
 
     @Override
     public double calculaTroco(Pedido pedido, double valorPago) {
-        if (pedido.calculaValorTotal() > valorPago) {
-            return 0;
-        }
-        if (pedido.calculaValorTotal() == valorPago) {
-            return 0;
-        }
-        if (pedido.calculaValorTotal() < valorPago) {
-            return valorPago - pedido.calculaValorTotal();
-        }
+
         return 0;
     }
 

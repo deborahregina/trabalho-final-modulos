@@ -458,10 +458,20 @@ public class Menu {
 
         for(Pedido pedido : Main.pedidos) {
             if (pedido.getIdPedido() == idAlteraPedido) {
-                System.out.println("");
+                System.out.println("Deseja deletar o produto?   1- Sim          2- Não");
+                int opDeletaProduto = scanner.nextInt();
+                if (opDeletaProduto == 1) {
+                    menuDeletaProduto();
+                    pedido.calculaValorTotal();
+                    System.out.println("Deseja cadastrar novo produto no pedido?    1- Sim      2- Não");
+                    int opCadastraProduto = scanner.nextInt();
+                    if (opCadastraProduto == 1) {
+                        menuCadastraProduto();
+                        pedido.calculaValorTotal();
+                    }
+                }
             }
         }
-
     }
 
     public static void menuEntregas() { // Ainda falta arrumar coisas

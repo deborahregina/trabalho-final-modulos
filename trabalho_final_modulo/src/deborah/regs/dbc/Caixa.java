@@ -47,9 +47,13 @@ public class Caixa implements Pagamento{
     @Override
     public double calculaTroco(Pedido pedido, double valorPago) {
 
+<<<<<<< HEAD
 
         pedido.calculaValorTotal();
 
+=======
+        pedido.calculaValorTotal();
+>>>>>>> 36bde4cb750aa9b563d551c6028243c06d38b4ff
         double troco = 0;
         if (pedido.getValorTotal() > valorPago){
             System.out.println("o valor paago deve ser maior ou igual ao valor do pedido");
@@ -60,7 +64,10 @@ public class Caixa implements Pagamento{
             troco = valorPago - pedido.getValorTotal();
         }
         return troco;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 36bde4cb750aa9b563d551c6028243c06d38b4ff
     }
 
     @Override

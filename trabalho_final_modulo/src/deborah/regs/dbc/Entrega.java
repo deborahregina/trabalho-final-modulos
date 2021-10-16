@@ -4,10 +4,23 @@ public class Entrega implements Pagamento {
 
     private Pedido pedidoEntrega;
     private Motoboy motoboy;
+    private boolean entregaRealizada = false;
 
     public Entrega(Pedido pedidoEntrega, Motoboy motoboy) {
         this.pedidoEntrega = pedidoEntrega;
         this.motoboy = motoboy;
+    }
+
+    public void realizarEntrega(){
+        this.entregaRealizada = true;
+    }
+
+    public boolean isEntregaRealizada() {
+        return entregaRealizada;
+    }
+
+    public void EnderecoDaEntrega() {
+        pedidoEntrega.getCliente().getEnderecos();
     }
 
     public Pedido getPedidoEntrega() {

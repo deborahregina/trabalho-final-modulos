@@ -1,6 +1,6 @@
 package deborah.regs.dbc;
 
-public class Entrega implements Pagamento {
+public class Entrega {
 
     private Pedido pedidoEntrega;
     private Motoboy motoboy;
@@ -41,16 +41,5 @@ public class Entrega implements Pagamento {
     public void setMotoboy(Motoboy motoboy) {
         this.motoboy = motoboy;
     }
-
-    @Override
-    public boolean pagar(double valorPago, double valorTroco) {
-        return Main.caixaPrincipal.pagar(valorPago,valorTroco);
-    }
-
-    @Override
-    public double calculaTroco(Pedido pedido, double valor) {
-        return Main.caixaPrincipal.calculaTroco(pedido,valor);
-    }
-
 
 }

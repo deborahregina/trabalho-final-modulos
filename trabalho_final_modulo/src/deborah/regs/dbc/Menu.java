@@ -513,21 +513,21 @@ public class Menu {
 
                     double valorPago = scanner.nextDouble();
 
+
+
                     // Parte do pagamento
-                    double troco = entrega.calculaTroco(Main.pedidos.peek(),valorPago);
-                    if (entrega.pagar(valorPago,troco)) {
-                        System.out.println("Pedido entregue!");
-                        Main.pedidos.poll();
-                    }
-                    else {
-                        System.out.println("Não foi possível entregar o pedido!");
+                    Main.pedidos.peek().calculaValorTotal();
+                    double troco = Main.caixaPrincipal.calculaTroco(Main.pedidos.peek(),valorPago);
+                    boolean pagar = Main.caixaPrincipal.pagar(valorPago,troco,Main.pedidos.peek().getValorTotal());
+
+                    if (pagar){
+                        entrega.realizarEntrega();
                     }
 
-                    break;
                 }
-            }
         }
-
     }
 
-}
+
+
+

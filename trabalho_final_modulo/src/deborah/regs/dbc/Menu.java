@@ -5,7 +5,7 @@ import java.util.*;
 public class Menu {
 // Essa classe implementa os menus que vão ser utilizados ao longo do programa
 
-    public static int menuPrincial() {
+    public static int menuPrincipal() {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("############# Menu Principal ############# ");

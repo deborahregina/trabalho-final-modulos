@@ -11,8 +11,11 @@ public class Entrega implements Pagamento {
         this.motoboy = motoboy;
     }
 
-    public void realizarEntrega(){
+    public boolean realizarEntrega(){
         this.entregaRealizada = true;
+        Main.pedidos.poll();
+        System.out.println("Entrega realizada e pedido removido da lista");
+        return entregaRealizada;
     }
 
     public boolean isEntregaRealizada() {

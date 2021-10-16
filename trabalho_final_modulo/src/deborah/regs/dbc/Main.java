@@ -31,7 +31,7 @@ public class Main {
 
         while (programaOn) {
 
-            int op = Menu.menuPrincial(); // retorno da seleção do "Menu iniciar"
+            int op = Menu.menuPrincipal(); // retorno da seleção do "Menu iniciar"
 
             switch (op) {
 
@@ -44,7 +44,6 @@ public class Main {
                     }
                     if (opCliente == 2) {
                         System.out.println("1- Criar novo pedido \n2- Deletar pedido \n3- Imprimir pedidos \n4- Alterar pedido");
-                        int op
                         Menu.menuDeletaCliente(clientes);
                     }
                     if (opCliente == 3) {
@@ -107,10 +106,5 @@ public class Main {
 
         }
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> bf80d2a866a51da4f41b1c30f1058cfe8ac9e25a
     }
 }

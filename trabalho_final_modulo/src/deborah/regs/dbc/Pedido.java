@@ -47,6 +47,7 @@ public class Pedido {
 
     }
     public void status() {
+       // if ()
 
     }
 

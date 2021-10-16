@@ -80,7 +80,7 @@ public class Main {
                     System.out.println("1- Cadastrar Produto \n2- Listar produtos \n3- Deletar produto \n4- Alterar cadastro de produto");
                     int opProdutos = scanner.nextInt();
                     if (opProdutos == 1) {
-                        produtos.add(Menu.menuCadastraProduto());
+                        Menu.menuCadastraProduto();
                     }
                     if (opProdutos == 2) {
                         Menu.menuImprimeProdutos(produtos);

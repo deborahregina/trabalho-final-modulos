@@ -2,15 +2,14 @@ package deborah.regs.dbc;
 
 public class Produto {
     private int idProdutos;
-    private String nomeProduto;
     private double valorUnitario;
     private TipoProduto tipoProduto;
 
 
-    public Produto(int idProdutos, String nomeProduto, double valorUnitario) {
+    public Produto(int idProdutos, double valorUnitario, TipoProduto tipoProduto) {
         this.idProdutos = idProdutos;
-        this.nomeProduto = nomeProduto;
         this.valorUnitario = valorUnitario;
+        this.tipoProduto = tipoProduto;
     }
 
     public Produto() {
@@ -25,9 +24,7 @@ public class Produto {
         this.idProdutos = idProdutos;
     }
 
-    public String getNomeProduto() {
-        return nomeProduto;
-    }
+
 
     public double getValorUnitario() {
         return valorUnitario;
@@ -37,17 +34,14 @@ public class Produto {
         this.valorUnitario = valorUnitario;
     }
 
-    public void setNomeProduto(String nomeProduto) {
-        this.nomeProduto = nomeProduto;
-    }
     public TipoProduto getTipoProduto() {return tipoProduto;}
+
     public void setTipoProduto(TipoProduto tipoProduto) {this.tipoProduto = tipoProduto;}
 
 
     @Override
     public String toString() {
-        return "ID do produto: " + idProdutos +  " Nome do produto: " + nomeProduto + " Valor unitário: R$ " + Main.df.format(valorUnitario);
-        //" Tipo de produto: " + getTipoProduto().getDescricao() +
+        return "ID do produto: " + idProdutos +  " Nome do produto: " + tipoProduto.getDescricao() + " Valor unitário: R$ " + Main.df.format(valorUnitario);
     }
 
 

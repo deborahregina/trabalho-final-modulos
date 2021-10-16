@@ -39,4 +39,5 @@ public abstract class Funcionario implements Impressao {
     public String imprimir() {
         return "Id do funcionário: " + id+ " | Nome do funcionário: " + nome;
     }
+
 }

@@ -1,5 +1,6 @@
 package deborah.regs.dbc;
 
+import java.sql.SQLOutput;
 import java.util.*;
 
 public class Menu {
@@ -124,24 +125,21 @@ public class Menu {
 
 
     // Menus produto: menuCadastraProduto, menuImprimeProdutos, menuDeletaProduto, menuEditaProduto
-    public static Produto menuCadastraProduto() { //Serve para cadastrar um novo produto
+    public static void menuCadastraProduto() { //Serve para cadastrar um novo produto
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Escolha um produto: (Digitando o número indicado no cardápio)");
-        int opcaoCardapio = scanner.nextInt();
-
         System.out.println(TipoProduto.imprimeCardapio());
+        TipoProduto tipoProduto = TipoProduto.COMIDA_TAILANDESA;
+        tipoProduto = tipoProduto.escolheTipo(tipoProduto);
         System.out.println("Digite o id do produto: ");
         int id = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Digite o nome do produto: ");
-        String nome = scanner.nextLine();
         System.out.println("Digite o valor unitário do produto: ");
         double valorUnitario = scanner.nextDouble();
 
-        Produto produto = new Produto(id,nome,valorUnitario);
-        return produto;
+        Produto produto = new Produto(id,valorUnitario,tipoProduto);
 
+        Main.produtos.add(produto);
     }
 
     public static void menuDeletaProduto() {
@@ -149,6 +147,7 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Digite o ID do produto que deseja deletar: ");
         int idProduto = scanner.nextInt();
+
         for (int i = 0; i < Main.produtos.size(); i++ ){
             if (Main.produtos.get(i).getIdProduto() == idProduto) {
                 Main.produtos.remove(i);
@@ -161,16 +160,20 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Digite o ID do produto que deseja alterar: ");
         int idProduto = scanner.nextInt();
-        for (int i = 0; i < Main.produtos.size(); i++ ) {
 
-            if (Main.produtos.get(i).getIdProduto() == idProduto) {
-                System.out.println("Digite o novo nome do produto: ");
-                String nome = scanner.nextLine();
+        for(Produto produto : Main.produtos) {
+
+            if (produto.getIdProduto() == idProduto) {
+                System.out.println(TipoProduto.imprimeCardapio());
+                TipoProduto tipoProduto = TipoProduto.COMIDA_TAILANDESA;
+                tipoProduto = tipoProduto.escolheTipo(tipoProduto);
+
                 System.out.println("Digite o novo valor unitário do produto: ");
                 double valorUnitario = scanner.nextDouble();
 
-                Main.produtos.get(i).setNomeProduto(nome);
-                Main.produtos.get(i).setValorUnitario(valorUnitario);
+                produto.setTipoProduto(tipoProduto);
+                produto.setValorUnitario(valorUnitario);
+
             }
         }
 
@@ -482,7 +485,7 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("---------- Realizar Entrega ----------");
-        System.out.println("Deseja listar o produto que deve ser entregue? 1 - Sim      2- Não");
+        System.out.println("Deseja listar o pedido que deve ser entregue? 1 - Sim      2- Não");
         int opcaoEntrega = scanner.nextInt();
         scanner.nextLine();
         if (opcaoEntrega == 1) {
@@ -492,35 +495,21 @@ public class Menu {
         opcaoEntrega = scanner.nextInt();
         scanner.nextLine();
         if (opcaoEntrega == 1) {
-             //menuAlteraPedido();
+             menuAlteraPedido();
         }
         System.out.println("Confirma entrega:    1- Sim     2- Não");
         opcaoEntrega = scanner.nextInt();
         scanner.nextLine();
 
-      // Arrumar depois
 
         if (opcaoEntrega == 1) {
-            System.out.println("Lista de Motoboys disponíveis:");
-            for (int i = 0; i < Main.funcionarios.size(); i++ ) {
-                if (Main.funcionarios.get(i).getClass().toString().equalsIgnoreCase("deborah.regs.dbc.Motoboy")) {
-                    System.out.println(Main.funcionarios.get(i).imprimir());
-                }
-            }
-            System.out.println("Digite o ID do motoboy ");
-            int idMotoboy = scanner.nextInt();
-            scanner.nextLine();
 
-            for (int i = 0; i < Main.funcionarios.size(); i++) {
-                if (Main.funcionarios.get(i).getClass().toString().equalsIgnoreCase("deborah.regs.dbc.Motoboy") && Main.funcionarios.get(i).getId() == idMotoboy) {
 
-                    System.out.println("Motoboy selecionado para entrega! ");
-                    Motoboy motoboyEntrega = (Motoboy) Main.funcionarios.get(i);
-                    // Cria nova entrega
-                    Entrega entrega = new Entrega(Main.pedidos.peek(),motoboyEntrega);
+                    Entrega entrega = new Entrega(Main.pedidos.peek(),(Motoboy) Main.funcionarios.get(0));
+
                     System.out.println("Valor do pedido: " + Main.df.format(Main.pedidos.peek().getValorTotal()));
 
-                    System.out.println("Quanto deseja pagar?");
+                    System.out.println("Qual é o valor pago?");
 
                     double valorPago = scanner.nextDouble();
 

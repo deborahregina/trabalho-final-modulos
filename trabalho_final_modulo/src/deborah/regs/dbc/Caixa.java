@@ -40,7 +40,7 @@ public class Caixa implements Pagamento{
         } else {
         double consumo = valorPagamento - valorTroco;
         setValorDeCaixa(getValorDeCaixa() + consumo);
-        System.out.println("Valor do que ficou no caixa: " + getValorDeCaixa());
+        System.out.println("Valor do que ficou no caixa: " + Main.df.format(getValorDeCaixa()));
         }
         return true;
     }
@@ -57,13 +57,13 @@ public class Caixa implements Pagamento{
         }else if (valorPago > pedido.getValorTotal()){
             troco = valorPago - pedido.getValorTotal();
         }
-        System.out.println("Valor do troco: " + troco);
+        System.out.println("Valor do troco: " + Main.df.format(troco));
         return troco;
 
     }
 
     @Override
     public String toString() {
-        return "Responsável pelo caixa: " + atendenteResponsável + " Valor em caixa: " + Main.df.format(valorDeCaixa);
+        return "Responsável pelo caixa: " + atendenteResponsável.getNome() + " Valor em caixa: " + Main.df.format(valorDeCaixa);
     }
 }

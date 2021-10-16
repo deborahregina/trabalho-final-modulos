@@ -4,7 +4,8 @@ public class Produto {
     private int idProdutos;
     private String nomeProduto;
     private double valorUnitario;
-    private TipoProduto tipoProduto;
+    private String nomeProduto;
+    //private TipoProduto tipoProduto;
 
 
     public Produto(int idProdutos, String nomeProduto, double valorUnitario) {

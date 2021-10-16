@@ -44,6 +44,8 @@ public class Caixa implements Pagamento{
     @Override
     public double calculaTroco(Pedido pedido, double valorPago) {
 
+        pedido.calculaValorTotal();
+
         return 0;
     }
 

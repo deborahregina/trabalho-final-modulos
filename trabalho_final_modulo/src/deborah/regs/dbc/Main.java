@@ -43,6 +43,8 @@ public class Main {
                         clientes.add(Menu.menuCriaCliente());
                     }
                     if (opCliente == 2) {
+                        System.out.println("1- Criar novo pedido \n2- Deletar pedido \n3- Imprimir pedidos \n4- Alterar pedido");
+                        int op
                         Menu.menuDeletaCliente(clientes);
                     }
                     if (opCliente == 3) {
@@ -105,13 +107,5 @@ public class Main {
 
         }
 
-        Produto comidas = new Produto();
-        comidas.setNomeProduto("");
-        comidas.setValorUnitario(50);
-        comidas.setTipoProduto(TipoProduto.COMIDATAILANDESA);
-
-        System.out.println(comidas.getNomeProduto()
-                + " prato do dia "
-                + comidas.getTipoProduto().getDescricao());
     }
 }

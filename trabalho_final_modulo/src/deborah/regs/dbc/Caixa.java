@@ -39,7 +39,7 @@ public class Caixa implements Pagamento{
         } else {
         double consumo = valorPagamento - valorTroco;
         setValorDeCaixa(getValorDeCaixa() + consumo);
-        System.out.println("Valor do que ficou no caixa: " + Main.df.format(getValorDeCaixa()));
+        System.out.println("Valor do que ficou no caixa R$" + Main.df.format(getValorDeCaixa()));
         }
         return true;
     }
@@ -63,6 +63,6 @@ public class Caixa implements Pagamento{
 
     @Override
     public String toString() {
-        return "Responsável pelo caixa: " + atendenteResponsável.getNome() + " Valor em caixa: " + Main.df.format(valorDeCaixa);
+        return "Responsável pelo caixa: " + atendenteResponsável.getNome() + " Valor em caixa: R$ " + Main.df.format(valorDeCaixa);
     }
 }

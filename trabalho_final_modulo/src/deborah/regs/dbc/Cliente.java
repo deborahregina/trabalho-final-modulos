@@ -19,6 +19,9 @@ public class Cliente implements Impressao {
         this.contatos = contatos;
     }
 
+    public Cliente() {
+    }
+
     public ArrayList<Endereco> getEnderecos() {
         return enderecos;
     }

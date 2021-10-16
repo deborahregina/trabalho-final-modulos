@@ -346,7 +346,6 @@ public class Menu {
 
         Scanner scanner = new Scanner(System.in);
 
-        scanner.nextLine();
         System.out.println("Nome da rua: ");
         String rua = scanner.nextLine();
         System.out.println("Digite o número da residência: ");
@@ -461,45 +460,40 @@ public class Menu {
 
         ArrayList<Produto> produtosdoPedido = new ArrayList<>();
         System.out.println("Digite o ID do cliente que realizou o pedido: ");
-        int idClientePedido = scanner.nextInt();
-        System.out.println("Digite o ID do novo pedido: ");
-        int idPedidoNovo = scanner.nextInt();
-
+        int idCliente = scanner.nextInt();
+        Cliente clientePedido = new Cliente();
         for(Cliente cliente : Main.clientes) {
-
-            if (cliente.getId() == idClientePedido) {
-
-                scanner.nextLine();
-                int adicionaMais = 1;
-                scanner.nextLine();
-
-
-                do {
-                    System.out.println("** Adicionar produto ** ");
-                    System.out.println("Escolha um produto: (Digitando o número indicado no cardápio)");
-                    System.out.println(TipoProduto.imprimeCardapio());
-                    TipoProduto tipoProduto = TipoProduto.COMIDA_TAILANDESA;
-                    tipoProduto = tipoProduto.escolheTipo(tipoProduto);
-                    System.out.println("Digite o id do produto: ");
-                    int id = scanner.nextInt();
-                    System.out.println("Digite o valor unitário do produto: ");
-                    double valorUnitario = scanner.nextDouble();
-
-                    Produto produto = new Produto(id,valorUnitario,tipoProduto);
-                    produtosdoPedido.add(produto);
-
-
-                    System.out.println("Adicionar novo item? 1- Sim        2- Não: ");
-                     adicionaMais = scanner.nextInt();
-                }while (adicionaMais !=2);
-
-                Pedido novoPedido = new Pedido(idPedidoNovo,cliente,produtosdoPedido);
-                Main.pedidos.add(novoPedido);
+            if (cliente.getId() == idCliente) {
+                 clientePedido = cliente;
                 break;
             }
         }
+        System.out.println("Digite o ID do novo pedido: ");
+        int idPedidoNovo = scanner.nextInt();
 
-    }
+        System.out.println("*** Lista de produtos: ");
+        menuImprimeProdutos(Main.produtos);
+
+        int adicionaMais = 1;
+        do {
+            System.out.println("Digite o ID do produto que deseja incluir no pedido: ");
+            int idProduto = scanner.nextInt();
+
+            for (Produto produto : Main.produtos) {
+                if (produto.getIdProduto() == idProduto) {
+                    Produto produtoPedido = produto;
+                    produtosdoPedido.add(produtoPedido);
+                    break;
+                }
+            }
+            System.out.println("Deseja cadastrar mais um produto no pedido?     1- Sim      2- Não");
+            adicionaMais = scanner.nextInt();
+            }while (adicionaMais != 2);
+
+            Pedido novoPedido = new Pedido(idPedidoNovo,clientePedido,produtosdoPedido);
+            Main.pedidos.add(novoPedido);
+
+        }
 
     public static void menuAlteraItemPedido(Pedido pedido) {
 

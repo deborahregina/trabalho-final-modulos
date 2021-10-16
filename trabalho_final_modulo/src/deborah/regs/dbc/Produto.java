@@ -4,6 +4,7 @@ public class Produto {
     private int idProdutos;
     private String nomeProduto;
     private double valorUnitario;
+    private   TipoProduto tipoProduto;
 
 
     public Produto(int idProdutos, String nomeProduto, double valorUnitario) {
@@ -12,7 +13,12 @@ public class Produto {
         this.valorUnitario = valorUnitario;
     }
 
+    public Produto() {
+
+    }
+
     public void cadastrarProduto(){
+
 
     }
     public void removerProduto(){
@@ -45,9 +51,14 @@ public class Produto {
     public void setNomeProduto(String nomeProduto) {
         this.nomeProduto = nomeProduto;
     }
+    public TipoProduto getTipoProduto() {return tipoProduto;}
+    public void setTipoProduto(TipoProduto tipoProduto) {this.tipoProduto = tipoProduto;}
+
 
     @Override
     public String toString() {
-        return "ID do produto: " + idProdutos + " Nome do produto: " + nomeProduto + " Valor unitário: R$ " + Main.df.format(valorUnitario);
+        return "ID do produto: " + idProdutos + " Nome do produto: " + getTipoProduto().getDescricao() + " Valor unitário: R$ " + Main.df.format(valorUnitario);
     }
+
+
 }

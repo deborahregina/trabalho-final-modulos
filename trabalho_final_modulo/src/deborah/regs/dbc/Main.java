@@ -1,5 +1,6 @@
 package deborah.regs.dbc;
 
+import java.sql.SQLOutput;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -102,5 +103,13 @@ public class Main {
 
         }
 
+        Produto comidas = new Produto();
+        comidas.setNomeProduto("");
+        comidas.setValorUnitario(50);
+        comidas.setTipoProduto(TipoProduto.COMIDATAILANDESA);
+
+        System.out.println(comidas.getNomeProduto()
+                + " prato do dia "
+                + comidas.getTipoProduto().getDescricao());
     }
 }

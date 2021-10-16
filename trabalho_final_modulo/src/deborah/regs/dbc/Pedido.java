@@ -43,13 +43,7 @@ public class Pedido {
         this.produtosDoPedido = produtosDoPedido;
     }
 
-    public void retiraProduto(int idProduto) {
 
-    }
-    public void status() {
-       // if ()
-
-    }
 
     public int getIdPedido() {
         return idPedido;
@@ -69,11 +63,12 @@ public class Pedido {
 
     @Override
     public String toString() {
+        calculaValorTotal();
         System.out.println("++++++++++++ Itens do pedido ++++++++++++");
         for (Produto produtos: produtosDoPedido) {
             System.out.println(produtos);
         }
 
-        return "ID do pedido: " + idPedido + "Nome do cliente: " + cliente.getNome() + " Valor total do pedido: " +valorTotal;
+        return "ID do pedido: " + idPedido + " Nome do cliente: " + cliente.getNome() + " Valor total do pedido: " +valorTotal;
     }
 }

@@ -38,16 +38,16 @@ public class CadastroAutomatico {
         Main.funcionarios.add(funcionario2);
 
         //Cadastro de alguns produtos:
-        Produto produto1 = new Produto(1,"Coca-Cola 2L",10.00);
-        Produto produto2 = new Produto(2,"Cachorro-Quente",20.00);
-        Produto produto3 = new Produto(3,"Hambúrguer",40.00);
-        Produto produto4 = new Produto(4, "Batata Frita",18.00);
+        Produto produto1 = new Produto(1,30.0,TipoProduto.COMIDA_TAILANDESA);
+        Produto produto2 = new Produto(2,10.0,TipoProduto.REFRIGERANTE);
+        Produto produto3 = new Produto(3,50.0,TipoProduto.COMIDA_JAPONESA);
+        Produto produto4 = new Produto(4, 60.0,TipoProduto.COMIDA_MEXICANA);
         Main.produtos.add(produto1);
         Main.produtos.add(produto2);
         Main.produtos.add(produto3);
         Main.produtos.add(produto4);
 
-        //criação enum produtos
+    /*    //criação enum produtos
         Main.comidas.setNomeProduto("");
         Main.comidas.setValorUnitario(50);
         Main.comidas.setTipoProduto(TipoProduto.COMIDA_TAILANDESA);
@@ -62,7 +62,7 @@ public class CadastroAutomatico {
         System.out.println(Main.comidas.getNomeProduto()
                 + " prato do dia "
                 + Main.comidas.getTipoProduto().getDescricao());
-
+*/
         //Criação do caixa:
         Caixa caixaPrincipal = new Caixa(funcionario2,1000.00);
 

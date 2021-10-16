@@ -1,13 +1,15 @@
 package deborah.regs.dbc;
 
+import java.util.Scanner;
+
 public enum TipoProduto {
 
-    COMIDA_TAILANDESA(1,"Curry Massaman"),
-    COMIDA_MEXICANA(2,"Guacamole"),
-    COMIDA_JAPONESA(3,"Sushi"),
-    REFRIGERANTE( 4,"coca cola"),
-    SUCO_NATURAL(5,"Dellvale"),
-    CERVEJA(6,"Heineken");
+    COMIDA_TAILANDESA("Curry Massaman"),
+    COMIDA_MEXICANA("Guacamole"),
+    COMIDA_JAPONESA("Sushi"),
+    REFRIGERANTE( "coca cola"),
+    SUCO_NATURAL("Dellvale"),
+    CERVEJA("Heineken");
 
 
     public static String imprimeCardapio() {
@@ -17,12 +19,45 @@ public enum TipoProduto {
 
     }
 
-    private String descricao;
-    private int opcao;
+    TipoProduto() {
+    }
 
-    TipoProduto(int opcao,String descricao,) {
+    private String descricao;
+
+    public void setDescricao(String descricao) {
         this.descricao = descricao;
-        this.opcao = opcao;
+    }
+
+    public TipoProduto escolheTipo(TipoProduto tipoProduto) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Digite a opção: ");
+        int op = scanner.nextInt();
+
+        if (op == 1) {
+            tipoProduto = COMIDA_JAPONESA;
+        }
+        if (op == 2) {
+            tipoProduto = COMIDA_MEXICANA;
+        }
+        if (op == 3) {
+            tipoProduto = COMIDA_JAPONESA;
+        }
+        if (op == 4) {
+            tipoProduto = REFRIGERANTE;
+        }
+        if (op == 5) {
+            tipoProduto = SUCO_NATURAL;
+        }
+        if (op == 6) {
+            tipoProduto = CERVEJA;
+        }
+
+        return tipoProduto;
+    }
+
+    TipoProduto(String descricao) {
+        this.descricao = descricao;
+
     }
 
     public String getDescricao() {

@@ -65,8 +65,22 @@ public class CadastroAutomatico {
         Main.pedidos.add(pedido1);
         Main.pedidos.add(pedido2);
         return caixaPrincipal;
+        //opcões de produtos
 
+        Main.comidas.setNomeProduto("");
+        Main.comidas.setValorUnitario(50);
+        Main.comidas.setTipoComida(TipoComida.COMIDATAILANDESA);
+        System.out.println(Main.comidas.getNomeProduto()
+                + " prato do dia "
+                + Main.comidas.getTipoComida().getDescricao());
 
+        Main.Bebidas.setNomeProduto("");
+        Main.Bebidas.setValorUnitario(15);
+        Main.Bebidas.setTipoBebida(TipoBebida.CERVEJA);
+
+        System.out.println(Main.comidas.getNomeProduto()
+                + " prato do dia "
+                + Main.comidas.getTipoBebida().getDescricao());
     }
 
 }

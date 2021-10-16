@@ -13,7 +13,8 @@ public class Main {
     static ArrayList<Funcionario> funcionarios = new ArrayList<>();
     static ArrayList<Produto> produtos = new ArrayList<>();
     static Queue<Pedido> pedidos = new LinkedList<>();
-
+    static  Produto comidas = new Produto();
+    static Produto Bebidas = new Produto();
     // Cadastro de clientes, funcionários, produtos, pedidos iniciais, para não poluir a Main. Aqui é tipo um SETUP das coisas que não precisamos
     // colocar manualmente
     static Caixa caixaPrincipal = CadastroAutomatico.cadastroAutomatico();
@@ -102,23 +103,9 @@ public class Main {
 
         }
 
-        Produto comidas = new Produto();
-        comidas.setNomeProduto("");
-        comidas.setValorUnitario(50);
-        comidas.setTipoComida(TipoComida.COMIDATAILANDESA);
-
-        System.out.println(comidas.getNomeProduto()
-                + " prato do dia "
-                + comidas.getTipoComida().getDescricao());
 
 
-        Produto Bebidas = new Produto();
-        Bebidas.setNomeProduto("");
-        Bebidas.setValorUnitario(15);
-        Bebidas.setTipoBebida(TipoBebida.CERVEJA);
 
-        System.out.println(comidas.getNomeProduto()
-                + " prato do dia "
-                + comidas.getTipoBebida().getDescricao());
+
     }
 }

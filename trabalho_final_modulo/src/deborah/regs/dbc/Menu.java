@@ -377,7 +377,7 @@ public class Menu {
         String descricao = scanner.nextLine();
         System.out.println("Telefone do cliente: ");
         String telefone = scanner.nextLine();
-        System.out.println("Tipo de contato:  Celular    TelefoneFixo: ");
+        System.out.println("Tipo de contato:  Celular    Telefone Fixo: ");
         String tipoContato = scanner.nextLine();
 
 

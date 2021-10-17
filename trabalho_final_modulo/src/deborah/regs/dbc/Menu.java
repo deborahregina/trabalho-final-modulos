@@ -23,8 +23,7 @@ public class Menu {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("***Cadastro de Funcionários***");
-        System.out.println("Digite o ID do funcionário: ");
-        int id = scanner.nextInt();
+        int id = geraIDFuncionario();
         scanner.nextLine();
         System.out.println("Digite o nome do funcionário: ");
         String nome = scanner.nextLine();
@@ -55,16 +54,16 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Digite o ID do funcionário para alterar suas informações: ");
         int idFunc = scanner.nextInt();
-        for (int i = 0; i < Main.funcionarios.size(); i++ ) {
-            if (Main.funcionarios.get(i).getId() == idFunc){
+        for (Funcionario funcionario : Main.funcionarios ) {
+            if (funcionario.getId() == idFunc){
                 scanner.nextLine();
                 System.out.println("Digite o nome do funcionário: ");
                 String nome = scanner.nextLine();
                 System.out.println();
                 System.out.println("Digite o salário do funcionário: ");
                 double salario = scanner.nextDouble();
-                Main.funcionarios.get(i).setNome(nome);
-                Main.funcionarios.get(i).setSalario(salario);
+                funcionario.setNome(nome);
+                funcionario.setSalario(salario);
             }
         }
     }
@@ -130,8 +129,7 @@ public class Menu {
         System.out.println(TipoProduto.imprimeCardapio());
         TipoProduto tipoProduto = TipoProduto.COMIDA_TAILANDESA;
         tipoProduto = tipoProduto.escolheTipo(tipoProduto);
-        System.out.println("Digite o id do produto: ");
-        int id = scanner.nextInt();
+        int id = geraIDproduto();
         System.out.println("Digite o valor unitário do produto: ");
         double valorUnitario = scanner.nextDouble();
 
@@ -210,9 +208,8 @@ public class Menu {
     public static Cliente menuCriaCliente() {       //Cria cliente, tem que cadastrar os dados do cliente, pelo menos um contato e pelo menos um endereço.
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Digite o ID do cliente: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
+
+        int id = geraIDcliente();
         System.out.println("Digite o nome do Cliente: ");
         String nome = scanner.nextLine();
         System.out.println("Digite o cpf do Cliente: ");
@@ -377,7 +374,7 @@ public class Menu {
         String descricao = scanner.nextLine();
         System.out.println("Telefone do cliente: ");
         String telefone = scanner.nextLine();
-        System.out.println("Tipo de contato:  Celular    TelefoneFixo: ");
+        System.out.println("Tipo de contato:  Celular    Telefone Fixo: ");
         String tipoContato = scanner.nextLine();
 
 
@@ -416,17 +413,6 @@ public class Menu {
         Main.clientes.get(i).getEnderecos().get(j).setTipo(TipoEndereco.valueOf(tipoEndreco.toUpperCase(Locale.ROOT)));
     }
 
-    public static void menuImprimeEndereco(ArrayList<Endereco> enderecos) {
-        for(Endereco endereco : enderecos){
-         System.out.println(endereco.imprimir());
-      }
-    }
-
-    public static void menuImprimeContato(ArrayList<Contato> contatos) {
-        for (Contato contato : contatos){
-            System.out.println(contato.imprimir());
-        }
-    }
 
     public static Contato menuCriaContato() {      //cria contato, é chamado por cria cliente
         Scanner scanner = new Scanner(System.in);
@@ -446,9 +432,6 @@ public class Menu {
 
     }
 
-    public static void menuDeletaContato(ArrayList<Contato> contatos, Contato contato) {
-        contatos.remove(contato);
-    }
 
     public static void menuImprimeCaixa(Caixa caixa) {          // Imprime as informações do caixa
         System.out.println("---------- Informações do Caixa ----------");
@@ -478,8 +461,7 @@ public class Menu {
                 break;
             }
         }
-        System.out.println("Digite o ID do novo pedido: ");
-        int idPedidoNovo = scanner.nextInt();
+        int idPedidoNovo = geraIDPedido();
 
         System.out.println("*** Lista de produtos: ");
         menuImprimeProdutos(Main.produtos);
@@ -546,10 +528,6 @@ public class Menu {
 
     }
 
-
-
-
-
     public static void menuAlteraPedido() {
 
         Scanner scanner = new Scanner(System.in);
@@ -564,6 +542,7 @@ public class Menu {
         }
 
     }
+
 
     public static void menuEntregas() { // Ainda falta arrumar coisas
         Scanner scanner = new Scanner(System.in);
@@ -611,7 +590,60 @@ public class Menu {
 
                 }
         }
-    }
+
+        public static int geraIDcliente() {
+
+        Random random = new Random();
+        int id = random.nextInt(100);
+
+        for (Cliente cliente : Main.clientes) {
+            if (cliente.getId() == id) {
+                geraIDcliente();
+            }
+        }
+        return id;
+        }
+
+        public static int geraIDproduto() {
+
+        Random random = new Random();
+            int id = random.nextInt(100);
+
+            for (Produto produto : Main.produtos) {
+                if (produto.getIdProduto() == id) {
+                    geraIDproduto();
+                }
+            }
+            return id;
+        }
+
+        public static int geraIDFuncionario() {
+            Random random = new Random();
+            int id = random.nextInt(100);
+
+            for (Funcionario funcionario : Main.funcionarios) {
+                if (funcionario.getId() == id) {
+                    geraIDFuncionario();
+                }
+            }
+            return id;
+        }
+
+        public static int geraIDPedido() {
+            Random random = new Random();
+            int id = random.nextInt(100);
+
+            for (Pedido pedido : Main.pedidos) {
+                if (pedido.getIdPedido() == id) {
+                    geraIDPedido();
+                }
+            }
+            return id;
+        }
+}
+
+
+
 
 
 

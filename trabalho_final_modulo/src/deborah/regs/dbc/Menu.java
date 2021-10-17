@@ -569,26 +569,32 @@ public class Menu {
         if (opcaoEntrega == 1) {
 
 
-                    Entrega entrega = new Entrega(Main.pedidos.peek(),(Motoboy) Main.funcionarios.get(0));
+            Entrega entrega = new Entrega(Main.pedidos.peek(),(Motoboy) Main.funcionarios.get(0));
 
-                    System.out.println("Valor do pedido: " + Main.df.format(Main.pedidos.peek().getValorTotal()));
+            System.out.println("Valor do pedido: " + Main.df.format(Main.pedidos.peek().getValorTotal()));
 
-                    System.out.println("Qual é o valor pago?");
+            System.out.println("Qual é o valor pago?");
 
-                    double valorPago = scanner.nextDouble();
-
-
-
+            double valorPago = scanner.nextDouble();
                     // Parte do pagamento
-                    Main.pedidos.peek().calculaValorTotal();
-                    double troco = Main.caixaPrincipal.calculaTroco(Main.pedidos.peek(),valorPago);
-                    boolean pagar = Main.caixaPrincipal.pagar(valorPago,troco,Main.pedidos.peek().getValorTotal());
+            Main.pedidos.peek().calculaValorTotal();
+            double troco = Main.caixaPrincipal.calculaTroco(Main.pedidos.peek(),valorPago);
+            boolean pagar = Main.caixaPrincipal.pagar(valorPago,troco,Main.pedidos.peek().getValorTotal());
 
-                    if (pagar){
-                        entrega.realizarEntrega();
-                    }
+            if (pagar){
+                entrega.realizarEntrega();
+            }
 
-                }
+        }
+
+
+        if (opcaoEntrega == 2) {
+            System.out.println("O que deseja fazer?     1- Excluir pedido       2- Adiar entrega: ");
+            int opAdia = scanner.nextInt();
+            if (opAdia == 1) {
+                Main.pedidos.poll();
+            }
+        }
         }
 
         public static int geraIDcliente() {

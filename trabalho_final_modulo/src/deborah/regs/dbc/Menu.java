@@ -313,13 +313,13 @@ public class Menu {
                 int opAlteracaoEndereco = scanner.nextInt();
                 scanner.nextLine();
                 if (opAlteracaoEndereco == 2) {
-                   menuAlteraEndereco(0);
+                   menuAlteraEndereco(i,0);
                     if (Main.clientes.get(i).getEnderecos().size() == 2) {
                         System.out.println("Deseja alterar o endereço secundário?   1- Não      2- Sim");
                         int opDeletaEnd = scanner.nextInt();
 
                         if (opDeletaEnd == 2) {
-                            menuAlteraEndereco(1);
+                            menuAlteraEndereco(i,1);
                         }
                     }
 
@@ -329,12 +329,12 @@ public class Menu {
                 int opAlteracaoContato = scanner.nextInt();
                 scanner.nextLine();
                 if (opAlteracaoContato == 2) {
-                    menuAlteraContato(0);
+                    menuAlteraContato(i,0);
                     if (Main.clientes.get(i).getContatos().size() == 2) {
                         System.out.println("Deseja alterar o contato secundário do cliente?     1- Não      2- Sim");
                         int opDeletaCont = scanner.nextInt();
                         if (opDeletaCont == 2) {
-                            menuAlteraContato(1);
+                            menuAlteraContato(i,1);
                         }
                     }
                 }
@@ -370,7 +370,7 @@ public class Menu {
         enderecos.remove(endereco);
     }
 
-    public static void menuAlteraContato(int i) {
+    public static void menuAlteraContato(int i,int j) {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Descrição do contato: ");
@@ -380,12 +380,18 @@ public class Menu {
         System.out.println("Tipo de contato:  Celular    TelefoneFixo: ");
         String tipoContato = scanner.nextLine();
 
-        Contato cont = new Contato(descricao,telefone,TipoContato.valueOf(tipoContato.toUpperCase(Locale.ROOT)));
-        Main.clientes.get(i).getContatos().set(i,cont);
+
+        if (tipoContato.toUpperCase(Locale.ROOT).equalsIgnoreCase("Telefone Fixo")) {
+            tipoContato = "TELEFONEFIXO";
+        }
+
+        Main.clientes.get(i).getContatos().get(j).setDescricao(descricao);
+        Main.clientes.get(i).getContatos().get(j).setTelefone(telefone);
+        Main.clientes.get(i).getContatos().get(j).setTipo(TipoContato.valueOf(tipoContato.toUpperCase(Locale.ROOT)));
 
     }
 
-    public static void menuAlteraEndereco(int i) {
+    public static void menuAlteraEndereco(int i,int j) {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Nome da rua: ");
@@ -402,8 +408,12 @@ public class Menu {
         System.out.println("Tipo de endereço: Residencial      Comercial");
         String tipoEndreco = scanner.nextLine();
 
-        Endereco end = new Endereco(TipoEndereco.valueOf(tipoEndreco.toUpperCase(Locale.ROOT)),rua,num,complemento,cep,cidade);
-        Main.clientes.get(i).getEnderecos().set(i,end);
+        Main.clientes.get(i).getEnderecos().get(j).setNumero(num);
+        Main.clientes.get(i).getEnderecos().get(j).setComplemento(complemento);
+        Main.clientes.get(i).getEnderecos().get(j).setCidade(cidade);
+        Main.clientes.get(i).getEnderecos().get(j).setCep(cep);
+        Main.clientes.get(i).getEnderecos().get(j).setRua(rua);
+        Main.clientes.get(i).getEnderecos().get(j).setTipo(TipoEndereco.valueOf(tipoEndreco.toUpperCase(Locale.ROOT)));
     }
 
     public static void menuImprimeEndereco(ArrayList<Endereco> enderecos) {
@@ -501,24 +511,43 @@ public class Menu {
 
         pedido.toString();
 
-        System.out.println("Digite o ID do item que deseja alterar");
-        int idItem = scanner.nextInt();
+        System.out.println("Deseja 1- Excluir item      2- Incluir Item");
+        int opOqueAlterar = scanner.nextInt();
+        scanner.nextLine();
+        if (opOqueAlterar == 1) {
+            System.out.println("Digite o ID do item que deseja excluir: ");
+            int idExclui = scanner.nextInt();
 
-        for (Produto produto : pedido.getProdutosDoPedido()){
-            if (produto.getIdProduto() == idItem) {
-                System.out.println(TipoProduto.imprimeCardapio());
-                TipoProduto tipoProduto = TipoProduto.COMIDA_TAILANDESA;
-                tipoProduto = tipoProduto.escolheTipo(tipoProduto);
-
-                System.out.println("Digite o novo valor unitário do produto: ");
-                double valorUnitario = scanner.nextDouble();
-
-                produto.setTipoProduto(tipoProduto);
-                produto.setValorUnitario(valorUnitario);
+            for (Produto prod : pedido.getProdutosDoPedido()) {
+                if (prod.getIdProduto() == idExclui) {
+                    pedido.getProdutosDoPedido().remove(prod);
+                }
             }
+            System.out.println("Pedido Alterado: ");
+            pedido.toString();
+        }
+        if (opOqueAlterar == 2) {
+            int adicionaMais = 1;
+            System.out.println("*** Lista de produtos: ");
+            menuImprimeProdutos(Main.produtos);
+            do {
+                System.out.println("Digite o ID do produto que deseja incluir no pedido: ");
+                int idProduto = scanner.nextInt();
+                for (Produto produtoadd : Main.produtos) {
+                    if (produtoadd.getIdProduto() == idProduto) {
+                        pedido.getProdutosDoPedido().add(produtoadd);
+                    }
+                }
+                System.out.println("Deseja cadastrar mais um produto no pedido?     1- Sim      2- Não");
+                adicionaMais = scanner.nextInt();
+            }while (adicionaMais != 2);
+
         }
 
     }
+
+
+
 
 
     public static void menuAlteraPedido() {

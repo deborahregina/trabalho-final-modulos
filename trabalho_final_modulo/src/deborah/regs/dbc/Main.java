@@ -14,8 +14,6 @@ public class Main {
     static ArrayList<Funcionario> funcionarios = new ArrayList<>();
     static ArrayList<Produto> produtos = new ArrayList<>();
     static Queue<Pedido> pedidos = new LinkedList<>();
-    static  Produto comidas = new Produto();
-    static Produto Bedidas = new Produto();
 
     // Cadastro de clientes, funcionários, produtos, pedidos iniciais, para não poluir a Main. Aqui é tipo um SETUP das coisas que não precisamos
     // colocar manualmente

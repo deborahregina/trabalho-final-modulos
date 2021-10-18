@@ -23,8 +23,7 @@ public class Menu {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("***Cadastro de Funcionários***");
-        System.out.println("Digite o ID do funcionário: ");
-        int id = scanner.nextInt();
+        int id = geraIDFuncionario();
         scanner.nextLine();
         System.out.println("Digite o nome do funcionário: ");
         String nome = scanner.nextLine();
@@ -55,16 +54,16 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Digite o ID do funcionário para alterar suas informações: ");
         int idFunc = scanner.nextInt();
-        for (int i = 0; i < Main.funcionarios.size(); i++ ) {
-            if (Main.funcionarios.get(i).getId() == idFunc){
+        for (Funcionario funcionario : Main.funcionarios ) {
+            if (funcionario.getId() == idFunc){
                 scanner.nextLine();
                 System.out.println("Digite o nome do funcionário: ");
                 String nome = scanner.nextLine();
                 System.out.println();
                 System.out.println("Digite o salário do funcionário: ");
                 double salario = scanner.nextDouble();
-                Main.funcionarios.get(i).setNome(nome);
-                Main.funcionarios.get(i).setSalario(salario);
+                funcionario.setNome(nome);
+                funcionario.setSalario(salario);
             }
         }
     }
@@ -130,8 +129,7 @@ public class Menu {
         System.out.println(TipoProduto.imprimeCardapio());
         TipoProduto tipoProduto = TipoProduto.COMIDA_TAILANDESA;
         tipoProduto = tipoProduto.escolheTipo(tipoProduto);
-        System.out.println("Digite o id do produto: ");
-        int id = scanner.nextInt();
+        int id = geraIDproduto();
         System.out.println("Digite o valor unitário do produto: ");
         double valorUnitario = scanner.nextDouble();
 
@@ -210,9 +208,8 @@ public class Menu {
     public static Cliente menuCriaCliente() {       //Cria cliente, tem que cadastrar os dados do cliente, pelo menos um contato e pelo menos um endereço.
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Digite o ID do cliente: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
+
+        int id = geraIDcliente();
         System.out.println("Digite o nome do Cliente: ");
         String nome = scanner.nextLine();
         System.out.println("Digite o cpf do Cliente: ");
@@ -313,13 +310,13 @@ public class Menu {
                 int opAlteracaoEndereco = scanner.nextInt();
                 scanner.nextLine();
                 if (opAlteracaoEndereco == 2) {
-                   menuAlteraEndereco(0);
+                   menuAlteraEndereco(i,0);
                     if (Main.clientes.get(i).getEnderecos().size() == 2) {
                         System.out.println("Deseja alterar o endereço secundário?   1- Não      2- Sim");
                         int opDeletaEnd = scanner.nextInt();
 
                         if (opDeletaEnd == 2) {
-                            menuAlteraEndereco(1);
+                            menuAlteraEndereco(i,1);
                         }
                     }
 
@@ -329,12 +326,12 @@ public class Menu {
                 int opAlteracaoContato = scanner.nextInt();
                 scanner.nextLine();
                 if (opAlteracaoContato == 2) {
-                    menuAlteraContato(0);
+                    menuAlteraContato(i,0);
                     if (Main.clientes.get(i).getContatos().size() == 2) {
                         System.out.println("Deseja alterar o contato secundário do cliente?     1- Não      2- Sim");
                         int opDeletaCont = scanner.nextInt();
                         if (opDeletaCont == 2) {
-                            menuAlteraContato(1);
+                            menuAlteraContato(i,1);
                         }
                     }
                 }
@@ -346,7 +343,6 @@ public class Menu {
 
         Scanner scanner = new Scanner(System.in);
 
-        scanner.nextLine();
         System.out.println("Nome da rua: ");
         String rua = scanner.nextLine();
         System.out.println("Digite o número da residência: ");
@@ -371,22 +367,28 @@ public class Menu {
         enderecos.remove(endereco);
     }
 
-    public static void menuAlteraContato(int i) {
+    public static void menuAlteraContato(int i,int j) {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Descrição do contato: ");
         String descricao = scanner.nextLine();
         System.out.println("Telefone do cliente: ");
         String telefone = scanner.nextLine();
-        System.out.println("Tipo de contato:  Celular    TelefoneFixo: ");
+        System.out.println("Tipo de contato:  Celular    Telefone Fixo: ");
         String tipoContato = scanner.nextLine();
 
-        Contato cont = new Contato(descricao,telefone,TipoContato.valueOf(tipoContato.toUpperCase(Locale.ROOT)));
-        Main.clientes.get(i).getContatos().set(i,cont);
+
+        if (tipoContato.toUpperCase(Locale.ROOT).equalsIgnoreCase("Telefone Fixo")) {
+            tipoContato = "TELEFONEFIXO";
+        }
+
+        Main.clientes.get(i).getContatos().get(j).setDescricao(descricao);
+        Main.clientes.get(i).getContatos().get(j).setTelefone(telefone);
+        Main.clientes.get(i).getContatos().get(j).setTipo(TipoContato.valueOf(tipoContato.toUpperCase(Locale.ROOT)));
 
     }
 
-    public static void menuAlteraEndereco(int i) {
+    public static void menuAlteraEndereco(int i,int j) {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Nome da rua: ");
@@ -403,21 +405,14 @@ public class Menu {
         System.out.println("Tipo de endereço: Residencial      Comercial");
         String tipoEndreco = scanner.nextLine();
 
-        Endereco end = new Endereco(TipoEndereco.valueOf(tipoEndreco.toUpperCase(Locale.ROOT)),rua,num,complemento,cep,cidade);
-        Main.clientes.get(i).getEnderecos().set(i,end);
+        Main.clientes.get(i).getEnderecos().get(j).setNumero(num);
+        Main.clientes.get(i).getEnderecos().get(j).setComplemento(complemento);
+        Main.clientes.get(i).getEnderecos().get(j).setCidade(cidade);
+        Main.clientes.get(i).getEnderecos().get(j).setCep(cep);
+        Main.clientes.get(i).getEnderecos().get(j).setRua(rua);
+        Main.clientes.get(i).getEnderecos().get(j).setTipo(TipoEndereco.valueOf(tipoEndreco.toUpperCase(Locale.ROOT)));
     }
 
-    public static void menuImprimeEndereco(ArrayList<Endereco> enderecos) {
-        for(Endereco endereco : enderecos){
-         System.out.println(endereco.imprimir());
-      }
-    }
-
-    public static void menuImprimeContato(ArrayList<Contato> contatos) {
-        for (Contato contato : contatos){
-            System.out.println(contato.imprimir());
-        }
-    }
 
     public static Contato menuCriaContato() {      //cria contato, é chamado por cria cliente
         Scanner scanner = new Scanner(System.in);
@@ -437,9 +432,6 @@ public class Menu {
 
     }
 
-    public static void menuDeletaContato(ArrayList<Contato> contatos, Contato contato) {
-        contatos.remove(contato);
-    }
 
     public static void menuImprimeCaixa(Caixa caixa) {          // Imprime as informações do caixa
         System.out.println("---------- Informações do Caixa ----------");
@@ -461,45 +453,39 @@ public class Menu {
 
         ArrayList<Produto> produtosdoPedido = new ArrayList<>();
         System.out.println("Digite o ID do cliente que realizou o pedido: ");
-        int idClientePedido = scanner.nextInt();
-        System.out.println("Digite o ID do novo pedido: ");
-        int idPedidoNovo = scanner.nextInt();
-
+        int idCliente = scanner.nextInt();
+        Cliente clientePedido = new Cliente();
         for(Cliente cliente : Main.clientes) {
-
-            if (cliente.getId() == idClientePedido) {
-
-                scanner.nextLine();
-                int adicionaMais = 1;
-                scanner.nextLine();
-
-
-                do {
-                    System.out.println("** Adicionar produto ** ");
-                    System.out.println("Escolha um produto: (Digitando o número indicado no cardápio)");
-                    System.out.println(TipoProduto.imprimeCardapio());
-                    TipoProduto tipoProduto = TipoProduto.COMIDA_TAILANDESA;
-                    tipoProduto = tipoProduto.escolheTipo(tipoProduto);
-                    System.out.println("Digite o id do produto: ");
-                    int id = scanner.nextInt();
-                    System.out.println("Digite o valor unitário do produto: ");
-                    double valorUnitario = scanner.nextDouble();
-
-                    Produto produto = new Produto(id,valorUnitario,tipoProduto);
-                    produtosdoPedido.add(produto);
-
-
-                    System.out.println("Adicionar novo item? 1- Sim        2- Não: ");
-                     adicionaMais = scanner.nextInt();
-                }while (adicionaMais !=2);
-
-                Pedido novoPedido = new Pedido(idPedidoNovo,cliente,produtosdoPedido);
-                Main.pedidos.add(novoPedido);
+            if (cliente.getId() == idCliente) {
+                 clientePedido = cliente;
                 break;
             }
         }
+        int idPedidoNovo = geraIDPedido();
 
-    }
+        System.out.println("*** Lista de produtos: ");
+        menuImprimeProdutos(Main.produtos);
+
+        int adicionaMais = 1;
+        do {
+            System.out.println("Digite o ID do produto que deseja incluir no pedido: ");
+            int idProduto = scanner.nextInt();
+
+            for (Produto produto : Main.produtos) {
+                if (produto.getIdProduto() == idProduto) {
+                    Produto produtoPedido = produto;
+                    produtosdoPedido.add(produtoPedido);
+                    break;
+                }
+            }
+            System.out.println("Deseja cadastrar mais um produto no pedido?     1- Sim      2- Não");
+            adicionaMais = scanner.nextInt();
+            }while (adicionaMais != 2);
+
+            Pedido novoPedido = new Pedido(idPedidoNovo,clientePedido,produtosdoPedido);
+            Main.pedidos.add(novoPedido);
+
+        }
 
     public static void menuAlteraItemPedido(Pedido pedido) {
 
@@ -507,25 +493,40 @@ public class Menu {
 
         pedido.toString();
 
-        System.out.println("Digite o ID do item que deseja alterar");
-        int idItem = scanner.nextInt();
+        System.out.println("Deseja 1- Excluir item      2- Incluir Item");
+        int opOqueAlterar = scanner.nextInt();
+        scanner.nextLine();
+        if (opOqueAlterar == 1) {
+            System.out.println("Digite o ID do item que deseja excluir: ");
+            int idExclui = scanner.nextInt();
 
-        for (Produto produto : pedido.getProdutosDoPedido()){
-            if (produto.getIdProduto() == idItem) {
-                System.out.println(TipoProduto.imprimeCardapio());
-                TipoProduto tipoProduto = TipoProduto.COMIDA_TAILANDESA;
-                tipoProduto = tipoProduto.escolheTipo(tipoProduto);
-
-                System.out.println("Digite o novo valor unitário do produto: ");
-                double valorUnitario = scanner.nextDouble();
-
-                produto.setTipoProduto(tipoProduto);
-                produto.setValorUnitario(valorUnitario);
+            for (Produto prod : pedido.getProdutosDoPedido()) {
+                if (prod.getIdProduto() == idExclui) {
+                    pedido.getProdutosDoPedido().remove(prod);
+                }
             }
+            System.out.println("Pedido Alterado: ");
+            pedido.toString();
+        }
+        if (opOqueAlterar == 2) {
+            int adicionaMais = 1;
+            System.out.println("*** Lista de produtos: ");
+            menuImprimeProdutos(Main.produtos);
+            do {
+                System.out.println("Digite o ID do produto que deseja incluir no pedido: ");
+                int idProduto = scanner.nextInt();
+                for (Produto produtoadd : Main.produtos) {
+                    if (produtoadd.getIdProduto() == idProduto) {
+                        pedido.getProdutosDoPedido().add(produtoadd);
+                    }
+                }
+                System.out.println("Deseja cadastrar mais um produto no pedido?     1- Sim      2- Não");
+                adicionaMais = scanner.nextInt();
+            }while (adicionaMais != 2);
+
         }
 
     }
-
 
     public static void menuAlteraPedido() {
 
@@ -541,6 +542,7 @@ public class Menu {
         }
 
     }
+
 
     public static void menuEntregas() { // Ainda falta arrumar coisas
         Scanner scanner = new Scanner(System.in);
@@ -567,28 +569,87 @@ public class Menu {
         if (opcaoEntrega == 1) {
 
 
-                    Entrega entrega = new Entrega(Main.pedidos.peek(),(Motoboy) Main.funcionarios.get(0));
+            Entrega entrega = new Entrega(Main.pedidos.peek(),(Motoboy) Main.funcionarios.get(0));
 
-                    System.out.println("Valor do pedido: " + Main.df.format(Main.pedidos.peek().getValorTotal()));
+            System.out.println("Valor do pedido: " + Main.df.format(Main.pedidos.peek().getValorTotal()));
 
-                    System.out.println("Qual é o valor pago?");
+            System.out.println("Qual é o valor pago?");
 
-                    double valorPago = scanner.nextDouble();
-
-
-
+            double valorPago = scanner.nextDouble();
                     // Parte do pagamento
-                    Main.pedidos.peek().calculaValorTotal();
-                    double troco = Main.caixaPrincipal.calculaTroco(Main.pedidos.peek(),valorPago);
-                    boolean pagar = Main.caixaPrincipal.pagar(valorPago,troco,Main.pedidos.peek().getValorTotal());
+            Main.pedidos.peek().calculaValorTotal();
+            double troco = Main.caixaPrincipal.calculaTroco(Main.pedidos.peek(),valorPago);
+            boolean pagar = Main.caixaPrincipal.pagar(valorPago,troco,Main.pedidos.peek().getValorTotal());
 
-                    if (pagar){
-                        entrega.realizarEntrega();
-                    }
+            if (pagar){
+                entrega.realizarEntrega();
+            }
 
-                }
         }
-    }
+
+
+        if (opcaoEntrega == 2) {
+            System.out.println("O que deseja fazer?     1- Excluir pedido       2- Adiar entrega: ");
+            int opAdia = scanner.nextInt();
+            if (opAdia == 1) {
+                Main.pedidos.poll();
+            }
+        }
+        }
+
+        public static int geraIDcliente() {
+
+        Random random = new Random();
+        int id = random.nextInt(100);
+
+        for (Cliente cliente : Main.clientes) {
+            if (cliente.getId() == id) {
+                geraIDcliente();
+            }
+        }
+        return id;
+        }
+
+        public static int geraIDproduto() {
+
+        Random random = new Random();
+            int id = random.nextInt(100);
+
+            for (Produto produto : Main.produtos) {
+                if (produto.getIdProduto() == id) {
+                    geraIDproduto();
+                }
+            }
+            return id;
+        }
+
+        public static int geraIDFuncionario() {
+            Random random = new Random();
+            int id = random.nextInt(100);
+
+            for (Funcionario funcionario : Main.funcionarios) {
+                if (funcionario.getId() == id) {
+                    geraIDFuncionario();
+                }
+            }
+            return id;
+        }
+
+        public static int geraIDPedido() {
+            Random random = new Random();
+            int id = random.nextInt(100);
+
+            for (Pedido pedido : Main.pedidos) {
+                if (pedido.getIdPedido() == id) {
+                    geraIDPedido();
+                }
+            }
+            return id;
+        }
+}
+
+
+
 
 
 

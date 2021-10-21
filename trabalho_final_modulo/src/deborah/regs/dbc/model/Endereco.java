@@ -62,7 +62,7 @@ public class Endereco implements Impressao {
     }
 
     @Override
-    public String imprimir () {
+    public void imprimir () {
 
         return "";
     }

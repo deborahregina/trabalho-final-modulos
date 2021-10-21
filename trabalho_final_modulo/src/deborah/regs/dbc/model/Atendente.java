@@ -21,7 +21,7 @@ public class Atendente extends Funcionario implements Impressao {
     }
 
     @Override
-    public String imprimir() {
+    public void imprimir() {
         return super.imprimir() + "\nFunção: Atendente \nHoras trabalhadas " + horasTrabalhadas;
     }
 }

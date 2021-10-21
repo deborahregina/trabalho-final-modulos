@@ -72,4 +72,5 @@ public class Caixa implements Pagamento {
     public String toString() {
         return "Responsável pelo caixa: " + atendenteResponsável.getNome() + " Valor em caixa: R$ " + Main.df.format(valorDeCaixa);
     }
+
 }

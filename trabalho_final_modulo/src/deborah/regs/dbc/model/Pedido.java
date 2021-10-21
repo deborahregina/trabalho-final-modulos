@@ -5,7 +5,7 @@ import deborah.regs.dbc.Main;
 import java.util.ArrayList;
 
 public class Pedido {
-    private int idPedido;
+    private integer idPedido;
     private Cliente cliente;
     private ArrayList<Produto> produtosDoPedido;
     private double valorTotal;

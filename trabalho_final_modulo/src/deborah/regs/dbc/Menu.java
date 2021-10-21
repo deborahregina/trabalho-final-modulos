@@ -597,7 +597,7 @@ public class Menu {
         }
         }
 
-        public static int geraIDcliente() {
+    public static int geraIDcliente() {
 
         Random random = new Random();
         int id = random.nextInt(100);
@@ -610,7 +610,7 @@ public class Menu {
         return id;
         }
 
-        public static int geraIDproduto() {
+    public static int geraIDproduto() {
 
         Random random = new Random();
             int id = random.nextInt(100);
@@ -623,7 +623,7 @@ public class Menu {
             return id;
         }
 
-        public static int geraIDFuncionario() {
+    public static int geraIDFuncionario() {
             Random random = new Random();
             int id = random.nextInt(100);
 
@@ -635,7 +635,7 @@ public class Menu {
             return id;
         }
 
-        public static int geraIDPedido() {
+    public static int geraIDPedido() {
             Random random = new Random();
             int id = random.nextInt(100);
 

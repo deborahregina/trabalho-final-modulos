@@ -1,9 +1,11 @@
 package deborah.regs.dbc;
 
+import deborah.regs.dbc.model.Cliente;
+import deborah.regs.dbc.model.Pedido;
+import deborah.regs.dbc.model.Produto;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.concurrent.Callable;
 
 import static org.junit.Assert.*;
 

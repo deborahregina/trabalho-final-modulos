@@ -1,4 +1,6 @@
-package deborah.regs.dbc;
+package deborah.regs.dbc.model;
+
+import deborah.regs.dbc.Main;
 
 public class Entrega {
 

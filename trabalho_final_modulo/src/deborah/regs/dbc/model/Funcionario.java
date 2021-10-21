@@ -1,4 +1,4 @@
-package deborah.regs.dbc;
+package deborah.regs.dbc.model;
 
 public abstract class Funcionario implements Impressao {
     private int id;

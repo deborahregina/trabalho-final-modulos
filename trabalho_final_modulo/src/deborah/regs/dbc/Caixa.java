@@ -1,9 +1,11 @@
 package deborah.regs.dbc;
 
-import jdk.jfr.StackTrace;
+import deborah.regs.dbc.model.Atendente;
+import deborah.regs.dbc.model.Pagamento;
+import deborah.regs.dbc.model.Pedido;
 
 
-public class Caixa implements Pagamento{
+public class Caixa implements Pagamento {
     
     private Atendente atendenteResponsável;
     private double valorDeCaixa;

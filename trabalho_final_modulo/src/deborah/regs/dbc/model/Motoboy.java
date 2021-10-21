@@ -1,4 +1,4 @@
-package deborah.regs.dbc;
+package deborah.regs.dbc.model;
 
 public class Motoboy extends Funcionario implements Impressao {
     private String placaMoto;

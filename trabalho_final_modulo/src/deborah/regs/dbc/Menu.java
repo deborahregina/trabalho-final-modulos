@@ -1,5 +1,7 @@
 package deborah.regs.dbc;
 
+import deborah.regs.dbc.model.*;
+
 import java.util.*;
 
 public class Menu {

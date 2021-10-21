@@ -1,4 +1,6 @@
-package deborah.regs.dbc;
+package deborah.regs.dbc.model;
+
+import deborah.regs.dbc.Main;
 
 import java.util.ArrayList;
 
@@ -69,6 +71,6 @@ public class Pedido {
             System.out.println(produtos);
         }
 
-        return "ID do pedido: " + idPedido + " Nome do cliente: " + cliente.getNome() + " Valor total do pedido: R$ " +Main.df.format(valorTotal);
+        return "ID do pedido: " + idPedido + " Nome do cliente: " + cliente.getNome() + " Valor total do pedido: R$ " + Main.df.format(valorTotal);
     }
 }

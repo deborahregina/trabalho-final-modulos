@@ -1,4 +1,4 @@
-package deborah.regs.dbc;
+package deborah.regs.dbc.model;
 
 import java.util.ArrayList;
 

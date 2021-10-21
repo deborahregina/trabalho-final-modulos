@@ -1,6 +1,10 @@
 package deborah.regs.dbc;
 
-import java.sql.SQLOutput;
+import deborah.regs.dbc.model.Cliente;
+import deborah.regs.dbc.model.Funcionario;
+import deborah.regs.dbc.model.Pedido;
+import deborah.regs.dbc.model.Produto;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;

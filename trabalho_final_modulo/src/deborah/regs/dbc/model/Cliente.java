@@ -66,7 +66,7 @@ public class Cliente implements Impressao {
 
 
     @Override
-    public String imprimir() {
+    public void imprimir() {
         String adresses = "";
         for (int i = 0; i < enderecos.size(); i++ ) {
             if (enderecos.get(i) != null && !enderecos.isEmpty()) {

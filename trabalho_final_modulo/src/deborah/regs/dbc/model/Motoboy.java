@@ -22,7 +22,7 @@ public class Motoboy extends Funcionario implements Impressao {
     }
 
     @Override
-    public String imprimir() {
+    public void imprimir() {
         return super.imprimir() + "\nFunção: Motoboy \nPlaca da moto: " + placaMoto+ "\n";
     }
 

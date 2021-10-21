@@ -68,7 +68,7 @@ public class Endereco implements Impressao {
     }
 
     @Override
-    public String imprimir () {
+    public void imprimir () {
 
         return "\nTipo de endereco: " + tipo.getDescricao()  + "\nRua: " +  rua + "\nNúmero " + numero + "\nComplemento: " + complemento + "\nCEP: " + cep + "\nCidade: "+ cidade;
     }

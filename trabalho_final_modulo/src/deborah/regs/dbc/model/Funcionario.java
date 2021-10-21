@@ -1,22 +1,22 @@
 package deborah.regs.dbc.model;
 
 public abstract class Funcionario implements Impressao {
-    private int id;
     private String nome;
     private double salario;
+    private String Cargo;
 
-    public Funcionario(int id, String nome, double salario) {
-        this.id = id;
-        this.nome = nome;
+    public Funcionario(double salario) {
         this.salario = salario;
+        this.Cargo = Cargo;
+        this.nome = nome;
     }
 
-    public int getId() {
-        return id;
+    public String getCargo() {
+        return Cargo;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCargo(String cargo) {
+        Cargo = cargo;
     }
 
     public String getNome() {
@@ -36,8 +36,8 @@ public abstract class Funcionario implements Impressao {
     }
 
     @Override
-    public String imprimir() {
-        return "Id do funcionário: " + id+ " | Nome do funcionário: " + nome;
+    public void imprimir() {
+
     }
 
 }

@@ -37,7 +37,7 @@ public class Contato implements Impressao {
     }
 
     @Override
-    public String imprimir () {
+    public void imprimir () {
         return "\nDescrição do contato: " + descricao + "\nTelefone: " +  telefone + "\nTipo: " + tipo.getDescricao();
     }
 }

@@ -10,8 +10,7 @@ public class Menu {
     public static int menuPrincipal() {
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("############# Menu Principal ############# ");
-        System.out.println("Qual opção deseja acessar? \n1- Menu Clientes \n2- Menu Pedidos \n3- Informações caixa \n4- Menu Funcionários \n5- Menu Produtos \n6- Realizar Entrega \n7- Sair");
+
 
         int op = scanner.nextInt();
 

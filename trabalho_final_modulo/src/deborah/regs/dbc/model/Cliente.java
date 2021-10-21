@@ -4,22 +4,21 @@ import java.util.ArrayList;
 
 
 public class Cliente implements Impressao {
-    private int id;
+
+    Integer idCliente;
     private String cpf;
     private String nome;
-    private ArrayList<Endereco> enderecos = new ArrayList<>();
-    private ArrayList<Contato> contatos = new ArrayList<>();
+    private ArrayList<Endereco> enderecos;
+    private ArrayList<Contato> contatos;
 
-
-    public Cliente(int id, String cpf, String nome, ArrayList<Endereco> enderecos, ArrayList<Contato> contatos) {
-        this.id = id;
+    public Cliente(Integer idCliente, String cpf, String nome) {
+        this.idCliente = idCliente;
         this.cpf = cpf;
         this.nome = nome;
-        this.enderecos = enderecos;
-        this.contatos = contatos;
     }
 
     public Cliente() {
+
     }
 
     public ArrayList<Endereco> getEnderecos() {
@@ -38,12 +37,12 @@ public class Cliente implements Impressao {
         this.contatos = contatos;
     }
 
-    public int getId() {
-        return id;
+    public Integer getIdCliente() {
+        return idCliente;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdCliente(Integer idCliente) {
+        this.idCliente = idCliente;
     }
 
     public String getCpf() {
@@ -62,31 +61,8 @@ public class Cliente implements Impressao {
         this.nome = nome;
     }
 
-
-
-
     @Override
     public String imprimir() {
-        String adresses = "";
-        for (int i = 0; i < enderecos.size(); i++ ) {
-            if (enderecos.get(i) != null && !enderecos.isEmpty()) {
-                adresses = adresses.concat(" " + enderecos.get(i).imprimir() + "\n");
-            }
-        }
-        String contacts = "";
-        for (int j = 0; j < contatos.size(); j++) {
-            if (contatos.get(j) != null && !enderecos.isEmpty()) {
-                contacts = contacts.concat(" " + contatos.get(j).imprimir() + "\n");
-            }
-        }
-        System.out.println("ID do cliente: " + id + "\nCPF do cliente: " + cpf + "\nNome: " + nome + "\n** Contatos Cadastrados **: ");
-        for (Contato contato : contatos) {
-            System.out.println(contato.imprimir());
-        }
-        System.out.println("** Endereços Cadastrados ** ");
-        for(Endereco endereco : enderecos) {
-            System.out.println(endereco.imprimir());
-        }
         return "";
     }
 

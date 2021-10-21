@@ -12,6 +12,10 @@ public class Contato implements Impressao {
         this.tipo = tipo;
     }
 
+    public Contato() {
+
+    }
+
     public String getDescricao() {
         return descricao;
     }
@@ -38,7 +42,7 @@ public class Contato implements Impressao {
 
     @Override
     public String imprimir () {
-        return "\nDescrição do contato: " + descricao + "\nTelefone: " +  telefone + "\nTipo: " + tipo.getDescricao();
+        return "";
     }
 }
 

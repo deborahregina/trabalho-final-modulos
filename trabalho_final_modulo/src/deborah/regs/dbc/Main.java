@@ -1,9 +1,7 @@
 package deborah.regs.dbc;
 
-import deborah.regs.dbc.model.Cliente;
-import deborah.regs.dbc.model.Funcionario;
-import deborah.regs.dbc.model.Pedido;
-import deborah.regs.dbc.model.Produto;
+import deborah.regs.dbc.model.*;
+import jdk.swing.interop.SwingInterOpUtils;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -13,16 +11,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    // Esses são atributos do programa no geral, então os métodos adicionam e retiram coisas daqui
-    static ArrayList<Cliente> clientes = new ArrayList<>();
-    static ArrayList<Funcionario> funcionarios = new ArrayList<>();
-    static ArrayList<Produto> produtos = new ArrayList<>();
-    static Queue<Pedido> pedidos = new LinkedList<>();
-
-    // Cadastro de clientes, funcionários, produtos, pedidos iniciais, para não poluir a Main. Aqui é tipo um SETUP das coisas que não precisamos
-    // colocar manualmente
-    static Caixa caixaPrincipal = CadastroAutomatico.cadastroAutomatico();
-
+    static Caixa caixa = new Caixa(1000);
     static DecimalFormat df = new DecimalFormat("###,###.00");
 
     public static void main(String[] args) {
@@ -31,10 +20,11 @@ public class Main {
 
         boolean programaOn = true;
 
-        while (programaOn) {
-
-            int op = Menu.menuPrincipal(); // retorno da seleção do "Menu iniciar"
-
+        do {
+            System.out.println("############# Menu Principal ############# ");
+            System.out.println("Qual opção deseja acessar? \n1- Menu Clientes \n2- Menu Pedidos \n3- Informações caixa \n4- Menu Funcionários \n5- Menu Produtos \n6- Realizar Entrega \n7- Sair");
+            int op = scanner.nextInt();
+            scanner.nextLine();
             switch (op) {
 
                 case 1:
@@ -42,17 +32,103 @@ public class Main {
                     System.out.println("1- Cadastrar novo cliente \n2- Deletar cliente \n3- Imprimir Cliente(s) \n4- Alterar cadastro de cliente: ");
                     int opCliente = scanner.nextInt();
                     if (opCliente == 1) {
-                        clientes.add(Menu.menuCriaCliente());
+
+                        Endereco endereco = new Endereco();
+                        Cliente cliente = new Cliente();
+                        Contato contato = new Contato();
+
+                        System.out.println("Digite o nome do cliente: ");
+                        cliente.setNome(scanner.nextLine());
+                        System.out.println("Digite o CPF do cliente: ");
+                        cliente.setCpf(scanner.nextLine());
+                        System.out.println("** CADASTRO DE ENDEREÇO **");
+                        System.out.println("Digite o Logradouro: ");
+                        endereco.setLogradouro(scanner.nextLine());
+                        System.out.println("Digite o número: ");
+                        endereco.setNumero(scanner.nextInt());
+                        System.out.println("Digite o bairro: ");
+                        endereco.setBairro(scanner.nextLine());
+                        System.out.println("Digite o CEP: ");
+                        endereco.setCep(scanner.nextLine());
+                        System.out.println("** CADASTRO DE CONTATO **");
+                        System.out.println("Digite a descrição do contato: ");
+                        contato.setDescricao(scanner.nextLine());
+                        System.out.println("Digite o telefone: ");
+                        contato.setTelefone(scanner.nextLine());
+                        System.out.println("Tipo de endereço: 1- Residencial        2- Comercial: ");
+                        contato.setTipo(TipoContato.ofTipo(scanner.nextInt()));
+
+                        // passar para tabela cliente
+                        // passar para tabela endereco
+                        // passar para tabela contato
+
+
                     }
                     if (opCliente == 2) {
-                        System.out.println("1- Criar novo pedido \n2- Deletar pedido \n3- Imprimir pedidos \n4- Alterar pedido");
-                        Menu.menuDeletaCliente(clientes);
+                        // Lista de clientes cadastros
+                        System.out.println("Qual o ID do cliente que deseja deletar: ");
+                        Integer idDeletaCliente = scanner.nextInt();
+                        // DELETA CLIENTE E DELETA CONTATOS, ENDERECOS E PEDIDOS RELACIONADO AO CLIENTE
                     }
                     if (opCliente == 3) {
-                        Menu.menuImprimeCliente(clientes);
+                        System.out.println("Lista de clientes cadastrados: ");
+                        // IMPRIME CLIENTES
                     }
                     if (opCliente == 4) {
-                        Menu.menuAlteraCliente();
+                        // IMPRIME CLIENTES
+                        Endereco endereco = new Endereco();
+                        Cliente cliente = new Cliente();
+                        Contato contato = new Contato();
+
+                        System.out.println("Qual o ID do cliente que deseja alterar: ");
+                        Integer idClienteAltera = scanner.nextInt();
+                        System.out.println("Digite o nome do cliente: ");
+                        cliente.setNome(scanner.nextLine());
+                        System.out.println("Digite o CPF do cliente: ");
+                        cliente.setCpf(scanner.nextLine());
+                        System.out.println("Deseja alterar o o endereço principal?  1- Sim      2- Não: ");
+                        int opEnderecoPrincipal = scanner.nextInt();
+
+                        if (opEnderecoPrincipal == 1) {
+                         // altera o endereço
+                        }
+
+                        System.out.println("Deseja cadastrar novo endereço? 1- Sim      2- Não: ");
+                        int opEnderecoNovo = scanner.nextInt();
+
+                        if (opEnderecoNovo == 1) {
+                            // cadastra novo endereço
+                        }
+
+                        System.out.println("Deseja listar endereços do cliente? 1- Sim      2- Não: ");
+                        int opListaEnderecos = scanner.nextInt();
+
+                        if (opListaEnderecos == 1) {
+                            // Lista endereços
+                        }
+
+                        System.out.println("Deseja deletar o endereço secundário do cliente? 1- Sim     2- Não: ");
+
+                        // Implementa lógica de deletar só se o cliente tem mais de um endereço
+
+                        System.out.println("Deseja alterar o contato principal?  1- Sim     2- Não: ");
+                        int opContatoPrincipal = scanner.nextInt();
+
+                        if (opContatoPrincipal == 1) {
+                            // altera o contato
+                        }
+
+                        System.out.println("Deseja cadastrar novo contato? 1- Sim       2- Não: ");
+                        int opCadastraNovoContato = scanner.nextInt();
+
+                        if (opCadastraNovoContato == 1) {
+                            // Cadastrar novo contrato
+                        }
+
+                        
+
+
+
                     }
                     break;
                 case 2:
@@ -116,11 +192,17 @@ public class Main {
                     System.out.println("Digite uma opção válida! ");
                     break;
             }
-
-        }
-
+        } while (programaOn);
     }
-
-
-
 }
+
+
+
+
+
+
+
+
+
+
+

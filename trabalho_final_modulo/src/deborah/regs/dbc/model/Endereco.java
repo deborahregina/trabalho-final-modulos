@@ -2,21 +2,31 @@ package deborah.regs.dbc.model;
 
 public class Endereco implements Impressao {
 
+    private Integer idEndereco;
     private TipoEndereco tipo;
-    private String rua;
+    private String logradouro;
     private int numero;
-    private String complemento;
     private String cep;
-    private String cidade;
+    private String bairro;
 
-    public Endereco(TipoEndereco tipo, String rua, int numero, String complemento, String cep, String cidade) {
-        this.tipo = tipo;
-        this.rua = rua;
-        this.numero = numero;
-        this.complemento = complemento;
-        this.cep = cep;
-        this.cidade = cidade;
+    public Endereco() {
 
+    }
+
+    public Integer getIdEndereco() {
+        return idEndereco;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public void setIdEndereco(Integer idEndereco) {
+        this.idEndereco = idEndereco;
     }
 
     public TipoEndereco getTipo() {
@@ -27,12 +37,12 @@ public class Endereco implements Impressao {
         this.tipo = tipo;
     }
 
-    public String getRua() {
-        return rua;
+    public String getLogradouro() {
+        return logradouro;
     }
 
-    public void setRua(String rua) {
-        this.rua = rua;
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
 
     public int getNumero() {
@@ -43,14 +53,6 @@ public class Endereco implements Impressao {
         this.numero = numero;
     }
 
-    public String getComplemento() {
-        return complemento;
-    }
-
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
-    }
-
     public String getCep() {
         return cep;
     }
@@ -59,17 +61,9 @@ public class Endereco implements Impressao {
         this.cep = cep;
     }
 
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
     @Override
     public String imprimir () {
 
-        return "\nTipo de endereco: " + tipo.getDescricao()  + "\nRua: " +  rua + "\nNúmero " + numero + "\nComplemento: " + complemento + "\nCEP: " + cep + "\nCidade: "+ cidade;
+        return "";
     }
 }

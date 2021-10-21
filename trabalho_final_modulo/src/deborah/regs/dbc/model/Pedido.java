@@ -65,12 +65,6 @@ public class Pedido {
 
     @Override
     public String toString() {
-        calculaValorTotal();
-        System.out.println("++++++++++++ Itens do pedido ++++++++++++");
-        for (Produto produtos: produtosDoPedido) {
-            System.out.println(produtos);
-        }
-
-        return "ID do pedido: " + idPedido + " Nome do cliente: " + cliente.getNome() + " Valor total do pedido: R$ " + Main.df.format(valorTotal);
+        return "";
     }
 }

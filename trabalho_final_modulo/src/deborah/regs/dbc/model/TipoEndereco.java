@@ -1,21 +1,27 @@
 package deborah.regs.dbc.model;
 
+import java.util.Arrays;
+
 public enum TipoEndereco {
-    RESIDENCIAL("Residencial"),
-    COMERCIAL("Comercial");
+        RESIDENCIAL(1),
+        COMERCIAL(2);
 
+        private Integer tipo;
 
-    private String descricao;
+        TipoEndereco(Integer tipo) {
+            this.tipo = tipo;
+        }
 
-    TipoEndereco(String descricao) {
-        this.descricao = descricao;
+        public Integer getTipo() {
+            return tipo;
+        }
+
+        public static TipoEndereco ofTipo(Integer tipo) {
+            return Arrays.stream(TipoEndereco.values())
+                    .filter(tp -> tp.getTipo().equals(tipo))
+                    .findFirst()
+                    .get();
+        }
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
 }

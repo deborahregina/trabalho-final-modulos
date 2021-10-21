@@ -43,7 +43,7 @@ public class Produto {
 
     @Override
     public String toString() {
-        return "ID do produto: " + idProdutos +  " Nome do produto: " + tipoProduto.getDescricao() + " Valor unitário: R$ " + Main.df.format(valorUnitario);
+        return "";
     }
 
 

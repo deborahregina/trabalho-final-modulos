@@ -17,6 +17,10 @@ public class Caixa implements Pagamento {
         this.valorDeCaixa = valorDeCaixa;
     }
 
+    public Caixa(double valorDeCaixa) {
+        this.valorDeCaixa = valorDeCaixa;
+    }
+
     public Atendente getAtendenteResponsável() {
         return atendenteResponsável;
     }

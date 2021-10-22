@@ -5,20 +5,20 @@ import java.util.ArrayList;
 
 public class Pedido {
     private int idPedido;
+    private Integer idCliente;
     private Cliente cliente;
     private ArrayList<Produto> produtosDoPedido;
     private double valorTotal;
 
-    public Pedido(int idPedido, Cliente cliente, ArrayList<Produto> produtosDoPedido) {
-        this.idPedido = idPedido;
-        this.cliente = cliente;
-        this.produtosDoPedido = produtosDoPedido;
+    public Pedido(){
+
     }
+
 
     public void calculaValorTotal() {
         double calculaValor = 0;
         for (int i = 0; i < produtosDoPedido.size(); i++ ) {
-            calculaValor += produtosDoPedido.get(i).getValorUnitario();
+            //calculaValor += produtosDoPedido.get(i).getValorUnitario();
         }
         setValorTotal(calculaValor);
     }
@@ -32,7 +32,7 @@ public class Pedido {
     }
 
     public void adicionaProduto(Produto produto ) {
-        this.produtosDoPedido.add(produto);
+       // this.produtosDoPedido.add(produto);
 
     }
 
@@ -57,9 +57,16 @@ public class Pedido {
     public Cliente getCliente() {
         return cliente;
     }
-
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public Integer getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(Integer idCliente) {
+        this.idCliente = idCliente;
     }
 
     @Override

@@ -11,9 +11,6 @@ public abstract class Funcionario {
         this.salario = salario;
     }
 
-    public Funcionario() {
-    }
-
     public int getIdFuncionario() {
         return idFuncionario;
     }
@@ -30,7 +27,7 @@ public abstract class Funcionario {
         this.idFuncionario = id;
     }
 
-    public int getNome() {
+    public String getNome() {
         return nome;
     }
 
@@ -51,9 +48,4 @@ public abstract class Funcionario {
         return "Id do funcionário: " + idFuncionario+ " | Nome do funcionário: " + nome;
     }
 
-    public abstract int getFuncionario();
-
-    public abstract void setIdFuncionario(Integer proximoId);
-
-    public abstract void setIdFuncionarios(Integer proximoId);
 }

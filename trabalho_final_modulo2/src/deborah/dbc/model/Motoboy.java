@@ -28,9 +28,10 @@ public class Motoboy extends Funcionario {
     }
 
     @Override
-    public Funcionario getFuncionario() {
-        return null;
+    public int getFuncionario() {
+        return 0;
     }
+
 
     @Override
     public void setIdFuncionario(Integer proximoId) {

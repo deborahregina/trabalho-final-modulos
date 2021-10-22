@@ -30,7 +30,7 @@ public abstract class Funcionario {
         this.idFuncionario = id;
     }
 
-    public String getNome() {
+    public int getNome() {
         return nome;
     }
 
@@ -51,7 +51,7 @@ public abstract class Funcionario {
         return "Id do funcionário: " + idFuncionario+ " | Nome do funcionário: " + nome;
     }
 
-    public abstract Funcionario getFuncionario();
+    public abstract int getFuncionario();
 
     public abstract void setIdFuncionario(Integer proximoId);
 

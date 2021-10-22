@@ -13,7 +13,7 @@ public class Main {
         ContatoService contatoService = new ContatoService();
         ClienteService clienteService = new ClienteService();
         clienteService.listarCliente();
-        //contatoService.listarContatoPorCodigoDaPessoa(1);
+        contatoService.listar();
 
         Scanner scanner = new Scanner(System.in);
         boolean programaOn = true;

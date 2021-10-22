@@ -1,17 +1,19 @@
 package deborah.dbc.repository;
 
 import deborah.dbc.exceptions.BancoDeDadosException;
-import deborah.dbc.model.*;
+import deborah.dbc.model.Cliente;
+import deborah.dbc.model.Funcionario;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProdutoRepository implements Repositorio<Integer, Produto>  {
+public class FuncionariosRepository  implements Repositorio < Integer, Funcionario>{
+
     @Override
-    public Integer getProximoId(Connection connection) throws BancoDeDadosException {
+    public Integer getProximoId(Connection connection) throws SQLException {
         try {
-            String sql = "SELECT seq_produto.nextval mysequence from DUAL";
+            String sql = "SELECT seq_funcionario.nextval mysequence from DUAL";
             Statement stmt = connection.createStatement();
             ResultSet res = stmt.executeQuery(sql);
 
@@ -23,32 +25,33 @@ public class ProdutoRepository implements Repositorio<Integer, Produto>  {
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
         }
+
+
     }
 
     @Override
-    public Produto adicionar(Object produto) throws BancoDeDadosException {
+    public Funcionario adicionar(Funcionario funcionario) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();
 
             Integer proximoId = this.getProximoId(con);
-            produto.setIdProdutos(proximoId);
+            funcionario.setIdFuncionarios(proximoId);
 
-            String sql = "INSERT INTO PRODUTO\n" +
-                    "(ID_PRODUTO, TIPO_PRODUTO, NOME, PRECO)\n" +
+            String sql = "INSERT INTO FUNCIONARIO\n" +
+                    "(ID_FUNCIONARIO, NOME,  CARGO, SALARIO)\n" +
                     "VALUES(?, ?, ?, ?)\n";
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setInt(1, produto.getIdProduto());
-            stmt.setInt(2, produto.getTipoProduto().getTipo());
-            stmt.setString(3, produto.getDescrição());
-            stmt.setDouble(4, produto.getValorUnitario());
+            stmt.setInt(1, funcionario.getFuncionario());
+            stmt.setInt(2, funcionario.getNome());
+            stmt.setInt(4, (int) funcionario.getSalario());
 
 
             int res = stmt.executeUpdate();
-            System.out.println("adicionarProduto.res=" + res);
-            return produto;
+            System.out.println("adicionarContato.res=" + res);
+            return funcionario;
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
         } finally {
@@ -61,6 +64,8 @@ public class ProdutoRepository implements Repositorio<Integer, Produto>  {
             }
         }
     }
+
+
 
     @Override
     public boolean remover(Object id) throws BancoDeDadosException {
@@ -68,7 +73,7 @@ public class ProdutoRepository implements Repositorio<Integer, Produto>  {
         try {
             con = ConexaoBancoDeDados.getConnection();
 
-            String sql = "DELETE FROM PRODUTO WHERE ID_PRODUTO = ?";
+            String sql = "DELETE FROM FUNCIONARIOS WHERE ID_FUNCIONARIO= ?";
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -76,7 +81,7 @@ public class ProdutoRepository implements Repositorio<Integer, Produto>  {
 
             // Executa-se a consulta
             int res = stmt.executeUpdate();
-            System.out.println("removerContatoPorId.res=" + res);
+            System.out.println("removerFuncionarioPorId.res=" + res);
 
             return res > 0;
         } catch (SQLException e) {
@@ -92,33 +97,41 @@ public class ProdutoRepository implements Repositorio<Integer, Produto>  {
         }
     }
 
+
     @Override
-    public boolean editar(Object id, Object produto) throws BancoDeDadosException {
+    public boolean editar(Funcionario funcionario) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();
 
             StringBuilder sql = new StringBuilder();
-            sql.append("UPDATE PRODUTO SET \n");
+            sql.append("UPDATE FUNCIONARIO SET \n");
+            Funcionario funcionario1 = funcionario.getFuncionario();
 
-            sql.append(" TIPO_PRODUTO = ?,");
-            sql.append(" NOME = ?,");
-            sql.append(" PRECO = ?,");
+            sql.append(" id_cliente = ?,");
+            sql.append(" logradouro = ?,");
+            sql.append(" numero = ?,");
+            sql.append(" bairro = ?,");
+            sql.append(" cep = ?,");
+            sql.append(" tipo = ?");
             sql.deleteCharAt(sql.length() - 1); //remove o ultimo ','
-            sql.append(" WHERE id_contato = ? ");
+            sql.append(" WHERE id_endereco = ? ");
 
             PreparedStatement stmt = con.prepareStatement(sql.toString());
 
             int index = 1;
+            if (funcionario != null) {
+                stmt.setInt(index++, funcionario.getIdFuncionario());
+                stmt.setString(index++, funcionario.getNome());
+                stmt.setInt(index++, funcionario.getSalario());
 
-                stmt.setInt(index++, produto.getTipoProduto().getTipo());
-                stmt.setString(index++, produto.getDescrição());
-                stmt.setDouble(index++, produto.getValorUnitario());
-                stmt.setInt(index++, id);
+            }
+
+            stmt.setInt(index++, id);
 
             // Executa-se a consulta
             int res = stmt.executeUpdate();
-            System.out.println("editarProduto.res=" + res);
+            System.out.println("editarFuncionario.res=" + res);
 
             return res > 0;
         } catch (SQLException e) {
@@ -134,24 +147,30 @@ public class ProdutoRepository implements Repositorio<Integer, Produto>  {
         }
     }
 
+
     @Override
-    public List<Produto> listar() throws BancoDeDadosException {
-        List<Produto> produtos = new ArrayList<>();
+    public Object adicionar(Object object) throws BancoDeDadosException {
+        return null;
+    }
+
+    @Override
+    public List<Funcionario> listar() throws BancoDeDadosException {
+        List<Funcionario> funcionario = new ArrayList<>();
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();
             Statement stmt = con.createStatement();
 
-            String sql = "SELECT * FROM PRODUTO P ";
+            String sql = "SELECT * FROM FUNCIONARIO F";
 
             // Executa-se a consulta
             ResultSet res = stmt.executeQuery(sql);
 
             while (res.next()) {
-                Produto produto = getProdutoFromResultSet(res);
-                produtos.add(produto);
+                Funcionario funcionario1 = getFuncionarioFromResultSet(res);
+                funcionario.add((Funcionario) funcionario);
             }
-            return produtos;
+            return funcionario;
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
         } finally {
@@ -166,13 +185,5 @@ public class ProdutoRepository implements Repositorio<Integer, Produto>  {
     }
 
 
-    private Produto getProdutoFromResultSet(ResultSet res) throws SQLException {
-        Produto produto = new Produto();
-        produto.setIdProduto(res.getInt("id_produto"));
-        produto.setTipoProduto (TipoProduto.ofTipo(res.getInt("tipo_produto")));
-        produto.setDescrição(res.getString("nome"));
-        produto.setValorUnitario(res.getDouble("preco"));
-        return produto;
-    }
 
 }

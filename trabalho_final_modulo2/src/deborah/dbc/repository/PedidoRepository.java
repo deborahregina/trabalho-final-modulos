@@ -23,7 +23,7 @@ public class PedidoRepository implements Repositorio<Integer, Pedido> {
     }
 
     @Override
-    public Pedido adicionar(Pedido pedido) throws BancoDeDadosException {
+    public Pedido adicionar(Object pedido) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();
@@ -58,12 +58,12 @@ public class PedidoRepository implements Repositorio<Integer, Pedido> {
     }
 
         @Override
-        public boolean remover (Integer id) throws BancoDeDadosException {
+        public boolean remover (Object id) throws BancoDeDadosException {
             return false;
         }
 
         @Override
-        public boolean editar (Integer id, Pedido pedido) throws BancoDeDadosException {
+        public boolean editar (Object id, Object pedido) throws BancoDeDadosException {
             return false;
         }
 

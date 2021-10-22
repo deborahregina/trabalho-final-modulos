@@ -76,7 +76,7 @@ public class ProdutoRepository implements Repositorio<Integer, Produto>  {
 
             // Executa-se a consulta
             int res = stmt.executeUpdate();
-            System.out.println("removerContatoPorId.res=" + res);
+            System.out.println("removerProdutoPorId.res=" + res);
 
             return res > 0;
         } catch (SQLException e) {
@@ -105,7 +105,7 @@ public class ProdutoRepository implements Repositorio<Integer, Produto>  {
             sql.append(" NOME = ?,");
             sql.append(" PRECO = ?,");
             sql.deleteCharAt(sql.length() - 1); //remove o ultimo ','
-            sql.append(" WHERE id_contato = ? ");
+            sql.append(" WHERE id_produto = ? ");
 
             PreparedStatement stmt = con.prepareStatement(sql.toString());
 

@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 public class ClienteRepository implements Repositorio< Integer, Cliente>{
 
+    EnderecoRepository enderecoRepository = new EnderecoRepository();
+    ContatoRepository contatoRepository = new ContatoRepository();
     @Override
     public Integer getProximoId(Connection connection) throws SQLException {
         String sql = "SELECT seq_cliente.nextval mysequence from DUAL";
@@ -60,6 +62,8 @@ public class ClienteRepository implements Repositorio< Integer, Cliente>{
         try {
             con = ConexaoBancoDeDados.getConnection();
 
+            enderecoRepository.removeEnderecoPorIdCliente(id);
+            contatoRepository.removeContatoPorIdCliente(id);
             String sql = "DELETE FROM CLIENTE WHERE ID_CLIENTE = ?";
 
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -102,7 +106,6 @@ public class ClienteRepository implements Repositorio< Integer, Cliente>{
 
             int index = 1;
 
-                stmt.setInt(index++, cliente.getIdCliente());
                 stmt.setString(index++, cliente.getNome());
                 stmt.setString(index++, cliente.getCpf());
                 stmt.setInt(index++, id);
@@ -162,6 +165,7 @@ public class ClienteRepository implements Repositorio< Integer, Cliente>{
         cliente.setCpf(res.getString("cpf"));
         return cliente;
     }
+
 
 }
 

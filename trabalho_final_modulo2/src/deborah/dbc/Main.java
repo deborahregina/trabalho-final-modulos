@@ -2,6 +2,8 @@ package deborah.dbc;
 
 import deborah.dbc.service.ClienteService;
 import deborah.dbc.service.ContatoService;
+import deborah.dbc.service.EnderecoService;
+import deborah.dbc.service.ProdutoService;
 
 import java.text.DecimalFormat;
 import java.util.Scanner;
@@ -12,7 +14,11 @@ public class Main {
 
         ContatoService contatoService = new ContatoService();
         ClienteService clienteService = new ClienteService();
-        clienteService.listarCliente();
+        ProdutoService produtoService = new ProdutoService();
+        EnderecoService enderecoService = new EnderecoService();
+
+        //enderecoService.listar();
+        //clienteService.listarCliente();
         contatoService.listar();
 
         Scanner scanner = new Scanner(System.in);
@@ -20,6 +26,7 @@ public class Main {
         while(programaOn) {
             System.out.println("*** MENU PRINCIPAL *** \nO QUE DESEJA ACESSAR: \n1- MENU CLIENTES \n2- MENU ENDERECOS \n3- MENU CONTATOS \n4- MENU FUNCIONANRIOS \n5- MENU PEDIDOS\n6- MENU PRODUTOS\n7- MENU ENTREGAS\n8- SAIR: ");
             int opcaoPrincipal = scanner.nextInt();
+            scanner.nextLine();
 
             switch (opcaoPrincipal) {
                 case 1:
@@ -40,7 +47,25 @@ public class Main {
                     Menu.menuPedido();
                     break;
                 case 6:
-                    Menu.menuAdicionaProduto();
+                    System.out.println("1- Cadastrar novo produto     2- Deletar produto cadastrado    3- Listar produtos cadastrados    4- Alterar produto");
+                    int opProduto = scanner.nextInt();
+                    scanner.nextLine();
+                    if (opProduto == 1) {
+                        Menu.menuAdicionaProduto();
+                    }
+                    if (opProduto == 2) {
+                        produtoService.listar();
+                        System.out.println("Digite o ID do produto que deseja alterar: ");
+                        int idProduto = scanner.nextInt();
+                        produtoService.remover(idProduto);
+                    }
+                    if (opProduto == 3) {
+                        produtoService.listar();
+                    }
+                    if (opProduto == 4) {
+                        Menu.menuAlteraProduto();
+                    }
+
                     break;
             }
         }

@@ -12,8 +12,8 @@ public class Main {
 
         ContatoService contatoService = new ContatoService();
         ClienteService clienteService = new ClienteService();
-        clienteService.listarCliente(); //Cannot invoke "java.util.List.forEach(java.util.function.Consumer)" because "listar" is null
-        contatoService.listarContatoPorCodigoDaPessoa(1);
+        clienteService.listarCliente();
+        //contatoService.listarContatoPorCodigoDaPessoa(1);
 
         Scanner scanner = new Scanner(System.in);
         boolean programaOn = true;
@@ -40,7 +40,7 @@ public class Main {
                     Menu.menuPedido();
                     break;
                 case 6:
-                    programaOn = false;
+                    Menu.menuAdicionaProduto();
                     break;
             }
         }

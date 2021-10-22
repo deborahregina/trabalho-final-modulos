@@ -1,10 +1,7 @@
 package deborah.dbc;
 
 import deborah.dbc.model.*;
-import deborah.dbc.service.ClienteService;
-import deborah.dbc.service.ContatoService;
-import deborah.dbc.service.EnderecoService;
-import deborah.dbc.service.PedidoService;
+import deborah.dbc.service.*;
 
 
 import java.util.ArrayList;
@@ -17,6 +14,7 @@ public class Menu {
     static ContatoService contatoService = new ContatoService();
     static ClienteService clienteService = new ClienteService();
     static EnderecoService enderecoService = new EnderecoService();
+    static ProdutoService produtoService = new ProdutoService();
 
     public static void menuClientes() {
 
@@ -253,6 +251,22 @@ public class Menu {
             pedido.setIdCliente(scanner.nextInt());
             pedidoService.adicionarPedido(pedido);
         }
+    }
+
+    public static void menuAdicionaProduto() {
+        Produto produto = new Produto();
+        System.out.println("Digite o tipo de produto   1- Comida     2- Bebida");
+        int tipoProduto = scanner.nextInt();
+        scanner.nextLine();
+        produto.setTipoProduto(TipoProduto.ofTipo(tipoProduto));
+        System.out.println("Digite a descrição do produto: ");
+        produto.setDescrição(scanner.nextLine());
+        System.out.println("Digite o valor unitário do produto: ");
+        produto.setValorUnitario(scanner.nextDouble());
+
+        produtoService.adicionarProduto(produto);
+        produtoService.listar();
+
     }
 }
 

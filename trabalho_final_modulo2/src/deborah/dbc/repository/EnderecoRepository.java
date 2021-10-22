@@ -9,6 +9,7 @@ import java.util.List;
 
 public class EnderecoRepository implements Repositorio<Integer, Endereco> {
 
+
     @Override
     public Integer getProximoId(Connection connection) throws SQLException {
         try {
@@ -184,10 +185,11 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
             Endereco endereco = new Endereco();
             endereco.setIdEndereco(res.getInt("id_endereco"));
             Cliente pessoa = new Cliente();
-            pessoa.setNome(res.getString("nome"));
+            pessoa.setNome(res.getString("nome_cliente"));
             pessoa.setIdCliente(res.getInt("id_cliente"));
             endereco.setCliente(pessoa);
             endereco.setLogradouro(res.getString("logradouro"));
+            endereco.setBairro(res.getString("bairro"));
             endereco.setNumero(res.getInt("numero"));
             endereco.setTipo(TipoEndereco.ofTipo(res.getInt("tipo")));
             return endereco;
@@ -229,5 +231,33 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
         }
     }
 
+    public boolean removeEnderecoPorIdCliente(Integer id_cliente) throws BancoDeDadosException {
+        Connection con = null;
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+
+            String sql = "DELETE FROM ENDERECO_CLIENTE WHERE ID_CLIENTE = ?";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, id_cliente);
+
+            // Executa-se a consulta
+            int res = stmt.executeUpdate();
+            System.out.println("removerClientePorId.res=" + res);
+
+            return res > 0;
+        } catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
 

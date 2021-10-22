@@ -25,7 +25,7 @@ public class Menu {
             cadastroClienteVisual();
         }
         if (opCliente == 2) {
-
+            clienteService.listarCliente();
         }
         if (opCliente == 3) {
             System.out.println("Deseja:  1- Alterar dados do cliente     2- Alterar endereços do cliente        3- Alterar contatos do cliente: ");
@@ -42,7 +42,10 @@ public class Menu {
             }
         }
         if (opCliente == 4) {
-
+            System.out.println("Digite o ID do cliente que deseja remover: ");
+            clienteService.listarCliente();
+            int idRemoveCliente = scanner.nextInt();
+            clienteService.removerCliente(idRemoveCliente);
         }
 
     }
@@ -133,7 +136,7 @@ public class Menu {
 
     public static void alterarClienteVisual() {
         System.out.println("Qual Cliente você deseja editar?");
-        //clienteService.listarCliente();
+        clienteService.listarCliente();
         int index = scanner.nextInt();
         scanner.nextLine();
         Cliente ClienteNovo = new Cliente();
@@ -147,13 +150,13 @@ public class Menu {
 
     public static void alteraContatoClienteVisual() {
 
-        System.out.println("1 - Adicionar contato       2- Editar contato existente  3- Deletar contato existente: ");
+        System.out.println("1 - Adicionar contato       2- Editar contato existente  3- Deletar contato existente  4- Listar contados do cliente: ");
         int opAlteracaoContato = scanner.nextInt();
 
         if (opAlteracaoContato == 1) {
 
             System.out.println("Digite o ID do cliente para adicionar contato: ");
-            //clienteService.listarCliente();
+            clienteService.listarCliente();
             int index = scanner.nextInt();
             scanner.nextLine();
             Cliente clienteContato = new Cliente();
@@ -189,6 +192,12 @@ public class Menu {
                 }
 
             }
+        }
+        if (opAlteracaoContato == 4) {
+            clienteService.listarCliente();
+            System.out.println("Digite o ID do cliente para listar contato: ");
+            int idCliente = scanner.nextInt();
+            contatoService.listarContatoPorCodigoDaPessoa(idCliente);
         }
 
     }
@@ -240,7 +249,7 @@ public class Menu {
         }
     }
 
-    public static void menuPedido(){
+    public static void menuPedido() {
         System.out.println("1- Criar novo Pedido \n2- Imprimir pedidos em aberto \n3- Alterar produto de pedido "); // O método deletar pedido não faz sentido porque é uma pilha.
 
         int opPedidos = scanner.nextInt();
@@ -265,8 +274,25 @@ public class Menu {
         produto.setValorUnitario(scanner.nextDouble());
 
         produtoService.adicionarProduto(produto);
-        produtoService.listar();
 
+    }
+
+    public static void menuAlteraProduto() {
+        Produto produto = new Produto();
+        produtoService.listar();
+        System.out.println("Digite o ID do produto que deseja alterar: ");
+        int index = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Digite o tipo de produto   1- Comida     2- Bebida");
+        int tipoProduto = scanner.nextInt();
+        scanner.nextLine();
+        produto.setTipoProduto(TipoProduto.ofTipo(tipoProduto));
+        System.out.println("Digite a descrição do produto: ");
+        produto.setDescrição(scanner.nextLine());
+        System.out.println("Digite o valor unitário do produto: ");
+        produto.setValorUnitario(scanner.nextDouble());
+
+        produtoService.editar(index, produto);
     }
 }
 

@@ -30,7 +30,7 @@ public abstract class Funcionario {
         this.nome = nome;
     }
 
-    public double getSalario() {
+    public int getSalario() {
         return salario;
     }
 
@@ -43,4 +43,9 @@ public abstract class Funcionario {
         return "Id do funcionário: " + idFuncionario+ " | Nome do funcionário: " + nome;
     }
 
+    public abstract Funcionario getFuncionario();
+
+    public abstract void setIdFuncionario(Integer proximoId);
+
+    public abstract void setIdFuncionarios(Integer proximoId);
 }

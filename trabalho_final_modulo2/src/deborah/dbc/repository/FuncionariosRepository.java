@@ -2,47 +2,56 @@ package deborah.dbc.repository;
 
 import deborah.dbc.exceptions.BancoDeDadosException;
 import deborah.dbc.model.Cliente;
+import deborah.dbc.model.Funcionario;
 
 import java.sql.*;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
-public class ClienteRepository implements Repositorio< Integer, Cliente>{
+public class FuncionariosRepository  implements Repositorio < Integer, Funcionario>{
 
-    EnderecoRepository enderecoRepository = new EnderecoRepository();
-    ContatoRepository contatoRepository = new ContatoRepository();
     @Override
     public Integer getProximoId(Connection connection) throws SQLException {
-        String sql = "SELECT seq_cliente.nextval mysequence from DUAL";
+        try {
+            String sql = "SELECT seq_funcionario.nextval mysequence from DUAL";
+            Statement stmt = connection.createStatement();
+            ResultSet res = stmt.executeQuery(sql);
 
-        Statement stmt = connection.createStatement();
-        ResultSet res = stmt.executeQuery(sql);
-        if (res.next()) {
-            return res.getInt("mysequence");
+            if (res.next()) {
+                return res.getInt("mysequence");
+            }
+
+            return null;
+        } catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
         }
-        return null;
+
+
     }
 
-
     @Override
-    public Cliente adicionar(Object cliente) throws BancoDeDadosException {
+    public Funcionario adicionar(Funcionario funcionario) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();
+
             Integer proximoId = this.getProximoId(con);
-            cliente.setIdCliente(proximoId);
-            String sql = "INSERT INTO CLIENTE\n" +
-                    "(ID_CLIENTE, NOME, CPF)\n" +
-                    "VALUES(?, ?, ?)\n";
+            funcionario.setIdFuncionarios(proximoId);
+
+            String sql = "INSERT INTO FUNCIONARIO\n" +
+                    "(ID_FUNCIONARIO, NOME,  CARGO, SALARIO)\n" +
+                    "VALUES(?, ?, ?, ?)\n";
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setInt(1, cliente.getIdCliente());
-            stmt.setString(2, cliente.getNome());
-            stmt.setString(3, cliente.getCpf());
+            stmt.setInt(1, funcionario.getFuncionario());
+            stmt.setInt(2, funcionario.getNome());
+            stmt.setInt(4, (int) funcionario.getSalario());
+
+
             int res = stmt.executeUpdate();
-            System.out.println("adicionarPessoa.res=" + res);
-            return cliente;
+            System.out.println("adicionarContato.res=" + res);
+            return funcionario;
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
         } finally {
@@ -55,6 +64,8 @@ public class ClienteRepository implements Repositorio< Integer, Cliente>{
             }
         }
     }
+
+
 
     @Override
     public boolean remover(Object id) throws BancoDeDadosException {
@@ -62,9 +73,7 @@ public class ClienteRepository implements Repositorio< Integer, Cliente>{
         try {
             con = ConexaoBancoDeDados.getConnection();
 
-            enderecoRepository.removeEnderecoPorIdCliente(id);
-            contatoRepository.removeContatoPorIdCliente(id);
-            String sql = "DELETE FROM CLIENTE WHERE ID_CLIENTE = ?";
+            String sql = "DELETE FROM FUNCIONARIOS WHERE ID_FUNCIONARIO= ?";
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -72,7 +81,7 @@ public class ClienteRepository implements Repositorio< Integer, Cliente>{
 
             // Executa-se a consulta
             int res = stmt.executeUpdate();
-            System.out.println("removerClientePorId.res=" + res);
+            System.out.println("removerFuncionarioPorId.res=" + res);
 
             return res > 0;
         } catch (SQLException e) {
@@ -88,31 +97,41 @@ public class ClienteRepository implements Repositorio< Integer, Cliente>{
         }
     }
 
+
     @Override
-    public boolean editar(Object id, Object cliente) throws BancoDeDadosException {
+    public boolean editar(Funcionario funcionario) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();
 
             StringBuilder sql = new StringBuilder();
-            sql.append("UPDATE CLIENTE SET \n");
+            sql.append("UPDATE FUNCIONARIO SET \n");
+            Funcionario funcionario1 = funcionario.getFuncionario();
 
-            sql.append(" nome = ?,");
-            sql.append(" cpf = ?,");
+            sql.append(" id_cliente = ?,");
+            sql.append(" logradouro = ?,");
+            sql.append(" numero = ?,");
+            sql.append(" bairro = ?,");
+            sql.append(" cep = ?,");
+            sql.append(" tipo = ?");
             sql.deleteCharAt(sql.length() - 1); //remove o ultimo ','
-            sql.append(" WHERE id_cliente = ? ");
+            sql.append(" WHERE id_endereco = ? ");
 
             PreparedStatement stmt = con.prepareStatement(sql.toString());
 
             int index = 1;
+            if (funcionario != null) {
+                stmt.setInt(index++, funcionario.getIdFuncionario());
+                stmt.setString(index++, funcionario.getNome());
+                stmt.setInt(index++, funcionario.getSalario());
 
-                stmt.setString(index++, cliente.getNome());
-                stmt.setString(index++, cliente.getCpf());
-                stmt.setInt(index++, id);
+            }
+
+            stmt.setInt(index++, id);
 
             // Executa-se a consulta
             int res = stmt.executeUpdate();
-            System.out.println("editarCliente.res=" + res);
+            System.out.println("editarFuncionario.res=" + res);
 
             return res > 0;
         } catch (SQLException e) {
@@ -128,24 +147,30 @@ public class ClienteRepository implements Repositorio< Integer, Cliente>{
         }
     }
 
+
     @Override
-    public List<Cliente> listar() throws BancoDeDadosException {
-        List<Cliente> clientes = new ArrayList<>();
+    public Object adicionar(Object object) throws BancoDeDadosException {
+        return null;
+    }
+
+    @Override
+    public List<Funcionario> listar() throws BancoDeDadosException {
+        List<Funcionario> funcionario = new ArrayList<>();
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();
             Statement stmt = con.createStatement();
 
-            String sql = "SELECT * FROM CLIENTE C";
+            String sql = "SELECT * FROM FUNCIONARIO F";
 
             // Executa-se a consulta
             ResultSet res = stmt.executeQuery(sql);
 
             while (res.next()) {
-                Cliente cliente = getClienteFromResultSet(res);
-                clientes.add(cliente);
+                Funcionario funcionario1 = getFuncionarioFromResultSet(res);
+                funcionario.add((Funcionario) funcionario);
             }
-            return clientes;
+            return funcionario;
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
         } finally {
@@ -158,14 +183,7 @@ public class ClienteRepository implements Repositorio< Integer, Cliente>{
             }
         }
     }
-    private Cliente getClienteFromResultSet(ResultSet res) throws SQLException {
-        Cliente cliente = new Cliente();
-        cliente.setIdCliente(res.getInt("id_cliente"));
-        cliente.setNome(res.getString("nome"));
-        cliente.setCpf(res.getString("cpf"));
-        return cliente;
-    }
+
 
 
 }
-

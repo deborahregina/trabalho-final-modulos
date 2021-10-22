@@ -29,7 +29,7 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
 
 
     @Override
-    public Endereco adicionar(Endereco endereco) throws BancoDeDadosException {
+    public Endereco adicionar(Object endereco) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();
@@ -68,7 +68,7 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
     }
 
     @Override
-    public boolean remover(Integer id) throws BancoDeDadosException {
+    public boolean remover(Object id) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();
@@ -98,7 +98,7 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
     }
 
     @Override
-    public boolean editar(Integer id, Endereco endereco) throws BancoDeDadosException {
+    public boolean editar(Object id, Object endereco) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();

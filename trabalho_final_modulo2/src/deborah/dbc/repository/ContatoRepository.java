@@ -29,7 +29,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
     }
 
     @Override
-    public Contato adicionar(Object contato) throws BancoDeDadosException {
+    public Contato adicionar(Contato contato) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();
@@ -66,7 +66,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
     }
 
     @Override
-    public boolean remover(Object id) throws BancoDeDadosException {
+    public boolean remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();
@@ -96,7 +96,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
     }
 
     @Override
-    public boolean editar(Object id, Object contato) throws BancoDeDadosException {
+    public boolean editar(Integer id, Contato contato) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();

@@ -1,10 +1,7 @@
 package deborah.dbc.repository;
 
 import deborah.dbc.exceptions.BancoDeDadosException;
-import deborah.dbc.model.Cliente;
-import deborah.dbc.model.Contato;
-import deborah.dbc.model.Endereco;
-import deborah.dbc.model.TipoContato;
+import deborah.dbc.model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -40,8 +37,8 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
             endereco.setIdEndereco(proximoId);
 
             String sql = "INSERT INTO ENDERECO_CLIENTE\n" +
-                    "(ID_ENDERECO, ID_CLIENTE, LOGRADOURO, NUMERO, BAIRRO, CEP)\n" +
-                    "VALUES(?, ?, ?, ?, ?,?)\n";
+                    "(ID_ENDERECO, ID_CLIENTE,  LOGRADOURO, NUMERO, BAIRRO, CEP,TIPO)\n" +
+                    "VALUES(?, ?, ?, ?, ?,?,?)\n";
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -50,7 +47,8 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
             stmt.setString(3, endereco.getLogradouro());
             stmt.setInt(4, endereco.getNumero());
             stmt.setString(5, endereco.getBairro());
-            stmt.setString(5, endereco.getCep());
+            stmt.setString(6, endereco.getCep());
+            stmt.setInt(7,endereco.getTipo().getTipo());
 
             int res = stmt.executeUpdate();
             System.out.println("adicionarContato.res=" + res);
@@ -181,18 +179,55 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
                 e.printStackTrace();
             }
         }
+    }
         private Endereco getEnderecoFromResultSet(ResultSet res) throws SQLException {
-            Endereco endereco = new Contato();
-            endereco.setIdEndereco(res.getInt("id_Contato"));
+            Endereco endereco = new Endereco();
+            endereco.setIdEndereco(res.getInt("id_endereco"));
             Cliente pessoa = new Cliente();
-            pessoa.setNome(res.getString("nome_pessoa"));
-            pessoa.setIdCliente(res.getInt("id_pessoa"));
-            contato.setCliente(pessoa);
-            contato.setTipo(TipoContato.ofTipo(res.getInt("tipo")));
-            contato.setTelefone(res.getString("numero"));
-            contato.setDescricao(res.getString("descricao"));
-            return contato;
+            pessoa.setNome(res.getString("nome"));
+            pessoa.setIdCliente(res.getInt("id_cliente"));
+            endereco.setCliente(pessoa);
+            endereco.setLogradouro(res.getString("logradouro"));
+            endereco.setNumero(res.getInt("numero"));
+            endereco.setTipo(TipoEndereco.ofTipo(res.getInt("tipo")));
+            return endereco;
         }
+    public List<Endereco> listarEnderecosPorPessoa(Integer idPessoa) throws BancoDeDadosException {
+        List<Endereco> enderecos = new ArrayList<>();
+        Connection con = null;
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+
+
+            String sql = "SELECT EC.*, " +
+                    "            P.NOME AS NOME_CLIENTE " +
+                    "       FROM ENDERECO_CLIENTE EC " +
+                    " INNER JOIN CLIENTE P ON (P.ID_CLIENTE = EC.ID_CLIENTE) " +
+                    "      WHERE EC.ID_CLIENTE = ? ";
+
+            // Executa-se a consulta
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, idPessoa);
+
+            ResultSet res = stmt.executeQuery();
+
+            while (res.next()) {
+                Endereco endereco = getEnderecoFromResultSet(res);
+                enderecos.add(endereco);
+            }
+            return enderecos;
+        } catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }
-}
+

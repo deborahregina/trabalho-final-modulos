@@ -10,7 +10,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         boolean programaOn = true;
         while(programaOn) {
-            System.out.println("*** MENU PRINCIPAL *** \nO QUE DESEJA ACESSAR: \n1- MENU CLIENTES \n2- MENU FUNCIONANRIOS \n3- MENU PEDIDOS\n4- MENU PRODUTOS\n5- MENU ENTREGAS\n6- SAIR: ");
+            System.out.println("*** MENU PRINCIPAL *** \nO QUE DESEJA ACESSAR: \n1- MENU CLIENTES \n2- MENU ENDERECOS 3- MENU CONTATOS \n4- MENU FUNCIONANRIOS \n5- MENU PEDIDOS\n6- MENU PRODUTOS\n7- MENU ENTREGAS\n8- SAIR: ");
             int opcaoPrincipal = scanner.nextInt();
 
             switch (opcaoPrincipal) {
@@ -18,6 +18,11 @@ public class Main {
                     Menu.menuClientes();
                     break;
                 case 2:
+                    System.out.println("1- Listar enderecos cadastrados    2- Listar endereco por pessoa: ");
+                    int opEnderecos = scanner.nextInt();
+                    if (opEnderecos == 1) {
+                        //Menu.menuImprimeEnderecos();
+                    }
                     break;
                 case 3:
                     break;

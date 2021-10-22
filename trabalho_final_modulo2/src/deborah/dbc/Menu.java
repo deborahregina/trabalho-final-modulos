@@ -4,6 +4,8 @@ import deborah.dbc.model.*;
 import deborah.dbc.service.ClienteService;
 import deborah.dbc.service.ContatoService;
 import deborah.dbc.service.EnderecoService;
+import deborah.dbc.service.PedidoService;
+
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -244,6 +246,17 @@ public class Menu {
         }
     }
 
+    public static void menuPedido(){
+        System.out.println("1- Criar novo Pedido \n2- Imprimir pedidos em aberto \n3- Alterar produto de pedido "); // O método deletar pedido não faz sentido porque é uma pilha.
 
+        int opPedidos = scanner.nextInt();
+        if (opPedidos == 1) {
+            PedidoService pedidoService = new PedidoService();
+            Pedido pedido = new Pedido();
+            System.out.println("Digite o id do cliente que deseja fazer o pedido:");
+            pedido.setIdCliente(scanner.nextInt());
+            pedidoService.adicionarPedido(pedido);
+        }
     }
+}
 

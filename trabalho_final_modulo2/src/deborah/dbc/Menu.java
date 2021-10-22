@@ -24,10 +24,10 @@ public class Menu {
         int opCliente = scanner.nextInt();
         scanner.nextLine();
         if (opCliente == 1) {
-            Cliente cliente = cadastroClienteVisual();
+            cadastroClienteVisual();
         }
         if (opCliente == 2) {
-          
+
         }
         if (opCliente == 3) {
             System.out.println("Deseja:  1- Alterar dados do cliente     2- Alterar endereços do cliente        3- Alterar contatos do cliente: ");
@@ -52,19 +52,18 @@ public class Menu {
     public static Cliente cadastroClienteVisual() {
         Cliente clienteCadastro = new Cliente();
 
-        ArrayList<Endereco> enderecosCliente = new ArrayList<>();
-        ArrayList<Contato> contatosCliente = new ArrayList<>();
 
         System.out.println("Digite o nome do cliente: ");
         clienteCadastro.setNome(scanner.nextLine());
         System.out.println("Digite o CPF do cliente: ");
         clienteCadastro.setCpf(scanner.nextLine());
-        clienteService.adicionarCliente(clienteCadastro);
+
+        clienteService.adicionarCliente(clienteCadastro); // adiciona o cliente na tabela de clientes
 
         boolean menuEnderecos = true;
         while (menuEnderecos) {
             System.out.println("CADASTRAR ENDEREÇO PARA O CLIENTE: ");
-            enderecosCliente.add(cadastroEnderecoVisual(clienteCadastro));
+            cadastroEnderecoVisual(clienteCadastro); //Esse método adiciona o endereço no banco de dados.
             System.out.println("Deseja Cadastrar novo endereço?  1- Sim    2- Não: ");
             int opcaoNovoCadastroEndereco = scanner.nextInt();
             scanner.nextLine();
@@ -72,12 +71,11 @@ public class Menu {
                 menuEnderecos = false;
             }
         }
-        clienteCadastro.setEnderecos(enderecosCliente);
 
         boolean menuContatos = true;
         while (menuContatos) {
             System.out.println("CADASTRAR CONTATO PARA O CLIENTE: ");
-            contatosCliente.add(cadastroContatoVisual(clienteCadastro));
+            cadastroContatoVisual(clienteCadastro); // Esse método adiciona o contato no banco de dados
             System.out.println("Deseja cadastrar novo contato?  1- Sim    2- Não: ");
             int opcaoNovoCadastroContato = scanner.nextInt();
             scanner.nextLine();
@@ -86,8 +84,6 @@ public class Menu {
             }
 
         }
-
-        clienteCadastro.setContatos(contatosCliente);
 
         return clienteCadastro;
     }
@@ -139,7 +135,7 @@ public class Menu {
 
     public static void alterarClienteVisual() {
         System.out.println("Qual Cliente você deseja editar?");
-        clienteService.listarCliente();
+        //clienteService.listarCliente();
         int index = scanner.nextInt();
         scanner.nextLine();
         Cliente ClienteNovo = new Cliente();
@@ -159,7 +155,7 @@ public class Menu {
         if (opAlteracaoContato == 1) {
 
             System.out.println("Digite o ID do cliente para adicionar contato: ");
-            clienteService.listarCliente();
+            //clienteService.listarCliente();
             int index = scanner.nextInt();
             scanner.nextLine();
             Cliente clienteContato = new Cliente();

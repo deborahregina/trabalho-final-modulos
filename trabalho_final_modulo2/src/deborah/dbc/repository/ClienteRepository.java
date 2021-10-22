@@ -56,16 +56,112 @@ public class ClienteRepository implements Repositorio< Integer, Cliente>{
 
     @Override
     public boolean remover(Integer id) throws BancoDeDadosException {
-        return false;
+        Connection con = null;
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+
+            String sql = "DELETE FROM CLIENTE WHERE ID_CLIENTE = ?";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, id);
+
+            // Executa-se a consulta
+            int res = stmt.executeUpdate();
+            System.out.println("removerClientePorId.res=" + res);
+
+            return res > 0;
+        } catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public boolean editar(Integer id, Cliente cliente) throws BancoDeDadosException {
-        return false;
+        Connection con = null;
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+
+            StringBuilder sql = new StringBuilder();
+            sql.append("UPDATE CLIENTE SET \n");
+
+            sql.append(" nome = ?,");
+            sql.append(" cpf = ?,");
+            sql.deleteCharAt(sql.length() - 1); //remove o ultimo ','
+            sql.append(" WHERE id_cliente = ? ");
+
+            PreparedStatement stmt = con.prepareStatement(sql.toString());
+
+            int index = 1;
+
+                stmt.setInt(index++, cliente.getIdCliente());
+                stmt.setString(index++, cliente.getNome());
+                stmt.setString(index++, cliente.getCpf());
+                stmt.setInt(index++, id);
+
+            // Executa-se a consulta
+            int res = stmt.executeUpdate();
+            System.out.println("editarCliente.res=" + res);
+
+            return res > 0;
+        } catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public List<Cliente> listar() throws BancoDeDadosException {
-        return null;
+        List<Cliente> clientes = new ArrayList<>();
+        Connection con = null;
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+            Statement stmt = con.createStatement();
+
+            String sql = "SELECT * FROM CLIENTE C";
+
+            // Executa-se a consulta
+            ResultSet res = stmt.executeQuery(sql);
+
+            while (res.next()) {
+                Cliente cliente = getClienteFromResultSet(res);
+                clientes.add(cliente);
+            }
+            return clientes;
+        } catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
+    private Cliente getClienteFromResultSet(ResultSet res) throws SQLException {
+        Cliente cliente = new Cliente();
+        cliente.setIdCliente(res.getInt("id_cliente"));
+        cliente.setNome(res.getString("nome"));
+        cliente.setCpf(res.getString("cpf"));
+        return cliente;
+    }
+
 }
+

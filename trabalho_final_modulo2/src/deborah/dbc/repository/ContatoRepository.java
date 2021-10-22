@@ -184,7 +184,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
 
 
             String sql = "SELECT C.*, " +
-                    "            P.NOME AS NOME_CLIENTE " +
+                    "            P.NOME " +
                     "       FROM CONTATO_CLIENTE C " +
                     " INNER JOIN CLIENTE P ON (P.ID_CLIENTE = C.ID_CLIENTE) " +
                     "      WHERE C.ID_CLIENTE = ? ";

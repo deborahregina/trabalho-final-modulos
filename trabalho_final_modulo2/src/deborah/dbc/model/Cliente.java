@@ -54,6 +54,6 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "ID do cliente: " + idCliente + "\nNome do cliente: " + nome + "\nCPF do cliente: " + cpf + "Endereços cadastrados: " + enderecos.toString() + "Contatos Cadastrados: " + contatos.toString();
+        return "ID do cliente: " + idCliente + "\nNome do cliente: " + nome + "\nCPF do cliente: " + cpf;
     }
 }

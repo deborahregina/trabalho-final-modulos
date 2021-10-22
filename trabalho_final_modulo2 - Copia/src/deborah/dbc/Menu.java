@@ -3,7 +3,6 @@ package deborah.dbc;
 import deborah.dbc.model.*;
 import deborah.dbc.service.ClienteService;
 import deborah.dbc.service.ContatoService;
-import deborah.dbc.service.EnderecoService;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -14,7 +13,6 @@ public class Menu {
     static Scanner scanner = new Scanner(System.in);
     static ContatoService contatoService = new ContatoService();
     static ClienteService clienteService = new ClienteService();
-    static EnderecoService enderecoService = new EnderecoService();
 
     public static void menuClientes() {
 
@@ -25,7 +23,7 @@ public class Menu {
             Cliente cliente = cadastroClienteVisual();
         }
         if (opCliente == 2) {
-          
+            clienteService.listarCliente();
         }
         if (opCliente == 3) {
             System.out.println("Deseja:  1- Alterar dados do cliente     2- Alterar endereços do cliente        3- Alterar contatos do cliente: ");
@@ -105,8 +103,6 @@ public class Menu {
         endereco.setTipo(TipoEndereco.ofTipo(scanner.nextInt()));
 
         endereco.setCliente(cliente);
-        enderecoService.adicionarEndereco(endereco);
-
         return endereco;
     }
 
@@ -127,17 +123,17 @@ public class Menu {
     }
 
     public static void excluirClienteVisual() {
-        clienteService.listarCliente();
+        // ClienteService.listarClientes();
         System.out.println("Digite o id do cliente que deseja deletar: ");
         int idClienteDelete = scanner.nextInt();
-        //enderecoService.removerEndereco(id_endereco);
-        //contatoService.removerContato(idContato);
-        clienteService.removerCliente(idClienteDelete);
+        // EnderecoService.removerEndereco(id_endereco);
+        // ContatoService.removerContato(idContato);
+        //ClienteService.removerCliente(idClienteDelete);
     }
 
     public static void alterarClienteVisual() {
         System.out.println("Qual Cliente você deseja editar?");
-        clienteService.listarCliente();
+        // ClienteService.listarCliente();
         int index = scanner.nextInt();
         scanner.nextLine();
         Cliente ClienteNovo = new Cliente();
@@ -146,7 +142,7 @@ public class Menu {
         System.out.println("Digite o CPF: ");
         ClienteNovo.setCpf(scanner.nextLine());
 
-        clienteService.editarCliente(index, ClienteNovo);
+        //ClienteService.editarCliente(index, ClienteNovo);
     }
 
     public static void alteraContatoClienteVisual() {
@@ -157,18 +153,18 @@ public class Menu {
         if (opAlteracaoContato == 1) {
 
             System.out.println("Digite o ID do cliente para adicionar contato: ");
-            clienteService.listarCliente();
+            //clienteService.listarClientes();
             int index = scanner.nextInt();
             scanner.nextLine();
             Cliente clienteContato = new Cliente();
             clienteContato.setIdCliente(index);
             Contato contato = cadastroContatoVisual(clienteContato);
-            contatoService.adicionarContato(contato);
+            //contatoService.adicionarContato(contato);
         }
 
         if (opAlteracaoContato == 2) {
             System.out.println("Digite o contato que deseja editar: ");
-            contatoService.listar();
+            // contatoService.listar();
             int index = scanner.nextInt();
             scanner.nextLine();
             System.out.println("Digite o ID do cliente que deseja alterar o contato: ");
@@ -176,17 +172,17 @@ public class Menu {
             Cliente cliente = new Cliente();
             cliente.setIdCliente(scanner.nextInt());
             Contato contato = cadastroContatoVisual(cliente);
-            contatoService.editar(index, contato);
+            //ContatoService.editar(index, contato);
 
         }
         if (opAlteracaoContato == 3) {
             System.out.println("Qual contato você deseja excluir?");
-            contatoService.listar();
+            //contatoService.listar();
             boolean validouNumero = false;
             while (!validouNumero) {
                 try {
                     int id = scanner.nextInt();
-                    contatoService.remover(id);
+                    //contatoService.remover(id);
                     validouNumero = true;
                 } catch (InputMismatchException ex) {
                     System.err.println("numero invalido");
@@ -205,36 +201,36 @@ public class Menu {
         if (opAlteracaoEndereco == 1) {
 
             System.out.println("Digite o ID do cliente para adicionar Endereco: ");
-            clienteService.listarCliente();
+            //clienteService.listarClientes();
             int index = scanner.nextInt();
             scanner.nextLine();
             Cliente clienteContato = new Cliente();
             clienteContato.setIdCliente(index);
             Endereco endereco = cadastroEnderecoVisual(clienteContato);
-            enderecoService.adicionarEndereco(endereco);
+            //EnderecoService.adicionarEndereco(Endereco);
         }
 
         if (opAlteracaoEndereco == 2) {
             System.out.println("Digite o Endereco que deseja editar: ");
-            enderecoService.listar();
+            // EnderecoService.listar();
             int index = scanner.nextInt();
             scanner.nextLine();
             System.out.println("Digite o ID do cliente que deseja alterar o Endereco: ");
-            clienteService.listarCliente();
+            //ClienteService.listarCliente();
             Cliente cliente = new Cliente();
             cliente.setIdCliente(scanner.nextInt());
             Endereco endereco = cadastroEnderecoVisual(cliente);
-            enderecoService.editar(index, endereco);
+            //EnderecoService.editar(index, endereco);
 
         }
         if (opAlteracaoEndereco == 3) {
             System.out.println("Qual Endereco você deseja excluir?");
-            enderecoService.listar();
+            //EnderecoService.listar();
             boolean validouNumero = false;
             while (!validouNumero) {
                 try {
                     int id = scanner.nextInt();
-                    enderecoService.remover(id);
+                    //EnderecoService.remover(id);
                     validouNumero = true;
                 } catch (InputMismatchException ex) {
                     System.err.println("numero invalido");
@@ -242,8 +238,6 @@ public class Menu {
 
             }
         }
-    }
-
 
     }
-
+}

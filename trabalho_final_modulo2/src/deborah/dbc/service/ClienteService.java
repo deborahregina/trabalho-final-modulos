@@ -24,7 +24,7 @@ public class ClienteService {
     }
 
     // remoção
-    public void removerPessoa(Integer id) {
+    public void removerCliente(Integer id) {
         try {
             boolean conseguiuRemover = clienteRepository.remover(id);
             System.out.println("cliente removida? " + conseguiuRemover + "| com id=" + id);
@@ -34,7 +34,7 @@ public class ClienteService {
     }
 
     // atualização de um objeto
-    public void editarPessoa(Integer id, Cliente cliente) {
+    public void editarCliente(Integer id, Cliente cliente) {
         try {
             boolean conseguiuEditar = clienteRepository.editar(id, cliente);
             System.out.println("cliente editada? " + conseguiuEditar + "| com id=" + id);
@@ -44,7 +44,7 @@ public class ClienteService {
     }
 
     // leitura
-    public void listarPessoas() {
+    public void listarCliente() {
         try {
             List<Cliente> listar = clienteRepository.listar();
             listar.forEach(System.out::println);

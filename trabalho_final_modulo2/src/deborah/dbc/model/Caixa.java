@@ -54,7 +54,7 @@ public class Caixa implements Pagamento {
         }else if (valorPago > pedido.getValorTotal()){
             troco = valorPago - pedido.getValorTotal();
         }
-        System.out.println("Valor do troco: " + troco;
+        System.out.println("Valor do troco: " + troco);
         return troco;
 
     }

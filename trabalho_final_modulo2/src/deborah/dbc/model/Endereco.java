@@ -1,7 +1,8 @@
 package deborah.dbc.model;
 
 public class Endereco {
-    Integer idEndereco;
+    private Cliente cliente;
+    private Integer idEndereco;
     private TipoEndereco tipo;
     private String logradouro;
     private int numero;
@@ -18,6 +19,14 @@ public class Endereco {
         this.numero = numero;
         this.bairro = bairro;
         this.cep = cep;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public Integer getIdEndereco() {

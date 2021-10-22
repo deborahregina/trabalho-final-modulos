@@ -1,6 +1,7 @@
 package deborah.dbc.model;
 
     public class Contato {
+        private Cliente pessoa;
         private Integer idContato;
         private String descricao;
         private String telefone;
@@ -13,6 +14,14 @@ package deborah.dbc.model;
         }
 
         public Contato() {
+        }
+
+        public Cliente getCliente() {
+            return pessoa;
+        }
+
+        public void setCliente(Cliente pessoa) {
+            this.pessoa = pessoa;
         }
 
         public Contato(Integer idContato, String descricao, String telefone, TipoContato tipo) {

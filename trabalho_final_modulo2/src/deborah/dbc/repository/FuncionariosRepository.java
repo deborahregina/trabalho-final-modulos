@@ -1,7 +1,7 @@
 package deborah.dbc.repository;
 
 import deborah.dbc.exceptions.BancoDeDadosException;
-import deborah.dbc.model.Cliente;
+import deborah.dbc.model.Contato;
 import deborah.dbc.model.Funcionario;
 
 import java.sql.*;
@@ -68,7 +68,7 @@ public class FuncionariosRepository  implements Repositorio < Integer, Funcionar
 
 
     @Override
-    public boolean remover(Object id) throws BancoDeDadosException {
+    public boolean remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();
@@ -99,31 +99,28 @@ public class FuncionariosRepository  implements Repositorio < Integer, Funcionar
 
 
     @Override
-    public boolean editar(Funcionario funcionario) throws BancoDeDadosException {
+    public boolean editar(Integer id, Funcionario funcionario) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();
 
             StringBuilder sql = new StringBuilder();
-            sql.append("UPDATE FUNCIONARIO SET \n");
-            Funcionario funcionario1 = funcionario.getFuncionario();
+            sql.append("UPDATE FUNCIONARIOS  SET \n");
+            int funcionario1 = funcionario.getFuncionario();
 
-            sql.append(" id_cliente = ?,");
-            sql.append(" logradouro = ?,");
-            sql.append(" numero = ?,");
-            sql.append(" bairro = ?,");
-            sql.append(" cep = ?,");
-            sql.append(" tipo = ?");
+            sql.append(" id_funcionarios = ?,");
+            sql.append(" nome = ?,");
+            sql.append(" salario = ?,");
             sql.deleteCharAt(sql.length() - 1); //remove o ultimo ','
-            sql.append(" WHERE id_endereco = ? ");
+            sql.append(" WHERE id_funcionario= ? ");
 
             PreparedStatement stmt = con.prepareStatement(sql.toString());
 
             int index = 1;
             if (funcionario != null) {
                 stmt.setInt(index++, funcionario.getIdFuncionario());
-                stmt.setString(index++, funcionario.getNome());
-                stmt.setInt(index++, funcionario.getSalario());
+                stmt.setInt(index++, funcionario.getNome();
+                stmt.setString(index++, funcionario.getSalario();
 
             }
 
@@ -146,7 +143,6 @@ public class FuncionariosRepository  implements Repositorio < Integer, Funcionar
             }
         }
     }
-
 
     @Override
     public Object adicionar(Object object) throws BancoDeDadosException {

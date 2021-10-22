@@ -58,12 +58,12 @@ public class PedidoRepository implements Repositorio<Integer, Pedido> {
     }
 
         @Override
-        public boolean remover (Object id) throws BancoDeDadosException {
+        public boolean remover (Integer id) throws BancoDeDadosException {
             return false;
         }
 
         @Override
-        public boolean editar (Object id, Object pedido) throws BancoDeDadosException {
+        public boolean editar (Integer id, Pedido pedido) throws BancoDeDadosException {
             return false;
         }
 

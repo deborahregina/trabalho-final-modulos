@@ -55,7 +55,7 @@ public class ClienteRepository implements Repositorio< Integer, Cliente>{
     }
 
     @Override
-    public boolean remover(Object id) throws BancoDeDadosException {
+    public boolean remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();
@@ -85,7 +85,7 @@ public class ClienteRepository implements Repositorio< Integer, Cliente>{
     }
 
     @Override
-    public boolean editar(Object id, Object cliente) throws BancoDeDadosException {
+    public boolean editar(Integer id, Cliente cliente) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();

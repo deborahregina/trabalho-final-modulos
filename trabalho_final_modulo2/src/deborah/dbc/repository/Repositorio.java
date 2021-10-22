@@ -12,9 +12,9 @@ public interface Repositorio<CHAVE, OBJETO> {
 
     OBJETO adicionar(Object object) throws BancoDeDadosException;
 
-    boolean remover(Object id) throws BancoDeDadosException;
+    boolean remover(CHAVE id) throws BancoDeDadosException;
 
-    boolean editar(Object id, Object objeto) throws BancoDeDadosException;
+    boolean editar(CHAVE id, OBJETO objeto) throws BancoDeDadosException;
 
     Object adicionar(Object object) throws BancoDeDadosException;
 

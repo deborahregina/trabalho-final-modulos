@@ -63,7 +63,7 @@ public class ProdutoRepository implements Repositorio<Integer, Produto>  {
     }
 
     @Override
-    public boolean remover(Object id) throws BancoDeDadosException {
+    public boolean remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();
@@ -93,7 +93,7 @@ public class ProdutoRepository implements Repositorio<Integer, Produto>  {
     }
 
     @Override
-    public boolean editar(Object id, Object produto) throws BancoDeDadosException {
+    public boolean editar(Integer id, Produto produto) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();

@@ -25,11 +25,11 @@ public class Main {
                     }
                     break;
                 case 3:
-                    Menu.menuPedido();
                     break;
                 case 4:
                     break;
                 case 5:
+                    Menu.menuPedido();
                     break;
                 case 6:
                     programaOn = false;

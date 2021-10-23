@@ -4,12 +4,14 @@ import deborah.dbc.exceptions.BancoDeDadosException;
 import deborah.dbc.model.Endereco;
 import deborah.dbc.model.Produto;
 import deborah.dbc.repository.EnderecoRepository;
+import deborah.dbc.repository.PedidoProdutoRepository;
 import deborah.dbc.repository.ProdutoRepository;
 
 import java.text.DecimalFormat;
 
 public class ProdutoService {
 
+    PedidoProdutoRepository pedidoProdutoRepository = new PedidoProdutoRepository();
     private ProdutoRepository produtoRepository;
 
     public ProdutoService() {
@@ -20,7 +22,7 @@ public class ProdutoService {
     public void adicionarProduto(Produto produto) {
         try {
             Produto produtoAdicionado = produtoRepository.adicionar(produto);
-            System.out.println("Produto adicinado com sucesso! " + produtoAdicionado);
+            System.out.println("Produto adicinado com sucesso! ");
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
         }
@@ -29,6 +31,7 @@ public class ProdutoService {
     // remoção
     public void remover(Integer id) {
         try {
+            pedidoProdutoRepository.removerProdutoFromPedido(id);
             boolean conseguiuRemover = produtoRepository.remover(id);
             System.out.println("removido? " + conseguiuRemover + "| com id=" + id);
         } catch (BancoDeDadosException e) {

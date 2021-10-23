@@ -175,6 +175,9 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
             }
         }
     }
+
+
+
         private Endereco getEnderecoFromResultSet(ResultSet res) throws SQLException {
             Endereco endereco = new Endereco();
             endereco.setIdEndereco(res.getInt("id_endereco"));

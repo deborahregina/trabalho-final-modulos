@@ -18,6 +18,7 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
     private ContatoRepository contatoRepository = new ContatoRepository();
     private PedidoRepository pedidoRepository = new PedidoRepository();
+    private PedidoProdutoRepository pedidoProdutoRepository = new PedidoProdutoRepository();
 
 
 
@@ -31,7 +32,7 @@ public class ClienteService {
     public void adicionarCliente(Cliente cliente) {
         try {
             Cliente clienteAdicionado = clienteRepository.adicionar(cliente);
-            System.out.println("cliente adicinado com sucesso! " + clienteAdicionado);
+            System.out.println("cliente adicinado com sucesso! ");
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
         }
@@ -40,9 +41,10 @@ public class ClienteService {
     // remoção
     public void removerCliente(Integer id) {
         try {
+
+            pedidoRepository.removePedidoPorIdCliente(id);
             enderecoRepository.removeEnderecoPorIdCliente(id);
             contatoRepository.removeContatoPorIdCliente(id);
-            pedidoRepository.removePedidoPorIdCliente(id);
             boolean conseguiuRemover = clienteRepository.remover(id);
             System.out.println("cliente removida? " + conseguiuRemover + "| com id=" + id);
         } catch (BancoDeDadosException e) {

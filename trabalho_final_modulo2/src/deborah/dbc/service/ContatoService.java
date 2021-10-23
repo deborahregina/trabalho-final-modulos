@@ -15,7 +15,7 @@ public class ContatoService {
     public void adicionarContato(Contato contato) {
         try {
             Contato contatoAdicionado = contatoRepository.adicionar(contato);
-            System.out.println("contato adicinado com sucesso! " + contatoAdicionado);
+            System.out.println("contato adicinado com sucesso! ");
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
         }

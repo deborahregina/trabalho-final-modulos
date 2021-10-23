@@ -6,6 +6,7 @@ import deborah.dbc.model.PedidoProduto;
 import deborah.dbc.model.Produto;
 import deborah.dbc.repository.PedidoProdutoRepository;
 import deborah.dbc.repository.PedidoRepository;
+import deborah.dbc.repository.ProdutoRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +14,13 @@ import java.util.List;
 public class PedidoService {
     private PedidoRepository pedidoRepository;
     private PedidoProdutoRepository pedidoProdututoRepository;
+    private ProdutoRepository produtoRepository;
 
     public PedidoService() {
         pedidoRepository = new PedidoRepository();
         pedidoProdututoRepository = new PedidoProdutoRepository();
     }
+
     public Pedido adicionarPedido(Pedido pedido) {
         try {
             Pedido pedidoAdicionado = pedidoRepository.adicionar(pedido);
@@ -41,12 +44,12 @@ public class PedidoService {
     }
 
     public void listarPedidos() {
-         try {
-             List<PedidoProduto> listarPedidos =pedidoProdututoRepository.listar();
-             listarPedidos.forEach(System.out::println);
-         } catch (BancoDeDadosException e) {
-             e.printStackTrace();
-         }
+        try {
+            List<PedidoProduto> listarPedidos = pedidoProdututoRepository.listar();
+            listarPedidos.forEach(System.out::println);
+        } catch (BancoDeDadosException e) {
+            e.printStackTrace();
+        }
     }
 
     public void alterarProdutoDoPedido(PedidoProduto pedidoProduto) {
@@ -69,6 +72,22 @@ public class PedidoService {
     public void deletarProdutoDoPedido(PedidoProduto pedidoProduto) {
         try {
             pedidoProdututoRepository.remover(pedidoProduto);
+        } catch (BancoDeDadosException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deletarPedidosEprodutoPedido(Integer id_cliente) {
+        try {
+            List<Pedido> pedidos = new ArrayList<>();
+            pedidos = pedidoRepository.retornapedidosCliente(id_cliente);
+            for(Pedido peds : pedidos) {
+                System.out.println(peds.toString());
+                pedidoProdututoRepository.removerPedidoDePedidoProduto(peds.getIdPedido());
+            }
+            for(Pedido peds: pedidos) {
+                pedidoRepository.removePedidoPorIdCliente(id_cliente);
+            }
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
         }

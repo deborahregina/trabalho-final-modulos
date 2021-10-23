@@ -67,7 +67,7 @@ public class Produto {
         if (tipoProduto.getTipo() == 2) {
             tipoProdutoEh = "Bebida";
         }
-        return "ID do produto: " + idProdutos +  " Tipo do produto: " + tipoProdutoEh +" Nome do produto: " + descrição+ " Valor unitário: R$ " + valorUnitario +  "\n";
+        return "ID do produto: " + idProdutos +  " | Tipo do produto: " + tipoProdutoEh +" | Nome do produto: " + descrição+ " | Valor unitário: R$ " + valorUnitario +  "\n";
     }
 
 }

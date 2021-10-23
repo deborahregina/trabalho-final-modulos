@@ -1,6 +1,10 @@
 package deborah.dbc;
 
 import deborah.dbc.exceptions.BancoDeDadosException;
+import deborah.dbc.model.Contato;
+import deborah.dbc.model.Endereco;
+import deborah.dbc.model.TipoContato;
+import deborah.dbc.model.TipoEndereco;
 import deborah.dbc.service.ClienteService;
 import deborah.dbc.service.ContatoService;
 import deborah.dbc.service.EnderecoService;
@@ -21,7 +25,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         boolean programaOn = true;
         while(programaOn) {
-            System.out.println("*** MENU PRINCIPAL *** \nO QUE DESEJA ACESSAR: \n1- MENU CLIENTES \n2- MENU ENDERECOS \n3- MENU CONTATOS \n5- MENU PEDIDOS\n6- MENU PRODUTOS\n7- MENU ENTREGAS\n8- SAIR: ");
+            System.out.println("\n*** MENU PRINCIPAL ***\n \n1- MENU CLIENTES \n2- MENU ENDERECOS \n3- MENU CONTATOS \n4- MENU PRODUTOS \n5- MENU PEDIDOS\n6- MENU ENTREGAS\n7- SAIR: \nO QUE DESEJA ACESSAR:");
             int opcaoPrincipal = scanner.nextInt();
             scanner.nextLine();
 
@@ -30,7 +34,7 @@ public class Main {
                     Menu.menuClientes();
                     break;
                 case 2:
-                    System.out.println("1- Listar enderecos cadastrados    2- Listar endereco por pessoa  ");
+                    System.out.println("\n1- Listar enderecos cadastrados       2- Filtrar endereços por ID de cliente       3- Deletar endereço cadastrado       4- Alterar endereço cadastrado: ");
                     int opEnderecos = scanner.nextInt();
                     if (opEnderecos == 1) {
                         enderecoService.listar();
@@ -48,15 +52,28 @@ public class Main {
                         enderecoService.remover(idDeletaEnd);
                     }
                     if (opEnderecos == 4) {
+                        Endereco endereco = new Endereco();
                         enderecoService.listar();
                         System.out.println("Digite o ID do endereço que deseja alterar: ");
                         int idAlteraEnd = scanner.nextInt();
                         scanner.nextLine();
-                        clienteService.listarCliente();
+                        System.out.print("Digite o logradouro: ");
+                        endereco.setLogradouro(scanner.nextLine());
+                        System.out.print("Digite o número: ");
+                        endereco.setNumero(scanner.nextInt());
+                        scanner.nextLine();
+                        System.out.print("Digite o bairro: ");
+                        endereco.setBairro(scanner.nextLine());
+                        System.out.print("Digite o CEP: ");
+                        endereco.setCep(scanner.nextLine());
+                        System.out.print("Tipo de endereço:  1- Residencial   2- Comercial: ");
+                        endereco.setTipo(TipoEndereco.ofTipo(scanner.nextInt()));
+                        enderecoService.editar(idAlteraEnd,endereco);
+
                     }
                     break;
                 case 3:
-                    System.out.println("1- Listar contatos cadastrados     2- Listar contato por pessoa   3- Deletar contato: ");
+                    System.out.println("\n1- Listar contatos cadastrados       2- Filtrar contato por ID de cliente       3- Deletar contato       4- Alterar contato cadastrado: ");
                     int opContatos = scanner.nextInt();
                     scanner.nextLine();
                     if (opContatos == 1) {
@@ -74,14 +91,23 @@ public class Main {
                         scanner.nextLine();
                         contatoService.remover(idDeletaCont);
                     }
+                    if (opContatos == 4) {
+                        contatoService.listar();
+                        System.out.println("Digite o ID do contato que deseja alterar: ");
+                        int idAlteraContato = scanner.nextInt();
+                        scanner.nextLine();
+                        Contato contato = new Contato();
+                        System.out.println("Digite a descrição do contato: ");
+                        contato.setDescricao(scanner.nextLine());
+                        System.out.println("Digite o telefone do cliente: ");
+                        contato.setTelefone(scanner.nextLine());
+                        System.out.println("Tipo de contato:   1- Residencial    2- Comercial");
+                        contato.setTipo(TipoContato.ofTipo(scanner.nextInt()));
+                        contatoService.editar(idAlteraContato, contato);
+                    }
                     break;
                 case 4:
-                    break;
-                case 5:
-                    Menu.menuPedido();
-                    break;
-                case 6:
-                    System.out.println("1- Cadastrar novo produto     2- Deletar produto cadastrado    3- Listar produtos cadastrados    4- Alterar produto");
+                    System.out.println("\n1- Cadastrar novo produto       2- Deletar produto cadastrado       3- Listar produtos cadastrados       4- Alterar produto: ");
                     int opProduto = scanner.nextInt();
                     scanner.nextLine();
                     if (opProduto == 1) {
@@ -99,8 +125,15 @@ public class Main {
                     if (opProduto == 4) {
                         Menu.menuAlteraProduto();
                     }
-
                     break;
+                case 5:
+                    Menu.menuPedido();
+                    break;
+                case 7:
+                    programaOn = false;
+                    break;
+                default:
+                    System.out.println("Digite opção válida!");
             }
         }
     }

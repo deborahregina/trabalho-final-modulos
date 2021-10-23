@@ -291,7 +291,8 @@ public class Menu {
     }
 
     public static void menuPedido() {
-        System.out.println("1- Criar novo Pedido \n2- Imprimir pedidos em aberto \n3- Alterar produto de pedido "); // O método deletar pedido não faz sentido porque é uma pilha.
+        System.out.println("1- Criar novo Pedido \n2- Imprimir pedidos em aberto \n3- Alterar produto de pedido \n4- Incluir mais produtos no pedido \n5- Deletar produto do pedido "); // O método deletar pedido não faz sentido porque é uma pilha.
+
         PedidoService pedidoService = new PedidoService();
         int opPedidos = scanner.nextInt();
         if (opPedidos == 1) {
@@ -335,8 +336,7 @@ public class Menu {
 
             pedidoService.alterarProdutoDoPedido(pedidoProdutoAlterar);
 
-        }
-        else if (opPedidos == 4) {
+        } else if (opPedidos == 4) {
             Produto produto = new Produto();
             PedidoProduto pedidoProduto = new PedidoProduto();
 

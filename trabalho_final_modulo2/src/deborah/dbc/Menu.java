@@ -127,15 +127,13 @@ public class Menu {
 
     public static void excluirClienteVisual() {
         clienteService.listarCliente();
-        System.out.println("Digite o id do cliente que deseja deletar: ");
+        System.out.println("******* Digite o id do cliente que deseja deletar *******");
         int idClienteDelete = scanner.nextInt();
-        //enderecoService.removerEndereco(id_endereco);
-        //contatoService.removerContato(idContato);
         clienteService.removerCliente(idClienteDelete);
     }
 
     public static void alterarClienteVisual() {
-        System.out.println("Qual Cliente você deseja editar?");
+        System.out.println("******* Qual Cliente você deseja editar *******");
         clienteService.listarCliente();
         int index = scanner.nextInt();
         scanner.nextLine();
@@ -155,32 +153,47 @@ public class Menu {
 
         if (opAlteracaoContato == 1) {
 
-            System.out.println("Digite o ID do cliente para adicionar contato: ");
+            System.out.println("******* Digite o ID do cliente para adicionar contato *******");
             clienteService.listarCliente();
             int index = scanner.nextInt();
             scanner.nextLine();
             Cliente clienteContato = new Cliente();
             clienteContato.setIdCliente(index);
-            Contato contato = cadastroContatoVisual(clienteContato);
-            contatoService.adicionarContato(contato);
+            cadastroContatoVisual(clienteContato);
         }
 
         if (opAlteracaoContato == 2) {
-            System.out.println("Digite o contato que deseja editar: ");
-            contatoService.listar();
+            System.out.println("\n********************* Lista de Clientes *********************\n");
+            clienteService.listarCliente();
+            System.out.println("******************************************\n");
+            System.out.println("Digite o ID do cliente que deseja alterar o contato: ");
             int index = scanner.nextInt();
             scanner.nextLine();
-            System.out.println("Digite o ID do cliente que deseja alterar o contato: ");
-            //ClienteService.listarCliente();
-            Cliente cliente = new Cliente();
-            cliente.setIdCliente(scanner.nextInt());
-            Contato contato = cadastroContatoVisual(cliente);
-            contatoService.editar(index, contato);
+            System.out.println("\n********************* Contados do cliente ******************\n");
+            contatoService.listarContatoPorCodigoDaPessoa(index);
+            System.out.println("Digite o ID do contato que deseja editar: ");
+            int idContact = scanner.nextInt();
+            scanner.nextLine();
+            Contato contato = new Contato();
+            System.out.println("Digite a descrição do contato: ");
+            contato.setDescricao(scanner.nextLine());
+            System.out.println("Digite o telefone do cliente: ");
+            contato.setTelefone(scanner.nextLine());
+            System.out.println("Tipo de contato:   1- Residencial    2- Comercial");
+            contato.setTipo(TipoContato.ofTipo(scanner.nextInt()));
+            contatoService.editar(idContact, contato);
 
         }
         if (opAlteracaoContato == 3) {
-            System.out.println("Qual contato você deseja excluir?");
-            contatoService.listar();
+            System.out.println("\n********************* Lista de Clientes *********************\n");
+            clienteService.listarCliente();
+            System.out.println("******************************************\n");
+            System.out.println("Digite o ID do cliente que deseja deletar o contato: ");
+            int index = scanner.nextInt();
+            scanner.nextLine();
+            System.out.println("\n********************* Contatos do cliente ******************\n");
+            contatoService.listarContatoPorCodigoDaPessoa(index);
+            System.out.println("Digite o ID do contato que deseja deletar: ");
             boolean validouNumero = false;
             while (!validouNumero) {
                 try {
@@ -195,7 +208,7 @@ public class Menu {
         }
         if (opAlteracaoContato == 4) {
             clienteService.listarCliente();
-            System.out.println("Digite o ID do cliente para listar contato: ");
+            System.out.println("******* Digite o ID do cliente para listar contato *******");
             int idCliente = scanner.nextInt();
             contatoService.listarContatoPorCodigoDaPessoa(idCliente);
         }
@@ -203,38 +216,55 @@ public class Menu {
     }
 
     public static void alteraEnderecoClienteVisual() {
-
-        System.out.println("1 - Adicionar Endereco       2- Editar Endereco existente  3- Deletar Endereco existente: ");
+        System.out.println("\n********************* Lista de Clientes *********************\n");
+        clienteService.listarCliente();
+        System.out.println("******************************************\n");
+        System.out.println("Digite o ID do cliente que deseja alterar endereço: ");
+        int clientePrinc = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("1 - Adicionar Endereco     2- Editar Endereco existente  3- Deletar Endereco existente    4- Listar Enderecos Cadastrados: ");
         int opAlteracaoEndereco = scanner.nextInt();
 
         if (opAlteracaoEndereco == 1) {
 
-            System.out.println("Digite o ID do cliente para adicionar Endereco: ");
-            clienteService.listarCliente();
-            int index = scanner.nextInt();
             scanner.nextLine();
-            Cliente clienteContato = new Cliente();
-            clienteContato.setIdCliente(index);
-            Endereco endereco = cadastroEnderecoVisual(clienteContato);
+            Cliente clienteEndereco = new Cliente();
+            clienteEndereco.setIdCliente(clientePrinc);
+            Endereco endereco = cadastroEnderecoVisual(clienteEndereco);
             enderecoService.adicionarEndereco(endereco);
         }
 
         if (opAlteracaoEndereco == 2) {
-            System.out.println("Digite o Endereco que deseja editar: ");
-            enderecoService.listar();
-            int index = scanner.nextInt();
-            scanner.nextLine();
-            System.out.println("Digite o ID do cliente que deseja alterar o Endereco: ");
+
+            System.out.println("\n********************* Lista de Clientes *********************\n");
             clienteService.listarCliente();
-            Cliente cliente = new Cliente();
-            cliente.setIdCliente(scanner.nextInt());
-            Endereco endereco = cadastroEnderecoVisual(cliente);
-            enderecoService.editar(index, endereco);
+            System.out.println("******************************************\n");
+            Endereco endereco = new Endereco();
+            System.out.println("\n********************* Endereço do cliente ******************\n");
+            enderecoService.listarEnderecosPorCodigoDaPessoa(clientePrinc);
+            System.out.println("Digite o ID do endereço que deseja editar: ");
+            int idEnd = scanner.nextInt();
+            scanner.nextLine();
+            System.out.println("Digite o logradouro: ");
+            endereco.setLogradouro(scanner.nextLine());
+            System.out.println("Digite o número: ");
+            endereco.setNumero(scanner.nextInt());
+            scanner.nextLine();
+            System.out.println("Digite o bairro: ");
+            endereco.setBairro(scanner.nextLine());
+            System.out.println("Digite o CEP: ");
+            endereco.setCep(scanner.nextLine());
+            System.out.println("Tipo de endereço:  1- Residencial   2- Comercial: ");
+            endereco.setTipo(TipoEndereco.ofTipo(scanner.nextInt()));
+            enderecoService.editar(idEnd,endereco);
 
         }
         if (opAlteracaoEndereco == 3) {
-            System.out.println("Qual Endereco você deseja excluir?");
+
+            System.out.println("\n********************* Lista de Clientes *********************\n");
             enderecoService.listar();
+            System.out.println("******************************************\n");
+            System.out.println("Qual Endereco você deseja excluir");
             boolean validouNumero = false;
             while (!validouNumero) {
                 try {
@@ -246,6 +276,9 @@ public class Menu {
                 }
 
             }
+        }
+        if (opAlteracaoEndereco == 4) {
+            enderecoService.listar();
         }
     }
 
@@ -259,7 +292,7 @@ public class Menu {
             Produto produto = new Produto();
             PedidoProduto pedidoProduto = new PedidoProduto();
             //listar clientes
-            System.out.println("Digite o id do cliente que deseja fazer o pedido:");
+            System.out.println("******* Digite o id do cliente que deseja fazer o pedido *******");
             pedido.setIdCliente(scanner.nextInt());
             pedido = pedidoService.adicionarPedido(pedido);
             System.out.println("Qual produto deseja inserir: ");
@@ -358,7 +391,7 @@ public class Menu {
     public static void menuAlteraProduto() {
         Produto produto = new Produto();
         produtoService.listar();
-        System.out.println("Digite o ID do produto que deseja alterar: ");
+        System.out.println("******* Digite o ID do produto que deseja alterar *******");
         int index = scanner.nextInt();
         scanner.nextLine();
         System.out.println("Digite o tipo de produto   1- Comida     2- Bebida");

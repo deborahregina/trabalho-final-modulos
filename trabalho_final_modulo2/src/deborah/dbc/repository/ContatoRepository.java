@@ -105,7 +105,6 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
             sql.append("UPDATE contato_cliente SET \n");
             Cliente pessoa = contato.getCliente();
 
-            sql.append(" id_pessoa = ?,");
             sql.append(" tipo = ?,");
             sql.append(" numero = ?,");
             sql.append(" descricao = ?,");
@@ -115,14 +114,10 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
             PreparedStatement stmt = con.prepareStatement(sql.toString());
 
             int index = 1;
-            if (pessoa != null) {
-                stmt.setInt(index++, pessoa.getIdCliente());
                 stmt.setInt(index++, contato.getTipo().getTipo());
                 stmt.setString(index++, contato.getTelefone());
                 stmt.setString(index++, contato.getDescricao());
-            }
-
-            stmt.setInt(index++, id);
+                stmt.setInt(index++, id);
 
             // Executa-se a consulta
             int res = stmt.executeUpdate();
@@ -151,7 +146,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
             Statement stmt = con.createStatement();
 
             String sql = "SELECT C.*, " +
-                    "            P.NOME AS NOME_CLIENTE " +
+                    "            P.NOME  " +
                     "       FROM CONTATO_CLIENTE C " +
                     "  INNER JOIN CLIENTE P ON (P.ID_CLIENTE = C.ID_CLIENTE) ";
 
@@ -164,6 +159,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
             }
             return contatos;
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new BancoDeDadosException(e.getCause());
         } finally {
             try {
@@ -215,7 +211,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
 
     private Contato getContatoFromResultSet(ResultSet res) throws SQLException {
         Contato contato = new Contato();
-        contato.setIdContato(res.getInt("id_Contato"));
+        contato.setIdContato(res.getInt("id_contato"));
         Cliente pessoa = new Cliente();
         pessoa.setNome(res.getString("nome"));
         pessoa.setIdCliente(res.getInt("id_cliente"));
@@ -225,6 +221,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
         contato.setDescricao(res.getString("descricao"));
         return contato;
     }
+
     public boolean removeContatoPorIdCliente(Integer id_cliente) throws BancoDeDadosException {
         Connection con = null;
         try {
@@ -238,7 +235,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
 
             // Executa-se a consulta
             int res = stmt.executeUpdate();
-            System.out.println("removerClientePorId.res=" + res);
+            System.out.println("removeContatoPorIdCliente.res=" + res);
 
             return res > 0;
         } catch (SQLException e) {

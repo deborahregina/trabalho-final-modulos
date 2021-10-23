@@ -17,7 +17,7 @@ public class EnderecoService {
     public void adicionarEndereco(Endereco endereco) {
         try {
             Endereco enderecoAdicionado = enderecoRepository.adicionar(endereco);
-            System.out.println("Endereco adicinado com sucesso! " + enderecoAdicionado);
+            System.out.println("Endereco adicinado com sucesso! ");
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
         }

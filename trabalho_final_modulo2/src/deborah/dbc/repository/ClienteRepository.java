@@ -2,15 +2,17 @@ package deborah.dbc.repository;
 
 import deborah.dbc.exceptions.BancoDeDadosException;
 import deborah.dbc.model.Cliente;
+import deborah.dbc.model.Contato;
 
 import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
 
-public class ClienteRepository implements Repositorio< Integer, Cliente>{
+public class ClienteRepository implements Repositorio< Integer, Cliente> {
 
     EnderecoRepository enderecoRepository = new EnderecoRepository();
     ContatoRepository contatoRepository = new ContatoRepository();
+
     @Override
     public Integer getProximoId(Connection connection) throws SQLException {
         String sql = "SELECT seq_cliente.nextval mysequence from DUAL";
@@ -62,8 +64,6 @@ public class ClienteRepository implements Repositorio< Integer, Cliente>{
         try {
             con = ConexaoBancoDeDados.getConnection();
 
-            enderecoRepository.removeEnderecoPorIdCliente(id);
-            contatoRepository.removeContatoPorIdCliente(id);
             String sql = "DELETE FROM CLIENTE WHERE ID_CLIENTE = ?";
 
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -106,9 +106,9 @@ public class ClienteRepository implements Repositorio< Integer, Cliente>{
 
             int index = 1;
 
-                stmt.setString(index++, cliente.getNome());
-                stmt.setString(index++, cliente.getCpf());
-                stmt.setInt(index++, id);
+            stmt.setString(index++, cliente.getNome());
+            stmt.setString(index++, cliente.getCpf());
+            stmt.setInt(index++, id);
 
             // Executa-se a consulta
             int res = stmt.executeUpdate();
@@ -158,6 +158,7 @@ public class ClienteRepository implements Repositorio< Integer, Cliente>{
             }
         }
     }
+
     private Cliente getClienteFromResultSet(ResultSet res) throws SQLException {
         Cliente cliente = new Cliente();
         cliente.setIdCliente(res.getInt("id_cliente"));
@@ -166,6 +167,36 @@ public class ClienteRepository implements Repositorio< Integer, Cliente>{
         return cliente;
     }
 
+    public void listarClientePorId(Integer id_cliente) throws BancoDeDadosException {
+        Connection con = null;
+        try {
+            con = ConexaoBancoDeDados.getConnection();
 
+            String sql = "SELECT * FROM CLIENTE WHERE ID_CLIENTE = ?";
+
+            // Executa-se a consulta
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, id_cliente);
+
+            ResultSet res = stmt.executeQuery();
+
+            Cliente cliente = getClienteFromResultSet(res);
+            System.out.println(cliente);
+
+        } catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
+
+
+
 

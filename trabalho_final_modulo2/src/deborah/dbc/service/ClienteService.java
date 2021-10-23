@@ -2,12 +2,26 @@ package deborah.dbc.service;
 
 import deborah.dbc.exceptions.BancoDeDadosException;
 import deborah.dbc.model.Cliente;
-import deborah.dbc.repository.ClienteRepository;
+import deborah.dbc.model.Contato;
+import deborah.dbc.model.Endereco;
+import deborah.dbc.model.Pedido;
+import deborah.dbc.repository.*;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteService {
     private ClienteRepository clienteRepository;
+    private ContatoRepository contatoRepository = new ContatoRepository();
+    private PedidoRepository pedidoRepository = new PedidoRepository();
+
+
+
+    static EnderecoRepository enderecoRepository = new EnderecoRepository();
 
     public ClienteService() {
         clienteRepository = new ClienteRepository();
@@ -26,6 +40,9 @@ public class ClienteService {
     // remoção
     public void removerCliente(Integer id) {
         try {
+            enderecoRepository.removeEnderecoPorIdCliente(id);
+            contatoRepository.removeContatoPorIdCliente(id);
+            pedidoRepository.removePedidoPorIdCliente(id);
             boolean conseguiuRemover = clienteRepository.remover(id);
             System.out.println("cliente removida? " + conseguiuRemover + "| com id=" + id);
         } catch (BancoDeDadosException e) {
@@ -52,4 +69,5 @@ public class ClienteService {
             e.printStackTrace();
         }
     }
+
 }

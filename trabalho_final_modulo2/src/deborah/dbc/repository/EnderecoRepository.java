@@ -105,30 +105,23 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
 
             StringBuilder sql = new StringBuilder();
             sql.append("UPDATE ENDERECO_CLIENTE SET \n");
-            Cliente pessoa = endereco.getCliente();
-
-            sql.append(" id_cliente = ?,");
-            sql.append(" logradouro = ?,");
-            sql.append(" numero = ?,");
-            sql.append(" bairro = ?,");
-            sql.append(" cep = ?,");
-            sql.append(" tipo = ?");
+            sql.append(" LOGRADOURO = ?,");
+            sql.append(" NUMERO = ?,");
+            sql.append(" BAIRRO = ?,");
+            sql.append(" CEP = ?,");
+            sql.append(" TIPO = ?,");
             sql.deleteCharAt(sql.length() - 1); //remove o ultimo ','
-            sql.append(" WHERE id_endereco = ? ");
+            sql.append(" WHERE ID_ENDERECO = ? ");
 
             PreparedStatement stmt = con.prepareStatement(sql.toString());
 
             int index = 1;
-            if (pessoa != null) {
-                stmt.setInt(index++, pessoa.getIdCliente());
                 stmt.setString(index++, endereco.getLogradouro());
                 stmt.setInt(index++, endereco.getNumero());
                 stmt.setString(index++, endereco.getBairro());
                 stmt.setString(index++, endereco.getCep());
                 stmt.setInt(index++, endereco.getTipo().getTipo());
-            }
-
-            stmt.setInt(index++, id);
+                stmt.setInt(index++, id);
 
             // Executa-se a consulta
             int res = stmt.executeUpdate();
@@ -136,6 +129,7 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
 
             return res > 0;
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new BancoDeDadosException(e.getCause());
         } finally {
             try {
@@ -191,6 +185,7 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
             endereco.setLogradouro(res.getString("logradouro"));
             endereco.setBairro(res.getString("bairro"));
             endereco.setNumero(res.getInt("numero"));
+            endereco.setCep(res.getString("cep"));
             endereco.setTipo(TipoEndereco.ofTipo(res.getInt("tipo")));
             return endereco;
         }
@@ -242,9 +237,10 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
 
             stmt.setInt(1, id_cliente);
 
+            System.out.println(id_cliente);
             // Executa-se a consulta
             int res = stmt.executeUpdate();
-            System.out.println("removerClientePorId.res=" + res);
+            System.out.println("removeEnderecoPorIdCliente.res=" + res);
 
             return res > 0;
         } catch (SQLException e) {
@@ -259,5 +255,6 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
             }
         }
     }
+
 }
 

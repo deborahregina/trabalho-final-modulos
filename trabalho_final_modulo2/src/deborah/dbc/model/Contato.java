@@ -72,7 +72,7 @@ package deborah.dbc.model;
             if (tipo.getTipo() == 2) {
                 tipoContato = "Comercial";
             }
-            return "\nDescrição do contato: " + descricao + "\nTelefone: " +  telefone + "\nTipo: " + tipoContato;
+            return "ID DO CONTATO: "+getIdContato()+"\nID do cliente: "+ getCliente().getIdCliente()+"\nNome do cliente: "+getCliente().getNome()+"\nDescrição do contato: " + descricao + "\nTelefone: " +  telefone + "\nTipo: " + tipoContato + "\n";
         }
     }
 

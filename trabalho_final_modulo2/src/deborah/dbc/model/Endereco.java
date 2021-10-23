@@ -86,6 +86,6 @@ public class Endereco {
         if (tipo.getTipo() == 2) {
             tipoEndereco = "Comercial";
         }
-        return "\nEndereço: " + logradouro + "\nNúmero: " +  numero + "\nBairro: " + bairro + "\nCEP: " + cep + "\nTipo de endereço: " + tipoEndereco;
+        return "Id do endereço: "+idEndereco + "\nId do cliente: "+ cliente.getIdCliente() +"\nNome do cliente: "+ cliente.getNome() +"\nEndereço: " + logradouro + "\nNúmero: " +  numero + "\nBairro: " + bairro + "\nCEP: " + cep + "\nTipo de endereço: " + tipoEndereco +  "\n";
     }
 }

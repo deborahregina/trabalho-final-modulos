@@ -1,5 +1,6 @@
 package deborah.dbc;
 
+import deborah.dbc.exceptions.BancoDeDadosException;
 import deborah.dbc.service.ClienteService;
 import deborah.dbc.service.ContatoService;
 import deborah.dbc.service.EnderecoService;
@@ -10,21 +11,17 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BancoDeDadosException {
 
         ContatoService contatoService = new ContatoService();
         ClienteService clienteService = new ClienteService();
         ProdutoService produtoService = new ProdutoService();
         EnderecoService enderecoService = new EnderecoService();
 
-        //enderecoService.listar();
-        //clienteService.listarCliente();
-        contatoService.listar();
-
         Scanner scanner = new Scanner(System.in);
         boolean programaOn = true;
         while(programaOn) {
-            System.out.println("*** MENU PRINCIPAL *** \nO QUE DESEJA ACESSAR: \n1- MENU CLIENTES \n2- MENU ENDERECOS \n3- MENU CONTATOS \n4- MENU FUNCIONANRIOS \n5- MENU PEDIDOS\n6- MENU PRODUTOS\n7- MENU ENTREGAS\n8- SAIR: ");
+            System.out.println("*** MENU PRINCIPAL *** \nO QUE DESEJA ACESSAR: \n1- MENU CLIENTES \n2- MENU ENDERECOS \n3- MENU CONTATOS \n5- MENU PEDIDOS\n6- MENU PRODUTOS\n7- MENU ENTREGAS\n8- SAIR: ");
             int opcaoPrincipal = scanner.nextInt();
             scanner.nextLine();
 
@@ -33,13 +30,50 @@ public class Main {
                     Menu.menuClientes();
                     break;
                 case 2:
-                    System.out.println("1- Listar enderecos cadastrados    2- Listar endereco por pessoa: ");
+                    System.out.println("1- Listar enderecos cadastrados    2- Listar endereco por pessoa  ");
                     int opEnderecos = scanner.nextInt();
                     if (opEnderecos == 1) {
-                        //Menu.menuImprimeEnderecos();
+                        enderecoService.listar();
+                    }
+                    if (opEnderecos == 2) {
+                        System.out.println("Digite o ID do Cliente: ");
+                        int idCliente = scanner.nextInt();
+                        enderecoService.listarEnderecosPorCodigoDaPessoa(idCliente);
+                    }
+                    if (opEnderecos == 3) {
+                        enderecoService.listar();
+                        System.out.println("Digite o ID endereço que deseja deletar: ");
+                        int idDeletaEnd = scanner.nextInt();
+                        scanner.nextLine();
+                        enderecoService.remover(idDeletaEnd);
+                    }
+                    if (opEnderecos == 4) {
+                        enderecoService.listar();
+                        System.out.println("Digite o ID do endereço que deseja alterar: ");
+                        int idAlteraEnd = scanner.nextInt();
+                        scanner.nextLine();
+                        clienteService.listarCliente();
                     }
                     break;
                 case 3:
+                    System.out.println("1- Listar contatos cadastrados     2- Listar contato por pessoa   3- Deletar contato: ");
+                    int opContatos = scanner.nextInt();
+                    scanner.nextLine();
+                    if (opContatos == 1) {
+                        contatoService.listar();
+                    }
+                    if (opContatos == 2) {
+                        System.out.println("Digite o ID do cliente: ");
+                        int idClienteContato = scanner.nextInt();
+                        contatoService.listarContatoPorCodigoDaPessoa(idClienteContato);
+                    }
+                    if (opContatos == 3) {
+                        contatoService.listar();
+                        System.out.println("Digite o ID do contato que deseja deletar: ");
+                        int idDeletaCont = scanner.nextInt();
+                        scanner.nextLine();
+                        contatoService.remover(idDeletaCont);
+                    }
                     break;
                 case 4:
                     break;

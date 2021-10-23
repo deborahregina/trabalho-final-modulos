@@ -99,6 +99,45 @@ public class PedidoRepository implements Repositorio<Integer, Pedido> {
         public List<Pedido> listar () throws BancoDeDadosException {
             return null;
         }
+
+    public Pedido getPedidoPorID(Integer idPedido) throws BancoDeDadosException {
+        Pedido pedido = new Pedido();
+        Connection con = null;
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+
+
+            String sql = "SELECT ID_PEDIDO,ID_CLIENTE FROM PEDIDO WHERE ID_PEDIDO = ?";
+
+            //Statement stmt = con.createStatement();
+            PreparedStatement stmt = con.prepareStatement(sql.toString());
+            stmt.setInt(1, idPedido);
+
+            // Executa-se a consulta
+            ResultSet res = stmt.executeQuery();
+
+
+            while (res.next()) {
+                pedido.setIdPedido(res.getInt("ID_PEDIDO"));
+                pedido.setIdCliente(res.getInt("ID_CLIENTE"));
+                //pedido.setValorTotal(res.getDouble("VALOR_TOTAL"));
+            }
+        } catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return pedido;
+
+
+
+    }
 }
 
 

@@ -71,13 +71,15 @@ public class Pedido {
 
     @Override
     public String toString() {
-        calculaValorTotal();
+        //calculaValorTotal();
         System.out.println("++++++++++++ Itens do pedido ++++++++++++");
-        for (Produto produtos: produtosDoPedido) {
-            System.out.println(produtos);
+        if (produtosDoPedido != null) {
+            for (Produto produtos : produtosDoPedido) {
+                System.out.println(produtos);
+            }
         }
 
-        return "ID do pedido: " + idPedido + " Nome do cliente: " + cliente.getNome() + " Valor total do pedido: R$ " + valorTotal;
+        return "ID do pedido: " + idPedido + " Nome do cliente: " + (cliente != null?cliente.getNome():"") + " Valor total do pedido: R$ " + valorTotal;
     }
 }
 

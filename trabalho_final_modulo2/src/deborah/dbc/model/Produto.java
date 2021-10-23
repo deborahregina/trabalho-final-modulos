@@ -4,6 +4,7 @@ import deborah.dbc.Main;
 import deborah.dbc.service.ProdutoService;
 
 public class Produto {
+    private String nome;
     private int idProdutos;
     private double valorUnitario;
     private TipoProduto tipoProduto;
@@ -17,6 +18,14 @@ public class Produto {
 
     public Produto() {
 
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public int getIdProduto() {
@@ -51,7 +60,7 @@ public class Produto {
         if (tipoProduto.getTipo() == 2) {
             tipoProdutoEh = "Bebida";
         }
-        return "ID do produto: " + idProdutos +  " Nome do produto: " + tipoProdutoEh + " Valor unitário: R$ " + valorUnitario;
+        return "ID do produto: " + idProdutos +  " Nome do produto: " + (tipoProduto != null?tipoProdutoEh:null) + " Valor unitário: R$ " + valorUnitario;
     }
 
 }

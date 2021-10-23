@@ -247,16 +247,99 @@ public class Menu {
     }
 
     public static void menuPedido(){
-        System.out.println("1- Criar novo Pedido \n2- Imprimir pedidos em aberto \n3- Alterar produto de pedido "); // O método deletar pedido não faz sentido porque é uma pilha.
+        System.out.println("1- Criar novo Pedido \n2- Imprimir pedidos em aberto \n3- Alterar produto de pedido \n4- Incluir mais produtos no pedido \n5- Deletar produto do pedido "); // O método deletar pedido não faz sentido porque é uma pilha.
 
+        PedidoService pedidoService = new PedidoService();
         int opPedidos = scanner.nextInt();
         if (opPedidos == 1) {
-            PedidoService pedidoService = new PedidoService();
+
             Pedido pedido = new Pedido();
+            Produto produto = new Produto();
+            PedidoProduto pedidoProduto = new PedidoProduto();
+            //listar clientes
             System.out.println("Digite o id do cliente que deseja fazer o pedido:");
             pedido.setIdCliente(scanner.nextInt());
-            pedidoService.adicionarPedido(pedido);
+            pedido = pedidoService.adicionarPedido(pedido);
+            System.out.println("Qual produto deseja inserir: ");
+            //listar produtos
+            System.out.println("Digite o id do produto que deseja inserir: ");
+            produto.setIdProduto(scanner.nextInt());
+            System.out.println("Digite a quantidade: ");
+            pedidoProduto.setQuantidade(scanner.nextInt());
+            pedidoProduto.setPedido(pedido);
+            pedidoProduto.setProduto(produto);
+            pedidoService.adicionarProdutoNoPedido(pedidoProduto);
+
+        }else if (opPedidos == 2) {  // imprimir os pedidos que estão no banco de dados
+            pedidoService.listarPedidos();
         }
+        else if (opPedidos == 3) { //alterar produto de pedido
+            PedidoProduto pedidoProdutoAlterar = new PedidoProduto();
+            Produto produtoAlterar = new Produto();
+            Pedido pedidoAlterar = new Pedido();
+
+            System.out.println("Qual pedido vai ser alterado? ");
+            pedidoService.listarPedidos();
+            System.out.println("Digite o id do pedido que deseja alterar: ");
+            pedidoAlterar.setIdPedido(scanner.nextInt());
+            System.out.println("Digite o id do produto que deseja alterar: ");
+            produtoAlterar.setIdProduto(scanner.nextInt());
+            System.out.println("Qual a quantidade? ");
+            pedidoProdutoAlterar.setQuantidade(scanner.nextInt());
+
+            pedidoProdutoAlterar.setPedido(pedidoAlterar);
+            pedidoProdutoAlterar.setProduto(produtoAlterar);
+
+            pedidoService.alterarProdutoDoPedido(pedidoProdutoAlterar);
+
+        }
+        else if (opPedidos == 4) {
+            Produto produto = new Produto();
+            PedidoProduto pedidoProduto = new PedidoProduto();
+
+            System.out.println("Em qual o pedido vai ser incluido o produto? ");
+            pedidoService.listarPedidos();
+
+            System.out.println("Digite o id do pedido: ");
+            Integer idPedido = scanner.nextInt();
+
+            Pedido pedido = pedidoService.getPedidoPorId(idPedido);
+
+            System.out.println("Qual produto deseja incluir?");
+            // listar produto
+
+            System.out.println("qual o id do produto: ");
+            produto.setIdProduto(scanner.nextInt());
+
+            System.out.println("Digite a quantidade: ");
+            pedidoProduto.setQuantidade(scanner.nextInt());
+
+            pedidoProduto.setPedido(pedido);
+            pedidoProduto.setProduto(produto);
+
+            pedidoService.adicionarProdutoNoPedido(pedidoProduto);
+        }
+        else if (opPedidos == 5) { //deletar produto do pedido
+            Produto produto = new Produto();
+            PedidoProduto pedidoProduto = new PedidoProduto();
+            System.out.println("Qual pedido: ");
+            pedidoService.listarPedidos();
+            System.out.println("qual id pedido: ");
+            Pedido pedido = pedidoService.getPedidoPorId(scanner.nextInt());
+            System.out.println("Qual o produto: ");
+            Integer idProduto = scanner.nextInt();
+            produto.setIdProduto(idProduto);
+            pedidoProduto.setProduto(produto);
+            pedidoProduto.setPedido(pedido);
+            pedidoService.deletarProdutoDoPedido(pedidoProduto);
+
+        }
+
+
     }
+
+
 }
+
+
 

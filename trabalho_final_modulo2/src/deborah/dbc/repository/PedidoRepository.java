@@ -2,8 +2,11 @@ package deborah.dbc.repository;
 
 import deborah.dbc.exceptions.BancoDeDadosException;
 import deborah.dbc.model.Pedido;
+import deborah.dbc.model.PedidoProduto;
+import deborah.dbc.model.Produto;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PedidoRepository implements Repositorio<Integer, Pedido> {
@@ -57,20 +60,88 @@ public class PedidoRepository implements Repositorio<Integer, Pedido> {
         }
     }
 
-        @Override
-        public boolean remover (Integer id) throws BancoDeDadosException {
+    @Override
+    public boolean remover (Integer id) throws BancoDeDadosException {
+        Connection con = null;
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+
+            String sql = "DELETE FROM PEDIDO WHERE ID_PEDIDO = ?";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, id);
+
+            // Executa-se a consulta
+            int res = stmt.executeUpdate();
+            System.out.println("removerPedidoPorId.res=" + res);
+
+            return res > 0;
+        } catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             return false;
         }
+    }
 
-        @Override
-        public boolean editar (Integer id, Pedido pedido) throws BancoDeDadosException {
-            return false;
-        }
+    @Override
+    public boolean editar (Integer id, Pedido pedido) throws BancoDeDadosException {
+        return false;
+    }
 
-        @Override
-        public List<Pedido> listar () throws BancoDeDadosException {
-            return null;
+    @Override
+    public List<Pedido> listar () throws BancoDeDadosException {
+
+    return null;
+    }
+
+    public Pedido getPedidoPorID(Integer idPedido) throws BancoDeDadosException {
+        Pedido pedido = new Pedido();
+        Connection con = null;
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+
+
+            String sql = "SELECT ID_PEDIDO,ID_CLIENTE FROM PEDIDO WHERE ID_PEDIDO = ?";
+
+            //Statement stmt = con.createStatement();
+            PreparedStatement stmt = con.prepareStatement(sql.toString());
+            stmt.setInt(1, idPedido);
+
+            // Executa-se a consulta
+            ResultSet res = stmt.executeQuery();
+
+
+            while (res.next()) {
+                pedido.setIdPedido(res.getInt("ID_PEDIDO"));
+                pedido.setIdCliente(res.getInt("ID_CLIENTE"));
+                //pedido.setValorTotal(res.getDouble("VALOR_TOTAL"));
+            }
+        } catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+        return pedido;
+
+
+
+    }
+
 }
+
 
 

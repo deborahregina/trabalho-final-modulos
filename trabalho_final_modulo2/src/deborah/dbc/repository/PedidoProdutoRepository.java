@@ -181,7 +181,7 @@ public class PedidoProdutoRepository implements Repositorio <Integer,PedidoProdu
                 Produto produto = new Produto();
                 pedido.setIdPedido(res.getInt("ID_PEDIDO"));
                 produto.setIdProduto(res.getInt("ID_PRODUTO"));
-                produto.setNome(res.getString("NOME"));
+                produto.setDescrição(res.getString("NOME"));
                 pedidoProduto.setQuantidade(res.getInt("QUANTIDADE"));
                 produto.setValorUnitario(res.getDouble("PRECO"));
                 pedidoProduto.setPedido(pedido);

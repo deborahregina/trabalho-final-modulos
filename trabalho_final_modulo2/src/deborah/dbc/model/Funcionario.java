@@ -11,7 +11,12 @@ public abstract class Funcionario {
         this.salario = salario;
     }
 
-    public Funcionario() {
+    public int getIdFuncionario() {
+        return idFuncionario;
+    }
+
+    public void setIdFuncionario(int idFuncionario) {
+        this.idFuncionario = idFuncionario;
     }
 
     public int getId() {

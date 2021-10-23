@@ -1,6 +1,7 @@
 package deborah.dbc.repository;
 
 import deborah.dbc.exceptions.BancoDeDadosException;
+import deborah.dbc.model.Funcionario;
 
 import java.sql.Connection;
 import java.sql.SQLException;

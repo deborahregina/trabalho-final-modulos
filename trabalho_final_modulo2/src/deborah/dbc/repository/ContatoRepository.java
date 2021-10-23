@@ -153,7 +153,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
             String sql = "SELECT C.*, " +
                     "            P.NOME AS NOME_CLIENTE " +
                     "       FROM CONTATO_CLIENTE C " +
-                    "  LEFT JOIN CLIENTE P ON (P.ID_CLIENTE = C.ID_CLIENTE) ";
+                    "  INNER JOIN CLIENTE P ON (P.ID_CLIENTE = C.ID_CLIENTE) ";
 
             // Executa-se a consulta
             ResultSet res = stmt.executeQuery(sql);
@@ -184,7 +184,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
 
 
             String sql = "SELECT C.*, " +
-                    "            P.NOME AS NOME_CLIENTE " +
+                    "            P.NOME " +
                     "       FROM CONTATO_CLIENTE C " +
                     " INNER JOIN CLIENTE P ON (P.ID_CLIENTE = C.ID_CLIENTE) " +
                     "      WHERE C.ID_CLIENTE = ? ";
@@ -217,12 +217,40 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
         Contato contato = new Contato();
         contato.setIdContato(res.getInt("id_Contato"));
         Cliente pessoa = new Cliente();
-        pessoa.setNome(res.getString("nome_pessoa"));
-        pessoa.setIdCliente(res.getInt("id_pessoa"));
+        pessoa.setNome(res.getString("nome"));
+        pessoa.setIdCliente(res.getInt("id_cliente"));
         contato.setCliente(pessoa);
         contato.setTipo(TipoContato.ofTipo(res.getInt("tipo")));
         contato.setTelefone(res.getString("numero"));
         contato.setDescricao(res.getString("descricao"));
         return contato;
+    }
+    public boolean removeContatoPorIdCliente(Integer id_cliente) throws BancoDeDadosException {
+        Connection con = null;
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+
+            String sql = "DELETE FROM CONTATO_CLIENTE WHERE ID_CLIENTE = ?";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, id_cliente);
+
+            // Executa-se a consulta
+            int res = stmt.executeUpdate();
+            System.out.println("removerClientePorId.res=" + res);
+
+            return res > 0;
+        } catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

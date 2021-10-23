@@ -1,10 +1,7 @@
 package deborah.dbc;
 
 import deborah.dbc.model.*;
-import deborah.dbc.service.ClienteService;
-import deborah.dbc.service.ContatoService;
-import deborah.dbc.service.EnderecoService;
-import deborah.dbc.service.PedidoService;
+import deborah.dbc.service.*;
 
 
 import java.util.ArrayList;
@@ -17,6 +14,7 @@ public class Menu {
     static ContatoService contatoService = new ContatoService();
     static ClienteService clienteService = new ClienteService();
     static EnderecoService enderecoService = new EnderecoService();
+    static ProdutoService produtoService = new ProdutoService();
 
     public static void menuClientes() {
 
@@ -24,10 +22,10 @@ public class Menu {
         int opCliente = scanner.nextInt();
         scanner.nextLine();
         if (opCliente == 1) {
-            Cliente cliente = cadastroClienteVisual();
+            cadastroClienteVisual();
         }
         if (opCliente == 2) {
-          
+            clienteService.listarCliente();
         }
         if (opCliente == 3) {
             System.out.println("Deseja:  1- Alterar dados do cliente     2- Alterar endereços do cliente        3- Alterar contatos do cliente: ");
@@ -44,7 +42,10 @@ public class Menu {
             }
         }
         if (opCliente == 4) {
-
+            System.out.println("Digite o ID do cliente que deseja remover: ");
+            clienteService.listarCliente();
+            int idRemoveCliente = scanner.nextInt();
+            clienteService.removerCliente(idRemoveCliente);
         }
 
     }
@@ -52,19 +53,18 @@ public class Menu {
     public static Cliente cadastroClienteVisual() {
         Cliente clienteCadastro = new Cliente();
 
-        ArrayList<Endereco> enderecosCliente = new ArrayList<>();
-        ArrayList<Contato> contatosCliente = new ArrayList<>();
 
         System.out.println("Digite o nome do cliente: ");
         clienteCadastro.setNome(scanner.nextLine());
         System.out.println("Digite o CPF do cliente: ");
         clienteCadastro.setCpf(scanner.nextLine());
-        clienteService.adicionarCliente(clienteCadastro);
+
+        clienteService.adicionarCliente(clienteCadastro); // adiciona o cliente na tabela de clientes
 
         boolean menuEnderecos = true;
         while (menuEnderecos) {
             System.out.println("CADASTRAR ENDEREÇO PARA O CLIENTE: ");
-            enderecosCliente.add(cadastroEnderecoVisual(clienteCadastro));
+            cadastroEnderecoVisual(clienteCadastro); //Esse método adiciona o endereço no banco de dados.
             System.out.println("Deseja Cadastrar novo endereço?  1- Sim    2- Não: ");
             int opcaoNovoCadastroEndereco = scanner.nextInt();
             scanner.nextLine();
@@ -72,12 +72,11 @@ public class Menu {
                 menuEnderecos = false;
             }
         }
-        clienteCadastro.setEnderecos(enderecosCliente);
 
         boolean menuContatos = true;
         while (menuContatos) {
             System.out.println("CADASTRAR CONTATO PARA O CLIENTE: ");
-            contatosCliente.add(cadastroContatoVisual(clienteCadastro));
+            cadastroContatoVisual(clienteCadastro); // Esse método adiciona o contato no banco de dados
             System.out.println("Deseja cadastrar novo contato?  1- Sim    2- Não: ");
             int opcaoNovoCadastroContato = scanner.nextInt();
             scanner.nextLine();
@@ -86,8 +85,6 @@ public class Menu {
             }
 
         }
-
-        clienteCadastro.setContatos(contatosCliente);
 
         return clienteCadastro;
     }
@@ -153,7 +150,7 @@ public class Menu {
 
     public static void alteraContatoClienteVisual() {
 
-        System.out.println("1 - Adicionar contato       2- Editar contato existente  3- Deletar contato existente: ");
+        System.out.println("1 - Adicionar contato       2- Editar contato existente  3- Deletar contato existente  4- Listar contados do cliente: ");
         int opAlteracaoContato = scanner.nextInt();
 
         if (opAlteracaoContato == 1) {
@@ -195,6 +192,12 @@ public class Menu {
                 }
 
             }
+        }
+        if (opAlteracaoContato == 4) {
+            clienteService.listarCliente();
+            System.out.println("Digite o ID do cliente para listar contato: ");
+            int idCliente = scanner.nextInt();
+            contatoService.listarContatoPorCodigoDaPessoa(idCliente);
         }
 
     }
@@ -246,100 +249,50 @@ public class Menu {
         }
     }
 
-    public static void menuPedido(){
-        System.out.println("1- Criar novo Pedido \n2- Imprimir pedidos em aberto \n3- Alterar produto de pedido \n4- Incluir mais produtos no pedido \n5- Deletar produto do pedido "); // O método deletar pedido não faz sentido porque é uma pilha.
+    public static void menuPedido() {
+        System.out.println("1- Criar novo Pedido \n2- Imprimir pedidos em aberto \n3- Alterar produto de pedido "); // O método deletar pedido não faz sentido porque é uma pilha.
 
-        PedidoService pedidoService = new PedidoService();
         int opPedidos = scanner.nextInt();
         if (opPedidos == 1) {
-
+            PedidoService pedidoService = new PedidoService();
             Pedido pedido = new Pedido();
-            Produto produto = new Produto();
-            PedidoProduto pedidoProduto = new PedidoProduto();
-            //listar clientes
             System.out.println("Digite o id do cliente que deseja fazer o pedido:");
             pedido.setIdCliente(scanner.nextInt());
-            pedido = pedidoService.adicionarPedido(pedido);
-            System.out.println("Qual produto deseja inserir: ");
-            //listar produtos
-            System.out.println("Digite o id do produto que deseja inserir: ");
-            produto.setIdProduto(scanner.nextInt());
-            System.out.println("Digite a quantidade: ");
-            pedidoProduto.setQuantidade(scanner.nextInt());
-            pedidoProduto.setPedido(pedido);
-            pedidoProduto.setProduto(produto);
-            pedidoService.adicionarProdutoNoPedido(pedidoProduto);
-
-        }else if (opPedidos == 2) {  // imprimir os pedidos que estão no banco de dados
-            pedidoService.listarPedidos();
+            pedidoService.adicionarPedido(pedido);
         }
-        else if (opPedidos == 3) { //alterar produto de pedido
-            PedidoProduto pedidoProdutoAlterar = new PedidoProduto();
-            Produto produtoAlterar = new Produto();
-            Pedido pedidoAlterar = new Pedido();
+    }
 
-            System.out.println("Qual pedido vai ser alterado? ");
-            pedidoService.listarPedidos();
-            System.out.println("Digite o id do pedido que deseja alterar: ");
-            pedidoAlterar.setIdPedido(scanner.nextInt());
-            System.out.println("Digite o id do produto que deseja alterar: ");
-            produtoAlterar.setIdProduto(scanner.nextInt());
-            System.out.println("Qual a quantidade? ");
-            pedidoProdutoAlterar.setQuantidade(scanner.nextInt());
+    public static void menuAdicionaProduto() {
+        Produto produto = new Produto();
+        System.out.println("Digite o tipo de produto   1- Comida     2- Bebida");
+        int tipoProduto = scanner.nextInt();
+        scanner.nextLine();
+        produto.setTipoProduto(TipoProduto.ofTipo(tipoProduto));
+        System.out.println("Digite a descrição do produto: ");
+        produto.setDescrição(scanner.nextLine());
+        System.out.println("Digite o valor unitário do produto: ");
+        produto.setValorUnitario(scanner.nextDouble());
 
-            pedidoProdutoAlterar.setPedido(pedidoAlterar);
-            pedidoProdutoAlterar.setProduto(produtoAlterar);
-
-            pedidoService.alterarProdutoDoPedido(pedidoProdutoAlterar);
-
-        }
-        else if (opPedidos == 4) {
-            Produto produto = new Produto();
-            PedidoProduto pedidoProduto = new PedidoProduto();
-
-            System.out.println("Em qual o pedido vai ser incluido o produto? ");
-            pedidoService.listarPedidos();
-
-            System.out.println("Digite o id do pedido: ");
-            Integer idPedido = scanner.nextInt();
-
-            Pedido pedido = pedidoService.getPedidoPorId(idPedido);
-
-            System.out.println("Qual produto deseja incluir?");
-            // listar produto
-
-            System.out.println("qual o id do produto: ");
-            produto.setIdProduto(scanner.nextInt());
-
-            System.out.println("Digite a quantidade: ");
-            pedidoProduto.setQuantidade(scanner.nextInt());
-
-            pedidoProduto.setPedido(pedido);
-            pedidoProduto.setProduto(produto);
-
-            pedidoService.adicionarProdutoNoPedido(pedidoProduto);
-        }
-        else if (opPedidos == 5) { //deletar produto do pedido
-            Produto produto = new Produto();
-            PedidoProduto pedidoProduto = new PedidoProduto();
-            System.out.println("Qual pedido: ");
-            pedidoService.listarPedidos();
-            System.out.println("qual id pedido: ");
-            Pedido pedido = pedidoService.getPedidoPorId(scanner.nextInt());
-            System.out.println("Qual o produto: ");
-            Integer idProduto = scanner.nextInt();
-            produto.setIdProduto(idProduto);
-            pedidoProduto.setProduto(produto);
-            pedidoProduto.setPedido(pedido);
-            pedidoService.deletarProdutoDoPedido(pedidoProduto);
-
-        }
-
+        produtoService.adicionarProduto(produto);
 
     }
 
+    public static void menuAlteraProduto() {
+        Produto produto = new Produto();
+        produtoService.listar();
+        System.out.println("Digite o ID do produto que deseja alterar: ");
+        int index = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Digite o tipo de produto   1- Comida     2- Bebida");
+        int tipoProduto = scanner.nextInt();
+        scanner.nextLine();
+        produto.setTipoProduto(TipoProduto.ofTipo(tipoProduto));
+        System.out.println("Digite a descrição do produto: ");
+        produto.setDescrição(scanner.nextLine());
+        System.out.println("Digite o valor unitário do produto: ");
+        produto.setValorUnitario(scanner.nextDouble());
 
+        produtoService.editar(index, produto);
+    }
 }
-
-
 

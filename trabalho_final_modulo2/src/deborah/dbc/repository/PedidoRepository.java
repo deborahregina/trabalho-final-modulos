@@ -90,8 +90,32 @@ public class PedidoRepository implements Repositorio<Integer, Pedido> {
         }
     }
         @Override
-        public boolean remover (Integer id) throws BancoDeDadosException {
-            return false;
+        public boolean remover (Integer idPedido) throws BancoDeDadosException {
+            Connection con = null;
+            try {
+                con = ConexaoBancoDeDados.getConnection();
+
+                String sql = "DELETE FROM PEDIDO WHERE ID_PEDIDO = ?";
+
+                PreparedStatement stmt = con.prepareStatement(sql);
+
+                stmt.setInt(1,idPedido);
+
+                // Executa-se a consulta
+                int res = stmt.executeUpdate();
+                System.out.println("removePedidoPorIdPedido.res=" + res);
+                return res > 0;
+            } catch (SQLException e) {
+                throw new BancoDeDadosException(e.getCause());
+            } finally {
+                try {
+                    if (con != null) {
+                        con.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         @Override

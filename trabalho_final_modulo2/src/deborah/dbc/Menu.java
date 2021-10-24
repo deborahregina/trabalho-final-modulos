@@ -291,7 +291,7 @@ public class Menu {
     }
 
     public static void menuPedido() {
-        System.out.println("1- Criar novo Pedido \n2- Imprimir pedidos em aberto \n3- Alterar produto de pedido \n4- Incluir mais produtos no pedido \n5- Deletar produto do pedido "); // O método deletar pedido não faz sentido porque é uma pilha.
+        System.out.println("1- Criar novo Pedido \n2- Imprimir pedidos em aberto \n3- Alterar produto de pedido \n4- Incluir mais produtos no pedido \n5- Deletar produto do pedido \n6- Deletar Pedido");
 
         PedidoService pedidoService = new PedidoService();
         int opPedidos = scanner.nextInt();
@@ -365,16 +365,22 @@ public class Menu {
         } else if (opPedidos == 5) { //deletar produto do pedido
             Produto produto = new Produto();
             PedidoProduto pedidoProduto = new PedidoProduto();
-            System.out.println("Qual pedido: ");
+            System.out.println("De qual pedido deseja remover o produto : ");
             pedidoService.listarPedidos();
-            System.out.println("qual id pedido: ");
+            System.out.println("Digite o id pedido: ");
             Pedido pedido = pedidoService.getPedidoPorId(scanner.nextInt());
-            System.out.println("Qual o produto: ");
+            System.out.println("Qual o id do produto que quer remover: ");
             Integer idProduto = scanner.nextInt();
             produto.setIdProduto(idProduto);
             pedidoProduto.setProduto(produto);
             pedidoProduto.setPedido(pedido);
             pedidoService.deletarProdutoDoPedido(pedidoProduto);
+        } else if (opPedidos == 6) {
+            System.out.println("Qual pedido quer deletar? ");
+            pedidoService.listarPedidos();
+            System.out.println("Digite o id do pedido: ");
+            Pedido pedido = pedidoService.getPedidoPorId(scanner.nextInt());
+            pedidoService.deletarPedidoPorIdPedido(pedido);
         }
     }
 

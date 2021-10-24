@@ -108,6 +108,14 @@ public class PedidoService {
             e.printStackTrace();
         }
     }
+    public void deletarPedidoPorIdPedido(Pedido pedido) {
+        try {
+            pedidoProdututoRepository.removerPedidoDePedidoProduto(pedido.getIdPedido());
+            pedidoRepository.remover(pedido.getIdPedido());
+        } catch (BancoDeDadosException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

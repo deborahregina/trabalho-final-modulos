@@ -77,6 +77,15 @@ public class PedidoService {
         }
     }
 
+    public void removerProdutoDePedidoProduto(Integer id_produto) {
+        try {
+            pedidoProdututoRepository.removerProdutoDePedidoProduto(id_produto);
+        } catch (BancoDeDadosException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public void deletarPedidosEprodutoPedido(Integer id_cliente) {
         try {
             List<Pedido> pedidos = new ArrayList<>();

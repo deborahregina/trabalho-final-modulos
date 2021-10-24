@@ -113,6 +113,35 @@ public class PedidoProdutoRepository implements Repositorio <Integer,PedidoProdu
         }
     }
 
+    public boolean removerProdutoDePedidoProduto(Integer idproduto) throws BancoDeDadosException {
+        Connection con = null;
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+
+            String sql = "DELETE FROM PEDIDO_PRODUTO WHERE ID_PRODUTO = ? ";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, idproduto);
+            // Executa-se a consulta
+            int res = stmt.executeUpdate();
+            System.out.println("removerPedidoProdutoPorIdProduto.res=" + res);
+
+            return res > 0;
+        } catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+    }
+
     @Override
     public boolean editar(Integer id, PedidoProduto pedidoProduto) throws BancoDeDadosException {
         Connection con = null;
@@ -231,7 +260,7 @@ public class PedidoProdutoRepository implements Repositorio <Integer,PedidoProdu
         return pedidoProdutos;
     }
 
-    public boolean removerProdutoFromPedido(Integer id) throws BancoDeDadosException {
+    public boolean removerProdutoFromPedido(Integer id_pedido) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();
@@ -240,7 +269,7 @@ public class PedidoProdutoRepository implements Repositorio <Integer,PedidoProdu
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setInt(1,id);;
+            stmt.setInt(1,id_pedido);;
             // Executa-se a consulta
             int res = stmt.executeUpdate();
             System.out.println("removerProdutoFromPedido.res=" + res);
@@ -259,6 +288,8 @@ public class PedidoProdutoRepository implements Repositorio <Integer,PedidoProdu
             return false;
         }
     }
+
+
     public List<PedidoProduto> listarPedidoProdutoPorPedido(Integer idPedido) throws BancoDeDadosException {
         List<PedidoProduto> pedidoProdutos = new ArrayList<>();
         Connection con = null;

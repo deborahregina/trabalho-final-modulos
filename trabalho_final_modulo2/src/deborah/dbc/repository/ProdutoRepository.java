@@ -175,4 +175,49 @@ public class ProdutoRepository implements Repositorio<Integer, Produto>  {
         return produto;
     }
 
+    private Produto getProdutoFromPedidoResultSet(ResultSet res) throws SQLException {
+        Produto produto = new Produto();
+        Pedido pedido = new Pedido();
+        PedidoProduto pedidoProduto = new PedidoProduto();
+        pedidoProduto.setPedido(pedido);
+
+        produto.setIdProduto(res.getInt("id_produto"));
+        produto.setTipoProduto (TipoProduto.ofTipo(res.getInt("tipo_produto")));
+        produto.setDescrição(res.getString("nome"));
+        produto.setValorUnitario(res.getDouble("preco"));
+        return produto;
+    }
+
+
+    public List<Produto> listarProdutosPorPedido(Integer idPedido) throws BancoDeDadosException {
+        List<Produto> produtosPedido = new ArrayList<>();
+        Connection con = null;
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+
+            String sql = "SELECT po.NOME, po.ID_PRODUTO, po.TIPO_PRODUTO, po.PRECO FROM PRODUTO po, PEDIDO_PRODUTO pp WHERE pp.ID_PEDIDO = ? AND po.ID_PRODUTO = pp.ID_PRODUTO";
+
+            // Executa-se a consulta
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, idPedido);
+
+            ResultSet res = stmt.executeQuery();
+
+            while (res.next()) {
+                Produto produto = getProdutoFromPedidoResultSet(res);
+                produtosPedido.add(produto);
+            }
+            return produtosPedido;
+        } catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

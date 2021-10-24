@@ -58,5 +58,12 @@ public class ProdutoService {
         }
     }
 
-  // fazer lsitar produtos por pedido
+    public void listarPorPedido(Integer id_pedido) {
+        try {
+            produtoRepository.listarProdutosPorPedido(id_pedido).forEach(System.out::println);
+        } catch (BancoDeDadosException e) {
+            e.printStackTrace();
+        }
+    }
 }
+  // fazer lsitar produtos por pedido

@@ -5,10 +5,7 @@ import deborah.dbc.model.Contato;
 import deborah.dbc.model.Endereco;
 import deborah.dbc.model.TipoContato;
 import deborah.dbc.model.TipoEndereco;
-import deborah.dbc.service.ClienteService;
-import deborah.dbc.service.ContatoService;
-import deborah.dbc.service.EnderecoService;
-import deborah.dbc.service.ProdutoService;
+import deborah.dbc.service.*;
 
 import java.text.DecimalFormat;
 import java.util.Scanner;
@@ -21,6 +18,7 @@ public class Main {
         ClienteService clienteService = new ClienteService();
         ProdutoService produtoService = new ProdutoService();
         EnderecoService enderecoService = new EnderecoService();
+        PedidoService pedidoService = new PedidoService();
 
         Scanner scanner = new Scanner(System.in);
         boolean programaOn = true;
@@ -107,7 +105,7 @@ public class Main {
                     }
                     break;
                 case 4:
-                    System.out.println("\n1- Cadastrar novo produto       2- Deletar produto cadastrado       3- Listar produtos cadastrados       4- Alterar produto: ");
+                    System.out.println("\n1- Cadastrar novo produto       2- Deletar produto cadastrado       3- Listar produtos cadastrados       4- Alterar produto       5- Filtrar produtos por pedido: ");
                     int opProduto = scanner.nextInt();
                     scanner.nextLine();
                     if (opProduto == 1) {
@@ -115,8 +113,10 @@ public class Main {
                     }
                     if (opProduto == 2) {
                         produtoService.listar();
-                        System.out.println("Digite o ID do produto que deseja alterar: ");
+                        System.out.println("Digite o ID do produto que deseja deletar: ");
                         int idProduto = scanner.nextInt();
+                        scanner.nextLine();
+                        pedidoService.removerProdutoDePedidoProduto(idProduto);
                         produtoService.remover(idProduto);
                     }
                     if (opProduto == 3) {
@@ -124,6 +124,12 @@ public class Main {
                     }
                     if (opProduto == 4) {
                         Menu.menuAlteraProduto();
+                    }
+                    if (opProduto == 5) {
+                        System.out.println("Digite o ID do pedido para listar produtos: ");
+                        int idPedido = scanner.nextInt();
+                        scanner.nextLine();
+                        produtoService.listarPorPedido(idPedido);
                     }
                     break;
                 case 5:

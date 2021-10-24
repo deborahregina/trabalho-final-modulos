@@ -102,5 +102,13 @@ public class PedidoService {
         }
     }
 
+    public void alterarStatusEntrega (Pedido pedido) {
+        try {
+            pedidoRepository.alterarStatusDoPedido(pedido);
+        } catch (BancoDeDadosException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

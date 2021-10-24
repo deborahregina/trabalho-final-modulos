@@ -225,7 +225,7 @@ public class PedidoProdutoRepository implements Repositorio <Integer,PedidoProdu
             con = ConexaoBancoDeDados.getConnection();
             Statement stmt = con.createStatement();
 
-            String sql = "SELECT p.ID_PEDIDO ,p2.ID_PRODUTO, p2.NOME, pp.QUANTIDADE, p2.PRECO\n " +
+            String sql = "SELECT p.ID_PEDIDO ,p2.ID_PRODUTO, p2.NOME, pp.QUANTIDADE, p2.PRECO, p.STATUS\n " +
                     "FROM  PEDIDO p\n " +
                     "INNER JOIN PEDIDO_PRODUTO pp ON (p.ID_PEDIDO = pp.ID_PEDIDO)\n " +
                     "INNER JOIN PRODUTO p2  ON (pp.ID_PRODUTO = p2.ID_PRODUTO)";
@@ -242,6 +242,7 @@ public class PedidoProdutoRepository implements Repositorio <Integer,PedidoProdu
                 produto.setDescrição(res.getString("NOME"));
                 pedidoProduto.setQuantidade(res.getInt("QUANTIDADE"));
                 produto.setValorUnitario(res.getDouble("PRECO"));
+                pedido.setStatus(res.getString("STATUS"));
                 pedidoProduto.setPedido(pedido);
                 pedidoProduto.setProduto(produto);
                 pedidoProdutos.add(pedidoProduto);

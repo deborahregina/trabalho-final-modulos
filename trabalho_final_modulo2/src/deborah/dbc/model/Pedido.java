@@ -9,6 +9,7 @@ public class Pedido {
     private Cliente cliente;
     private ArrayList<Produto> produtosDoPedido;
     private double valorTotal;
+    private String status;
 
     public Pedido(){
 
@@ -21,6 +22,14 @@ public class Pedido {
             //calculaValor += produtosDoPedido.get(i).getValorUnitario();
         }
         setValorTotal(calculaValor);
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public double getValorTotal() {

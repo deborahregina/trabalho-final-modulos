@@ -39,7 +39,10 @@ public class PedidoProduto {
         return "Pedidos em aberto{" +
                 "id pedido = " + pedido.getIdPedido() +
                 ", id produto = " + produto.getIdProduto() +
+                ", nome produto = " + produto.getDescrição() +
                 ", quantidade = " + quantidade +
+                ", preço = " + produto.getValorUnitario() +
+                ", status = " + pedido.getStatus() +
                 '}';
     }
 }

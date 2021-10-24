@@ -135,6 +135,9 @@ public class Main {
                 case 5:
                     Menu.menuPedido();
                     break;
+                case 6:
+                    Menu.menuEntrega();
+                    break;
                 case 7:
                     programaOn = false;
                     break;

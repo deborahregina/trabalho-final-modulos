@@ -189,6 +189,39 @@ public class PedidoRepository implements Repositorio<Integer, Pedido> {
         return pedido;
 
     }
+
+    public boolean alterarStatusDoPedido(Pedido pedido) throws BancoDeDadosException {
+        Connection con = null;
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+
+            String sql = "UPDATE PEDIDO\n" +
+                    "SET STATUS = ?\n" +
+                    "WHERE ID_PEDIDO = ?";
+
+            PreparedStatement stmt = con.prepareStatement(sql.toString());
+
+            stmt.setString(1, pedido.getStatus());
+            stmt.setInt(2, pedido.getIdPedido());
+
+            // Executa-se a consulta
+            int res = stmt.executeUpdate();
+            System.out.println("alterar status do pedido.res = " + res);
+
+            return res > 0;
+        } catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+    }
 }
 
 

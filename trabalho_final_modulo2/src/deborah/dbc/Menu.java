@@ -258,7 +258,7 @@ public class Menu {
             endereco.setCep(scanner.nextLine());
             System.out.print("Tipo de endereço:  1- Residencial   2- Comercial: ");
             endereco.setTipo(TipoEndereco.ofTipo(scanner.nextInt()));
-            enderecoService.editar(idEnd,endereco);
+            enderecoService.editar(idEnd, endereco);
 
         }
         if (opAlteracaoEndereco == 3) {
@@ -295,7 +295,7 @@ public class Menu {
 
         PedidoService pedidoService = new PedidoService();
         int opPedidos = scanner.nextInt();
-        if (opPedidos == 1) {
+        if (opPedidos == 1) { // cria novo pedido
 
             Pedido pedido = new Pedido();
             Produto produto = new Produto();
@@ -314,10 +314,9 @@ public class Menu {
             pedidoProduto.setProduto(produto);
             pedidoService.adicionarProdutoNoPedido(pedidoProduto);
 
-        }else if (opPedidos == 2) {  // imprimir os pedidos que estão no banco de dados
+        } else if (opPedidos == 2) {  // imprimir os pedidos que estão no banco de dados
             pedidoService.listarPedidos();
-        }
-        else if (opPedidos == 3) { //alterar produto de pedido
+        } else if (opPedidos == 3) { //alterar produto de pedido
             PedidoProduto pedidoProdutoAlterar = new PedidoProduto();
             Produto produtoAlterar = new Produto();
             Pedido pedidoAlterar = new Pedido();
@@ -336,7 +335,7 @@ public class Menu {
 
             pedidoService.alterarProdutoDoPedido(pedidoProdutoAlterar);
 
-        } else if (opPedidos == 4) {
+        } else if (opPedidos == 4) { //inclui mais produtos no pedido
             Produto produto = new Produto();
             PedidoProduto pedidoProduto = new PedidoProduto();
 
@@ -361,8 +360,7 @@ public class Menu {
             pedidoProduto.setProduto(produto);
 
             pedidoService.adicionarProdutoNoPedido(pedidoProduto);
-        }
-        else if (opPedidos == 5) { //deletar produto do pedido
+        } else if (opPedidos == 5) { //deletar produto do pedido
             Produto produto = new Produto();
             PedidoProduto pedidoProduto = new PedidoProduto();
             System.out.println("Qual pedido: ");
@@ -375,10 +373,7 @@ public class Menu {
             pedidoProduto.setProduto(produto);
             pedidoProduto.setPedido(pedido);
             pedidoService.deletarProdutoDoPedido(pedidoProduto);
-
         }
-
-
     }
 
     public static void menuAdicionaProduto() {
@@ -412,5 +407,32 @@ public class Menu {
         produto.setValorUnitario(scanner.nextDouble());
         produtoService.editar(index, produto);
     }
+
+    public static void menuEntrega() {
+        System.out.println("1 - Realizar entrega  \n2 - Cancelar a entrega");
+        Integer opentrega = scanner.nextInt();
+
+        if (opentrega == 1) {
+            Pedido pedido = new Pedido();
+            System.out.println("Qual pedido vai ser entregue? ");
+            pedidoService.listarPedidos();
+            System.out.println("digite o id do pedido: ");
+            pedido.setIdPedido(scanner.nextInt());
+            pedido.setStatus("Entregue");
+            pedidoService.alterarStatusEntrega(pedido);
+        } else if (opentrega == 2) {
+            Pedido pedido = new Pedido();
+            System.out.println("Qual pedido vai ser cancelado? ");
+            pedidoService.listarPedidos();
+            System.out.println("digite o id do pedido: ");
+            pedido.setIdPedido(scanner.nextInt());
+            pedido.setStatus("Cancelado");
+            pedidoService.alterarStatusEntrega(pedido);
+        }
+
+
+    }
 }
+
+
 

@@ -300,12 +300,12 @@ public class Menu {
             Pedido pedido = new Pedido();
             Produto produto = new Produto();
             PedidoProduto pedidoProduto = new PedidoProduto();
-            //listar clientes
+            clienteService.listarCliente();
             System.out.println("******* Digite o id do cliente que deseja fazer o pedido *******");
             pedido.setIdCliente(scanner.nextInt());
             pedido = pedidoService.adicionarPedido(pedido);
             System.out.println("Qual produto deseja inserir: ");
-            //listar produtos
+            produtoService.listar();
             System.out.println("Digite o id do produto que deseja inserir: ");
             produto.setIdProduto(scanner.nextInt());
             System.out.println("Digite a quantidade: ");
@@ -315,7 +315,9 @@ public class Menu {
             pedidoService.adicionarProdutoNoPedido(pedidoProduto);
 
         } else if (opPedidos == 2) {  // imprimir os pedidos que estão no banco de dados
+
             pedidoService.listarPedidos();
+
         } else if (opPedidos == 3) { //alterar produto de pedido
             PedidoProduto pedidoProdutoAlterar = new PedidoProduto();
             Produto produtoAlterar = new Produto();
@@ -348,7 +350,7 @@ public class Menu {
             Pedido pedido = pedidoService.getPedidoPorId(idPedido);
 
             System.out.println("Qual produto deseja incluir?");
-            // listar produto
+            produtoService.listar();
 
             System.out.println("qual o id do produto: ");
             produto.setIdProduto(scanner.nextInt());

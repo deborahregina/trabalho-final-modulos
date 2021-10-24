@@ -91,7 +91,6 @@ public class PedidoService {
             List<Pedido> pedidos = new ArrayList<>();
             pedidos = pedidoRepository.retornapedidosCliente(id_cliente);
             for(Pedido peds : pedidos) {
-                System.out.println(peds.toString());
                 pedidoProdututoRepository.removerPedidoDePedidoProduto(peds.getIdPedido());
             }
             for(Pedido peds: pedidos) {

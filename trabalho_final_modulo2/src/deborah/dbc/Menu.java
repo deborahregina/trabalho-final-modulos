@@ -120,7 +120,7 @@ public class Menu {
         contato.setDescricao(scanner.nextLine());
         System.out.print("Digite o telefone do cliente: ");
         contato.setTelefone(scanner.nextLine());
-        System.out.print("Tipo de endereço:   1- Residencial    2- Comercial: ");
+        System.out.print("Tipo de contato:   1- Residencial    2- Comercial: ");
         contato.setTipo(TipoContato.ofTipo(scanner.nextInt()));
         contato.setCliente(cliente);
 

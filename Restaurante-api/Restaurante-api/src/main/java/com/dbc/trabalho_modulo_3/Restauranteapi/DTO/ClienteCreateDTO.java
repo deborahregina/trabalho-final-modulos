@@ -1,4 +1,20 @@
 package com.dbc.trabalho_modulo_3.Restauranteapi.DTO;
 
+import io.swagger.annotations.ApiModelProperty;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+
 public class ClienteCreateDTO {
+    @NotNull
+    @NotEmpty
+    @Size(max = 11, min = 11,message = "Deve ter 11 caracteres")
+    @ApiModelProperty(value = "CPF")
+    private String cpf;
+    @NotEmpty
+    @NotNull
+    @ApiModelProperty(value = "Nome do Cliente")
+    private String nome;
+
 }

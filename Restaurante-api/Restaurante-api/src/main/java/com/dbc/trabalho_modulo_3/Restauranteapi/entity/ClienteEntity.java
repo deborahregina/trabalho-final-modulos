@@ -2,14 +2,14 @@ package com.dbc.trabalho_modulo_3.Restauranteapi.entity;
 
 import java.util.ArrayList;
 
-public class Cliente {
+public class ClienteEntity {
     private int idCliente;
     private String cpf;
     private String nome;
-    private ArrayList<Endereco> enderecos = new ArrayList<>();
-    private ArrayList<Contato> contatos = new ArrayList<>();
+    private ArrayList<EnderecoEntity> enderecoEntities = new ArrayList<>();
+    private ArrayList<ContatoEntity> contatoEntities = new ArrayList<>();
 
-    public Cliente() {
+    public ClienteEntity() {
     }
 
     public int getIdCliente() {
@@ -36,20 +36,20 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public ArrayList<Endereco> getEnderecos() {
-        return enderecos;
+    public ArrayList<EnderecoEntity> getEnderecos() {
+        return enderecoEntities;
     }
 
-    public void setEnderecos(ArrayList<Endereco> enderecos) {
-        this.enderecos = enderecos;
+    public void setEnderecos(ArrayList<EnderecoEntity> enderecoEntities) {
+        this.enderecoEntities = enderecoEntities;
     }
 
-    public ArrayList<Contato> getContatos() {
-        return contatos;
+    public ArrayList<ContatoEntity> getContatos() {
+        return contatoEntities;
     }
 
-    public void setContatos(ArrayList<Contato> contatos) {
-        this.contatos = contatos;
+    public void setContatos(ArrayList<ContatoEntity> contatoEntities) {
+        this.contatoEntities = contatoEntities;
     }
 
     @Override

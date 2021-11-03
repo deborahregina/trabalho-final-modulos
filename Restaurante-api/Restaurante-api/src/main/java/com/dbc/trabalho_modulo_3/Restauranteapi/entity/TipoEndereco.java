@@ -1,5 +1,7 @@
 package com.dbc.trabalho_modulo_3.Restauranteapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import java.util.Arrays;
 
 public enum TipoEndereco {
@@ -16,10 +18,16 @@ public enum TipoEndereco {
         return tipo;
     }
 
-    public static TipoEndereco ofTipo(Integer tipo){
+    public static TipoEndereco ofTipo(Integer tipo) {
         return Arrays.stream(TipoEndereco.values())
                 .filter(tp -> tp.getTipo().equals(tipo))
                 .findFirst()
                 .get();
+
+    }
+
+    @JsonValue
+    public int toValue() {
+        return ordinal();
     }
 }

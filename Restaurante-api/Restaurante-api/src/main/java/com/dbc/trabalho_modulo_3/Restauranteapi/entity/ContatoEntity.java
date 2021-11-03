@@ -1,19 +1,19 @@
 package com.dbc.trabalho_modulo_3.Restauranteapi.entity;
 
-    public class Contato {
+    public class ContatoEntity {
         private deborah.dbc.model.Cliente pessoa;
         private Integer idContato;
         private String descricao;
         private String telefone;
         private TipoContato tipo;
 
-        public Contato(String descricao, String telefone, TipoContato tipo) {
+        public ContatoEntity(String descricao, String telefone, TipoContato tipo) {
             this.descricao = descricao;
             this.telefone = telefone;
             this.tipo = tipo;
         }
 
-        public Contato() {
+        public ContatoEntity() {
         }
 
         public deborah.dbc.model.Cliente getCliente() {
@@ -24,7 +24,7 @@ package com.dbc.trabalho_modulo_3.Restauranteapi.entity;
             this.pessoa = pessoa;
         }
 
-        public Contato(Integer idContato, String descricao, String telefone, TipoContato tipo) {
+        public ContatoEntity(Integer idContato, String descricao, String telefone, TipoContato tipo) {
             this.idContato = idContato;
             this.descricao = descricao;
             this.telefone = telefone;

@@ -41,6 +41,12 @@ public class ClienteController {
     }
 
     @PostMapping
+    @ApiOperation(value = "Cria novo cliente")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Cliente criado com sucesso"),
+            @ApiResponse(code = 400, message = "Dados do cliente inconsistentes"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção no sistema")
+    })
     public ClienteDTO create(@RequestBody @Valid ClienteCreateDTO clienteCreateDTO) throws RegraDeNegocioException {
         log.info("iniciando criação do cliente");
         ClienteDTO clienteEntityCriado = clienteService.create(clienteCreateDTO);
@@ -48,13 +54,25 @@ public class ClienteController {
         return clienteEntityCriado;
     }
 
-    @PutMapping("/{idPessoa}")
+    @PutMapping("/{idCliente}")
+    @ApiOperation(value = "Altera o cliente pelo id Cliente")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Cliente criado com sucesso"),
+            @ApiResponse(code = 400, message = "Cliente não encontrado"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção no sistema")
+    })
     public ClienteDTO update(@PathVariable("idPessoa") Integer id,
                             @RequestBody @Valid ClienteCreateDTO clienteCreateDTO) throws RegraDeNegocioException {
         return clienteService.update(id, clienteCreateDTO);
     }
 
-    @DeleteMapping("/{idPessoa}")
+    @DeleteMapping("/{idCliente}")
+    @ApiOperation(value = "Exclui o cliente pelo id Cliente")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Cliente excluido com sucesso"),
+            @ApiResponse(code = 400, message = "Cliente não encontrado"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção no sistema")
+    })
     public void delete(@PathVariable("idPessoa") Integer id) throws RegraDeNegocioException {
         clienteService.delete(id);
     }

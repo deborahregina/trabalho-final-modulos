@@ -1,19 +1,25 @@
 package com.dbc.trabalho_modulo_3.Restauranteapi.entity;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.ArrayList;
 
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Pedido {
     private int idPedido;
     private Integer idCliente;
-    private deborah.dbc.model.Cliente cliente;
+    private ClienteEntity cliente;
     private ArrayList<Produto> produtosDoPedido;
     private double valorTotal;
     private String status;
-
-    public Pedido(){
-
-    }
 
 
     public void calculaValorTotal() {
@@ -24,59 +30,12 @@ public class Pedido {
         setValorTotal(calculaValor);
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public double getValorTotal() {
-        return valorTotal;
-    }
-
-    public void setValorTotal(double valorTotal) {
-        this.valorTotal = valorTotal;
-    }
 
     public void adicionaProduto(Produto produto ) {
        // this.produtosDoPedido.add(produto);
 
     }
 
-    public ArrayList<Produto> getProdutosDoPedido() {
-        return produtosDoPedido;
-    }
-
-    public void setProdutosDoPedido(ArrayList<Produto> produtosDoPedido) {
-        this.produtosDoPedido = produtosDoPedido;
-    }
-
-
-
-    public int getIdPedido() {
-        return idPedido;
-    }
-
-    public void setIdPedido(int idPedido) {
-        this.idPedido = idPedido;
-    }
-
-    public deborah.dbc.model.Cliente getCliente() {
-        return cliente;
-    }
-    public void setCliente(deborah.dbc.model.Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public Integer getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(Integer idCliente) {
-        this.idCliente = idCliente;
-    }
 
     @Override
     public String toString() {

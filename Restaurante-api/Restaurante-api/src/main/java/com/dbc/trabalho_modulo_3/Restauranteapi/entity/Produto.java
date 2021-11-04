@@ -1,58 +1,21 @@
 package com.dbc.trabalho_modulo_3.Restauranteapi.entity;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Produto {
-    private int idProdutos;
+
+    private int idProduto;
     private double valorUnitario;
     private String descrição;
-    private deborah.dbc.model.TipoProduto tipoProduto;
-
-
-    public Produto(int idProdutos, double valorUnitario, deborah.dbc.model.TipoProduto tipoProduto) {
-        this.idProdutos = idProdutos;
-        this.valorUnitario = valorUnitario;
-        this.tipoProduto = tipoProduto;
-    }
-
-    public Produto() {
-
-    }
-
-
-    public String getDescrição() {
-        return descrição;
-    }
-
-    public void setDescrição(String descrição) {
-        this.descrição = descrição;
-    }
-
-    public int getIdProduto() {
-        return idProdutos;
-    }
-
-    public void setIdProduto(int idProdutos) {
-        this.idProdutos = idProdutos;
-    }
-
-    public int getIdProdutos() {
-        return idProdutos;
-    }
-
-    public void setIdProdutos(int idProdutos) {
-        this.idProdutos = idProdutos;
-    }
-
-    public double getValorUnitario() {
-        return valorUnitario;
-    }
-
-    public void setValorUnitario(double valorUnitario) {
-        this.valorUnitario = valorUnitario;
-    }
-
-    public deborah.dbc.model.TipoProduto getTipoProduto() {return tipoProduto;}
-
-    public void setTipoProduto(deborah.dbc.model.TipoProduto tipoProduto) {this.tipoProduto = tipoProduto;}
+    private TipoProduto tipoProduto;
 
 
     @Override
@@ -64,7 +27,7 @@ public class Produto {
         if (tipoProduto.getTipo() == 2) {
             tipoProdutoEh = "Bebida";
         }
-        return "ID do produto: " + idProdutos +  " | Tipo do produto: " + tipoProdutoEh +" | Nome do produto: " + descrição+ " | Valor unitário: R$ " + valorUnitario +  "\n";
+        return "ID do produto: " + idProduto +  " | Tipo do produto: " + tipoProdutoEh +" | Nome do produto: " + descrição+ " | Valor unitário: R$ " + valorUnitario +  "\n";
     }
 
 }

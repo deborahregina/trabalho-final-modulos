@@ -1,11 +1,13 @@
 package com.dbc.trabalho_modulo_3.Restauranteapi.DTO;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
+@Data
 public class ClienteCreateDTO {
     @NotNull
     @NotEmpty

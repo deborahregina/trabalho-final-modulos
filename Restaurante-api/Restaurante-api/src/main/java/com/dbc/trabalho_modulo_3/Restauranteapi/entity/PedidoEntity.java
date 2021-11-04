@@ -13,11 +13,11 @@ import java.util.ArrayList;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Pedido {
+public class PedidoEntity {
     private int idPedido;
     private Integer idCliente;
     private ClienteEntity cliente;
-    private ArrayList<Produto> produtosDoPedido;
+    private ArrayList<ProdutoEntity> produtosDoPedido;
     private double valorTotal;
     private String status;
 
@@ -31,7 +31,7 @@ public class Pedido {
     }
 
 
-    public void adicionaProduto(Produto produto ) {
+    public void adicionaProduto(ProdutoEntity produto ) {
        // this.produtosDoPedido.add(produto);
 
     }
@@ -42,7 +42,7 @@ public class Pedido {
         //calculaValorTotal();
         System.out.println("++++++++++++ Itens do pedido ++++++++++++");
         if (produtosDoPedido != null) {
-            for (Produto produtos : produtosDoPedido) {
+            for (ProdutoEntity produtos : produtosDoPedido) {
                 System.out.println(produtos);
             }
         }

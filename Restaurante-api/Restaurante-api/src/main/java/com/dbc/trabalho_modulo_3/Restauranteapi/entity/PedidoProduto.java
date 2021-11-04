@@ -10,8 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PedidoProduto {
-    private Produto produto;
-    private Pedido pedido;
+    private ProdutoEntity produto;
+    private PedidoEntity pedido;
     private Integer quantidade;
 
 

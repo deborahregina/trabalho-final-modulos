@@ -1,6 +1,6 @@
 package com.dbc.trabalho_modulo_3.Restauranteapi.entity;
 
-public class Caixa implements deborah.dbc.model.Pagamento {
+public class Caixa implements Pagamento {
 
     private Atendente atendenteResponsável;
     private double valorDeCaixa;
@@ -44,7 +44,7 @@ public class Caixa implements deborah.dbc.model.Pagamento {
 
 
     @Override
-    public double calculaTroco(Pedido pedido, double valorPago) {
+    public double calculaTroco(PedidoEntity pedido, double valorPago) {
         double troco = 0;
         if (pedido.getValorTotal() > valorPago){
             System.out.println("o valor pago deve ser maior ou igual ao valor do pedido");

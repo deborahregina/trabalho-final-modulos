@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Produto {
+public class ProdutoEntity {
 
     private int idProduto;
     private double valorUnitario;
